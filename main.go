@@ -1,8 +1,8 @@
 package main
 
 import (
-	"fmt"
 	"encoding/json"
+	"fmt"
 	"log"
 	//"io/ioutil"
 	"net/http"
@@ -12,9 +12,9 @@ import (
 )
 
 type handlerError struct {
-	Error error
+	Error   error
 	Message string
-	Code int
+	Code    int
 }
 
 type handler func(w http.ResponseWriter, r *http.Request) (interface{}, *handlerError)
@@ -40,36 +40,26 @@ func (fn handler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-				w.    Header().Set("Content-Type"       , "application/json")
+	w.Header().Set("Content-Type", "application/json")
 	w.Write(bytes)
-				log.Printf("%s %s %s %d", r.RemoteAddr, r.Method, r.URL, 200)
+	log.Printf("%s %s %s %d", r.RemoteAddr, r.Method, r.URL, 200)
 }
 
-
-
 func main() {
-    port := flag.Int("port", 8080, "port to serve on")
+	port := flag.Int("port", 8080, "port to serve on")
+	flag.Parse()
 
+	router := mux.NewRouter()
+	router.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
+		http.ServeFile(w, r, "web/home.html")
 
+	})
 
+	http.Handle("/", router)
+	log.Printf("Running on port %d\n", *port)
 
-    flag.Parse()
-
-    router := mux.NewRouter()
-    router.HandleFunc("/", func(w http.ResponseWriter, r * http.Request) {
-    		http.ServeFile(w, r, "web/home.html")
-    	
-
-
-    	}
-
-    )
-
-    http.Handle("/", router)
-   	log.Printf("Running on port %d\n", *port)
-
-   	addr := fmt.Sprintf("127.0.0.1:%d", *port)
-   	err := http.ListenAndServe(addr, nil)
-   	fmt.Println(err.Error())
+	addr := fmt.Sprintf("127.0.0.1:%d", *port)
+	err := http.ListenAndServe(addr, nil)
+	fmt.Println(err.Error())
 
 }
