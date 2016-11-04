@@ -61,7 +61,8 @@ func main() {
 
 	addr := fmt.Sprintf("127.0.0.1:%d", *port)
 	conn := HoneyBeeClient.Connect("127.0.0.1", 4590)
-	conn.Authenticate("daniel", "123", "myBucket")
+	conn.Authenticate("daniel", "123")
+	conn.UseBucket("myBucket")
 	conn.Set("foo", "bar", "")
 	fmt.Printf(conn.Get("foo", ""))
 	err := http.ListenAndServe(addr, nil)
