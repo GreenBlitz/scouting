@@ -9,6 +9,7 @@ import (
 	//"strconv"
 	"flag"
 	"github.com/gorilla/mux"
+	"github.com/talbor49/HoneyBeeClient"
 )
 
 type handlerError struct {
@@ -59,6 +60,10 @@ func main() {
 	log.Printf("Running on port %d\n", *port)
 
 	addr := fmt.Sprintf("127.0.0.1:%d", *port)
+	conn := HoneyBeeClient.Connect("127.0.0.1", 4590)
+	conn.Authenticate("daniel", "123", "myBucket")
+	conn.Set("foo", "bar", "")
+	fmt.Printf(conn.Get("foo", ""))
 	err := http.ListenAndServe(addr, nil)
 	fmt.Println(err.Error())
 
