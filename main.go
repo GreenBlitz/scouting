@@ -9,9 +9,6 @@ import (
 	//"strconv"
 	"flag"
 	"github.com/gorilla/mux"
-	"database/sql"
-	"github.com/go-sql-driver/mysql"
-
 )
 
 type handlerError struct {
