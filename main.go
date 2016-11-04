@@ -64,7 +64,7 @@ func main() {
 	conn.Authenticate("daniel", "123")
 	conn.UseBucket("myBucket")
 	conn.Set("foo", "bar", "")
-	fmt.Printf(conn.Get("foo", ""))
+	log.Printf(conn.Get("foo", ""))
 	err := http.ListenAndServe(addr, nil)
 	fmt.Println(err.Error())
 
