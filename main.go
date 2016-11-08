@@ -8,8 +8,8 @@ import (
 	"net/http"
 	//"strconv"
 	"flag"
+
 	"github.com/gorilla/mux"
-	"github.com/talbor49/HoneyBeeClient"
 )
 
 type handlerError struct {
@@ -52,19 +52,21 @@ func main() {
 
 	router := mux.NewRouter()
 	router.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
-		http.ServeFile(w, r, "web/home.html")
-
+		http.ServeFile(w, r, "web/index.html")
 	})
+
+	router.PathPrefix("/").Handler(http.FileServer(http.Dir("./web/")))
 
 	http.Handle("/", router)
 	log.Printf("Running on port %d\n", *port)
 
-	addr := fmt.Sprintf("127.0.0.1:%d", *port)
-	conn := HoneyBeeClient.Connect("127.0.0.1", 4590)
-	conn.Authenticate("daniel", "123")
-	conn.UseBucket("myBucket")
-	conn.Set("foo", "bar", "")
-	fmt.Printf(conn.Get("foo", ""))
+	// conn := HoneyBeeClient.Connect("127.0.0.1", port)
+	// conn.Authenticate("daniel", "123")
+	// conn.UseBucket("myBucket")
+	// conn.Set("foo", "bar", "")
+	// fmt.Printf(conn.Get("foo", ""))
+
+	addr := fmt.Sprintf("0.0.0.0:%d", *port)
 	err := http.ListenAndServe(addr, nil)
 	fmt.Println(err.Error())
 
