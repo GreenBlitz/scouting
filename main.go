@@ -60,12 +60,6 @@ func main() {
 	http.Handle("/", router)
 	log.Printf("Running on port %d\n", *port)
 
-	// conn := HoneyBeeClient.Connect("127.0.0.1", port)
-	// conn.Authenticate("daniel", "123")
-	// conn.UseBucket("myBucket")
-	// conn.Set("foo", "bar", "")
-	// fmt.Printf(conn.Get("foo", ""))
-
 	addr := fmt.Sprintf("0.0.0.0:%d", *port)
 	err := http.ListenAndServe(addr, nil)
 	fmt.Println(err.Error())
