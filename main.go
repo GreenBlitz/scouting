@@ -47,21 +47,22 @@ func (fn handler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 }
 
 func main() {
+	//Parse command line parameters
 	port := flag.Int("port", 8080, "port to serve on")
 	flag.Parse()
 
+	//Handle routing
 	router := mux.NewRouter()
 	router.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
 		http.ServeFile(w, r, "web/index.html")
 	})
-
 	router.PathPrefix("/").Handler(http.FileServer(http.Dir("./web/")))
-
 	http.Handle("/", router)
-	log.Printf("Running on port %d\n", *port)
 
+	// Listen on ip:port
 	addr := fmt.Sprintf("0.0.0.0:%d", *port)
-	err := http.ListenAndServe(addr, nil)
-	fmt.Println(err.Error())
-
+	log.Printf("Running on port %d\n", *port)
+	if err := http.ListenAndServe(addr, nil); err != nil {
+		panic(err)
+	}
 }
