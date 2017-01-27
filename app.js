@@ -7,6 +7,7 @@ var bodyParser = require('body-parser');
 
 var index = require('./routes/index');
 var users = require('./routes/users');
+var upload = require('./routes/upload');
 
 var app = express();
 
@@ -23,6 +24,7 @@ app.use(cookieParser());
 
 app.use('/', index);
 app.use('/users', users);
+app.usr('/upload', upload);
 
 // Lower priority than routes
 app.use(express.static(path.join(__dirname, 'public')));
