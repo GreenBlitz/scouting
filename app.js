@@ -9,6 +9,7 @@ var index = require('./routes/index');
 var games = require('./routes/games');
 var users = require('./routes/users');
 var upload = require('./routes/upload');
+var setup = require('./setup');
 
 var app = express();
 

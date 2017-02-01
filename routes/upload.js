@@ -1,9 +1,8 @@
 var express = require('express');
-var es = require('elasticsearch');
 var client = require('../connection.js');
 var router = express.Router();
 
-/* GET home page. */
+/* POST upload page. */
 router.post('/', function(req, res, next) {
     // var body = req.body;
     // var blueTeam = [1, 2, 3];
@@ -30,6 +29,11 @@ router.post('/', function(req, res, next) {
 
 
     res.sendStatus(200);
+});
+
+/* GET upload page. */
+router.get('/', function(req, res, next) {
+    res.render('upload');
 });
 
 module.exports = router;
