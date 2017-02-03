@@ -8,4 +8,25 @@
     "estimatedTimeTook": 1,
     "EVENT_SPECIFICDATA........": "..."
   }
+},
+
+
+//PUT /games
+{
+  "mappings": {
+    "game": {
+      "properties": {
+        "name": { "type": "text"},
+        "timeSent": {"type": "integer"},
+        "gameid": {"type": "integer"},
+        "teamNumber": {"type": "integer"},
+        "timeOccurred": {
+          "type": "integer"
+        },
+        "eventData": {
+          "type": "object"
+        }
+      }
+    }
+  }
 }
