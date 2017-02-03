@@ -31,7 +31,7 @@
             <div class="row">
                 <div class="col-md-12">
 
-                    <form class="form-horizontal">
+                    <form class="form-horizontal" action="/upload" method="post">
                         <div class="panel panel-default">
                             <div class="panel-heading">
                                 <h3 class="panel-title">Game upload</h3>
@@ -46,7 +46,7 @@
                                     <div class="col-md-6 col-xs-12">
                                         <div class="input-group">
                                             <span class="input-group-addon"><span class="fa fa-pencil"></span></span>
-                                            <input type="text" class="form-control"/>
+                                            <input type="text" name="gameid" class="form-control"/>
                                         </div>
                                         <span class="help-block">The Game ID - WARNING: only change it if you want to override an old game</span>
                                     </div>
@@ -55,7 +55,7 @@
                                 <div class="form-group">
                                     <label class="col-md-3 col-xs-12 control-label">Comments</label>
                                     <div class="col-md-6 col-xs-12">
-                                        <textarea class="form-control" rows="3"></textarea>
+                                        <textarea name="comments" class="form-control" rows="3"></textarea>
                                         <span class="help-block">Free comments on game</span>
                                     </div>
                                 </div>
@@ -63,7 +63,7 @@
                                 <div class="form-group">
                                     <label class="col-md-3 col-xs-12 control-label">Blue teams</label>
                                     <div class="col-md-6 col-xs-12">
-                                        <input type="text" class="tagsinput"/>
+                                        <input name="blueTeam" type="text" class="tagsinput"/>
                                         <span class="help-block">Blue alliance team numbers</span>
                                     </div>
                                 </div>
@@ -71,7 +71,7 @@
                                 <div class="form-group">
                                     <label class="col-md-3 col-xs-12 control-label">Red teams</label>
                                     <div class="col-md-6 col-xs-12">
-                                        <input type="text" class="tagsinput"/>
+                                        <input name="redTeam" type="text" class="tagsinput"/>
                                         <span class="help-block">Red alliance team numbers</span>
                                     </div>
                                 </div>
@@ -79,7 +79,7 @@
                                 <div class="form-group">
                                     <label class="col-md-3 col-xs-12 control-label">Game match type</label>
                                     <div class="col-md-6 col-xs-12">
-                                        <select class="form-control select">
+                                        <select class="form-control select" name="matchType">
                                             <option>Practice</option>
                                             <option>Qualification</option>
                                             <option>Playoffs</option>
