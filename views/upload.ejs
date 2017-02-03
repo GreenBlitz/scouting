@@ -31,7 +31,7 @@
             <div class="row">
                 <div class="col-md-12">
 
-                    <form class="form-horizontal" action="/upload" method="post">
+                    <form class="form-horizontal" action="/upload" method="post" id="upload" enctype="multipart/form-data">
                         <div class="panel panel-default">
                             <div class="panel-heading">
                                 <h3 class="panel-title">Game upload</h3>
@@ -91,7 +91,7 @@
                                 <div class="form-group">
                                     <label class="col-md-3 col-xs-12 control-label">Game movie</label>
                                     <div class="col-md-6 col-xs-12">
-                                        <input type="file" class="fileinput btn-primary" name="filename" id="filename" title="Browse file"/>
+                                        <input type="file" class="fileinput btn-primary" name="gameVideo" id="gameVideo" title="Browse file"/>
                                         <span class="help-block">The game movie file</span>
                                     </div>
                                 </div>
@@ -150,6 +150,15 @@
 <script type="text/javascript" src="js/plugins.js"></script>
 <script type="text/javascript" src="js/actions.js"></script>
 <!-- END TEMPLATE -->
+
+<script type="text/javascript">
+    if(!<%= firstTime %>) {
+        if(<%= success %>) {
+            alert("The Game Was Successfully Uploaded! :)");
+            console.log("The Game Was Successfully Uploaded! :)");
+        }
+    }
+</script>
 <!-- END SCRIPTS -->
 
 </body>

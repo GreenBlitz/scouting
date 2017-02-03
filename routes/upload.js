@@ -3,27 +3,9 @@ var client = require('../connection.js');
 var fs = require('fs');
 var router = express.Router();
 
+
 /* POST upload page. */
-router.post('/', function(req, res, next) {
-
-    /// .   .   . Insert into ES and get gameid
-    console.log(req);
-    var gameid = 0;
-
-    var files = req.files;
-    if (files && files.gameVideo) {
-        var file = files.gameVideo;
-        var oldPath = file.path;
-        var newPath = "../games/" + gameid + ".mp4";
-        fs.rename(oldPath, newPath, function(err, res) {
-            if (err) {
-                console.error("Uploading game #" + gameid, "failed. Please insert video manually as: uploads/" + gameid + ".mp4");
-            } else {
-                console.log("Uploading game #" + gameid, "Successful! :)");
-            }
-        })
-    }
-
+var handleUpload = function(req, res) {
     // var body = req.body;
     // var blueTeam = [1, 2, 3];
     // var redTeam = [4, 5, 6];
@@ -47,13 +29,15 @@ router.post('/', function(req, res, next) {
     //     }
     // });
 
+    /// .   .   .   Insert into ES and get gameid
+    console.log(req);
+    res.render('upload', {success: 1, firstTime: 0});
+};
 
-    res.sendStatus(200);
-});
 
 /* GET upload page. */
 router.get('/', function(req, res, next) {
-    res.render('upload');
+    res.render('upload', {success: 0, firstTime: 1});
 });
 
-module.exports = router;
+module.exports = {router: router, handleUpload: handleUpload};

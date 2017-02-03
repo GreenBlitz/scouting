@@ -4,11 +4,33 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var multer  =   require('multer');
+
+var storage =   multer.diskStorage({
+  destination: function (req, file, callback) {
+    if(file.fieldname == 'gameVideo') {
+        callback(null, __dirname + '/public/games/');
+    }
+  },
+
+  filename: function (req, file, callback) {
+      var id = req.body.gameid;
+      if(file.fieldname == 'gameVideo') {
+          callback(null, id + ".mp4");
+      }
+  }
+});
+var upload = multer({ storage : storage}).fields([
+    {
+        name: 'gameVideo',
+        maxCount:1
+    }
+]);
 
 var index = require('./routes/index');
 var games = require('./routes/games');
 var users = require('./routes/users');
-var upload = require('./routes/upload');
+var uploadRouter = require('./routes/upload');
 var setup = require('./setup');
 
 var app = express();
@@ -28,8 +50,9 @@ app.use(cookieParser());
 
 app.use('/', index);
 app.use('/users', users);
-app.use('/upload', upload);
+app.use('/upload', uploadRouter.router);
 app.use('/games', games);
+app.post('/upload', upload, uploadRouter.handleUpload);
 
 // Lower priority than routes
 app.use(express.static(path.join(__dirname, 'public')));
