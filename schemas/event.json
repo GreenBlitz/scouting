@@ -1,4 +1,11 @@
 {
   "name": "score",
-  "timeSent": 1234
+  "timeSent": 1,
+  "gameid": 1,
+  "teamNumber": 1,
+  "timeOccurred": 1,
+  "eventData": {
+    "estimatedTimeTook": 1,
+    "EVENT_SPECIFICDATA........": "..."
+  }
 }

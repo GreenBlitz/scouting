@@ -1,0 +1,7 @@
+{
+  "id": 123,
+  "blue_teams": [1,2,3],
+  "red_teams": [4,5,6],
+  "comment": "abcd",
+  "match_type": "QUAL|PRAC|PLAYOFF"
+}
