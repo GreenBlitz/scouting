@@ -7,7 +7,7 @@ var router = express.Router();
 router.post('/', function(req, res, next) {
 
     /// .   .   . Insert into ES and get gameid
-
+    console.log(req);
     var gameid = 0;
 
     var files = req.files;
