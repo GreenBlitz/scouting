@@ -1,5 +1,5 @@
 var client = require('./connection');
-console.log("Hello");
+
 client.indices.exists({
     index: 'games'
 }, function(err, exists) {
