@@ -18,27 +18,49 @@ var handleUpload = function(req, res) {
         id: gameid,
         type: matchType,
         body: {
-            "blue_teams": blueTeams,
-            "red_teams": redTeams,
-            "comments": comments
+            "blueTeams": blueTeams,
+            "redTeams": redTeams,
+            "comments": comments,
+            "gameId": gameid
         }
     }, function(err, resp, status) {
         console.log(resp);
         if (err) {
             console.log(err);
-            res.sendStatus(500);
+            res.sendStatus(500); // Internal server error
+        } else {
+            /// .   .   .   Insert into ES and get gameid
+            console.log(req);
+            res.render('upload', {success: 1, firstTime: 0});
         }
     });
 
-    /// .   .   .   Insert into ES and get gameid
-    console.log(req);
-    res.render('upload', {success: 1, firstTime: 0});
 };
 
 
 /* GET upload page. */
 router.get('/', function(req, res, next) {
-    res.render('upload', {success: 0, firstTime: 1});
+    client.search({
+        index: 'games',
+        type: 'game',
+        body: {
+            aggs : {
+                max_gameid : {
+                    max : {
+                        field : "gameId"
+                    }
+                }
+            }
+        }
+    },function (error, response,status) {
+        if (error){
+            console.log("search error: " + error);
+            res.sendStatus(500);
+        }
+        else {
+            res.render('upload', {success: 0, firstTime: 1, gameId: response.aggregations.max_gameid.value});
+        }
+    });
 });
 
 module.exports = {router: router, handleUpload: handleUpload};
