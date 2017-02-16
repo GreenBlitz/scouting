@@ -44,7 +44,7 @@ function mapGames(client) {
         }
     }, function(err, res) {
         console.log("err: ", err);
-        console.log("rees: ", res);
+        console.log("res: ", res);
     });
 }
 
