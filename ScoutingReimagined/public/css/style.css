@@ -15,3 +15,16 @@
     z-index: -1;
     overflow: hidden;
 }
+
+.games-team {
+    font-weight: bolder;
+    font-size: 459%!important;
+}
+
+.red-team {
+    color: red!important;
+}
+
+.blue-team {
+    color: blue!important;
+}

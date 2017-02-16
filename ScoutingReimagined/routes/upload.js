@@ -30,8 +30,7 @@ var handleUpload = function(req, res) {
             res.sendStatus(500); // Internal server error
         } else {
             /// .   .   .   Insert into ES and get gameid
-            console.log(req);
-            res.render('upload', {success: 1, firstTime: 0});
+            res.render('upload', {success: 1, firstTime: 0, gameId: parseInt(gameid)+1});
         }
     });
 
@@ -42,7 +41,6 @@ var handleUpload = function(req, res) {
 router.get('/', function(req, res, next) {
     client.search({
         index: 'games',
-        type: 'game',
         body: {
             aggs : {
                 max_gameid : {
@@ -58,7 +56,7 @@ router.get('/', function(req, res, next) {
             res.sendStatus(500);
         }
         else {
-            res.render('upload', {success: 0, firstTime: 1, gameId: response.aggregations.max_gameid.value + 1});
+            res.render('upload', {success: 0, firstTime: 1, gameId: (parseInt(response.aggregations.max_gameid.value + 1))});
         }
     });
 });

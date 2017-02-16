@@ -1,11 +1,37 @@
 var express = require('express');
+var client = require('../connection.js');
 var router = express.Router();
 
 /* GET games page. */
 router.get('/', function(req, res, next) {
-    res.render('games', {
-        title: 'Express'
+    client.search({
+        index: 'games',
+        body: {
+            query: {
+                match_all: {}
+            }
+        }
+    },function (error, response, status) {
+        if (error){
+            console.log("search error: "+error);
+            res.send(500);
+        }
+        else {
+            var games = {
+                'Practice': [],
+                'Qualification': [],
+                'Playoffs': []
+            };
+            response.hits.hits.forEach(function(hit){
+                var data = hit['_source'];
+                if (hit['_type'] in games) {
+                    games[hit['_type']].push(data);
+                }
+            });
+            res.render('games', {Practice: games['Practice'], Qualification: games['Qualification'], Playoffs: games['Playoffs']});
+        }
     });
+
 });
 
 module.exports = router;

@@ -9,17 +9,13 @@
 //PUT /games
 {
   "mappings": {
-    "game": {
-      "properties": {
-        "name": { "type": "text"},
-        "timeSent": {"type": "integer"},
-        "gameid": {"type": "integer"},
-        "teamNumber": {"type": "integer"},
-        "timeOccurred": {
-          "type": "integer"
-        },
-        "eventData": {
-          "type": "object"
+    "_default_": {
+      "game": {
+        "properties": {
+          "gameId": {"type": "integer"},
+          "blueTeams": {"type": "integer"},
+          "redTeams": {"type": "integer"},
+          "comments": {"type": "string"},
         }
       }
     }

@@ -25,6 +25,116 @@
 
                                 <div class="panel panel-default">
                                     <div class="panel-body">
+                                        <div class="panel panel-warning">
+                                            <div class="panel-heading">
+                                                <h3 class="panel-title">Playoff games</h3>
+                                                <ul class="panel-controls">
+                                                    <li><a href="#" class="panel-fullscreen"><span class="fa fa-expand"></span></a></li>
+                                                    <li><a href="#" class="panel-collapse"><span class="fa fa-angle-down"></span></a></li>
+                                                    <li><a href="#" class="panel-refresh"><span class="fa fa-refresh"></span></a></li>
+                                                    <li><a href="#" class="panel-remove"><span class="fa fa-times"></span></a></li>
+                                                </ul>
+                                            </div>
+                                            <div class="panel-body">
+                                                <% Playoffs.forEach(function(game) { console.log(game); %>
+                                                <% if (game['blueTeams']) {  Array.prototype.forEach.call(game['blueTeams'], blueTeam => { %>
+                                                <div class="col-md-2">
+                                                    <a href="/game/<%= game['gameId'] + '/' + blueTeam %>" class="tile tile-default games-team blue-team">
+                                                        <%= blueTeam %>
+                                                        <div class="informer informer-danger dir-tr"></div>
+                                                    </a>
+                                                </div>
+                                                <% }) }; %>
+
+                                                <% if (game['redTeams']) {  Array.prototype.forEach.call(game['redTeams'], redTeam => { %>
+                                                <div class="col-md-2">
+                                                    <a href="/game/<%= game['gameId'] + '/' + redTeam %>" class="tile tile-default games-team red-team">
+                                                        <%= redTeam %>
+                                                        <div class="informer informer-danger dir-tr"></div>
+                                                    </a>
+                                                </div>
+                                                <% }) }; %>
+                                                <% }); %>
+                                            </div>
+                                            <div class="panel-footer">
+                                                <button class="btn btn-primary pull-right">Button</button>
+                                            </div>
+                                        </div>
+
+                                        <div class="panel panel-primary">
+                                            <div class="panel-heading">
+                                                <h3 class="panel-title">Qualification games</h3>
+                                                <ul class="panel-controls">
+                                                    <li><a href="#" class="panel-fullscreen"><span class="fa fa-expand"></span></a></li>
+                                                    <li><a href="#" class="panel-collapse"><span class="fa fa-angle-down"></span></a></li>
+                                                    <li><a href="#" class="panel-refresh"><span class="fa fa-refresh"></span></a></li>
+                                                    <li><a href="#" class="panel-remove"><span class="fa fa-times"></span></a></li>
+                                                </ul>
+                                            </div>
+                                            <div class="panel-body">
+                                                <% Qualification.forEach(function(game) { console.log(game); %>
+                                                    <% if (game['blueTeams']) {  Array.prototype.forEach.call(game['blueTeams'], blueTeam => { %>
+                                                        <div class="col-md-2">
+                                                            <a href="/game/<%= game['gameId'] + '/' + blueTeam %>" class="tile tile-default games-team blue-team">
+                                                                <%= blueTeam %>
+                                                                <div class="informer informer-danger dir-tr"></div>
+                                                            </a>
+                                                        </div>
+                                                    <% }) }; %>
+
+                                                    <% if (game['redTeams']) {  Array.prototype.forEach.call(game['redTeams'], redTeam => { %>
+                                                    <div class="col-md-2">
+                                                        <a href="/game/<%= game['gameId'] + '/' + redTeam %>" class="tile tile-default games-team red-team">
+                                                            <%= redTeam %>
+                                                            <div class="informer informer-danger dir-tr"></div>
+                                                        </a>
+                                                    </div>
+                                                    <% }) }; %>
+                                                <% }); %>
+                                            </div>
+                                            <div class="panel-footer">
+                                                <button class="btn btn-primary pull-right">Button</button>
+                                            </div>
+                                        </div>
+
+                                        <div class="panel panel-info">
+                                            <div class="panel-heading">
+                                                <h3 class="panel-title">Practice games</h3>
+                                                <ul class="panel-controls">
+                                                    <li><a href="#" class="panel-fullscreen"><span class="fa fa-expand"></span></a></li>
+                                                    <li><a href="#" class="panel-collapse"><span class="fa fa-angle-down"></span></a></li>
+                                                    <li><a href="#" class="panel-refresh"><span class="fa fa-refresh"></span></a></li>
+                                                    <li><a href="#" class="panel-remove"><span class="fa fa-times"></span></a></li>
+                                                </ul>
+                                            </div>
+                                            <div class="panel-body">
+                                                <% Practice.forEach(function(game) { console.log(game); %>
+                                                <div class="row">
+                                                    <% if (game['blueTeams']) {  Array.prototype.forEach.call(game['blueTeams'], blueTeam => { %>
+                                                    <div class="col-md-2">
+                                                        <a href="/game/<%= game['gameId'] + '/' + blueTeam %>" class="tile tile-default games-team blue-team">
+                                                            <%= blueTeam %>
+                                                            <div class="informer informer-danger dir-tr"></div>
+                                                        </a>
+                                                    </div>
+                                                    <% }) }; %>
+
+                                                    <% if (game['redTeams']) {  Array.prototype.forEach.call(game['redTeams'], redTeam => { %>
+                                                    <div class="col-md-2">
+                                                        <a href="/game/<%= game['gameId'] + '/' + redTeam %>" class="tile tile-default games-team red-team">
+                                                            <%= redTeam %>
+                                                            <div class="informer informer-danger dir-tr"></div>
+                                                        </a>
+                                                    </div>
+                                                    <% }) }; %>
+                                                </div>
+                                                <% }); %>
+                                            </div>
+                                            <div class="panel-footer">
+                                                <button class="btn btn-primary pull-right">Button</button>
+                                            </div>
+                                        </div>
+
                                     </div>
                                 </div>
 
@@ -43,5 +153,6 @@
         <% include templates/footer.ejs%>
 
 </body>
+
 
 </html>
