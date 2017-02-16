@@ -3,7 +3,7 @@ version: '2'
 services:
   scoutingreimagined:
     build: ScoutingReimagined/
-    command: node_modules/.bin/nodemon -L ScoutingReimagined/bin/www
+    command: node_modules/.bin/nodemon --ignore ScoutingReimagined/public/games -L ScoutingReimagined/bin/www
     environment:
       NODE_ENV: development
     ports:
