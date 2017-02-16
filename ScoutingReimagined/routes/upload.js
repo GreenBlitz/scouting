@@ -6,28 +6,29 @@ var router = express.Router();
 
 /* POST upload page. */
 var handleUpload = function(req, res) {
-    // var body = req.body;
-    // var blueTeam = [1, 2, 3];
-    // var redTeam = [4, 5, 6];
-    // client.index({
-    //     index: 'gov',
-    //     id: '1',
-    //     type: 'constituencies',
-    //     body: {
-    //         "ConstituencyName": "Ipswich",
-    //         "ConstituencyID": "E14000761",
-    //         "ConstituencyType": "Borough",
-    //         "Electorate": 74499,
-    //         "ValidVotes": 48694,
-    //     }
-    // }, function(err, resp, status) {
-    //     console.log(resp);
-    //     if (err) {
-    //         console.log(err);
-    //         res.sendStatus(500);
-    //         return;
-    //     }
-    // });
+    var body = req.body;
+    console.log(body);
+    var blueTeams = req.body.blueTeam.split(",");
+    var redTeams = req.body.redTeam.split(",");
+    var gameid = req.body.gameid;
+    var matchType = req.body.matchType;
+    var comments = req.body.comments;
+    client.index({
+        index: 'games',
+        id: gameid,
+        type: matchType,
+        body: {
+            "blue_teams": blueTeams,
+            "red_teams": redTeams,
+            "comments": comments
+        }
+    }, function(err, resp, status) {
+        console.log(resp);
+        if (err) {
+            console.log(err);
+            res.sendStatus(500);
+        }
+    });
 
     /// .   .   .   Insert into ES and get gameid
     console.log(req);

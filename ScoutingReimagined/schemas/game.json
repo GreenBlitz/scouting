@@ -4,4 +4,24 @@
   "red_teams": [4,5,6],
   "comment": "abcd",
   "match_type": "QUAL|PRAC|PLAYOFF"
+},
+
+//PUT /games
+{
+  "mappings": {
+    "game": {
+      "properties": {
+        "name": { "type": "text"},
+        "timeSent": {"type": "integer"},
+        "gameid": {"type": "integer"},
+        "teamNumber": {"type": "integer"},
+        "timeOccurred": {
+          "type": "integer"
+        },
+        "eventData": {
+          "type": "object"
+        }
+      }
+    }
+  }
 }
