@@ -32,6 +32,7 @@ var games = require('./routes/games');
 var users = require('./routes/users');
 var uploadRouter = require('./routes/upload');
 var setup = require('./setup');
+setup.setup();
 
 var app = express();
 
