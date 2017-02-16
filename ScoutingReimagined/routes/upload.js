@@ -6,38 +6,61 @@ var router = express.Router();
 
 /* POST upload page. */
 var handleUpload = function(req, res) {
-    // var body = req.body;
-    // var blueTeam = [1, 2, 3];
-    // var redTeam = [4, 5, 6];
-    // client.index({
-    //     index: 'gov',
-    //     id: '1',
-    //     type: 'constituencies',
-    //     body: {
-    //         "ConstituencyName": "Ipswich",
-    //         "ConstituencyID": "E14000761",
-    //         "ConstituencyType": "Borough",
-    //         "Electorate": 74499,
-    //         "ValidVotes": 48694,
-    //     }
-    // }, function(err, resp, status) {
-    //     console.log(resp);
-    //     if (err) {
-    //         console.log(err);
-    //         res.sendStatus(500);
-    //         return;
-    //     }
-    // });
+    var body = req.body;
+    console.log(body);
+    var blueTeams = req.body.blueTeam.split(",");
+    var redTeams = req.body.redTeam.split(",");
+    var gameid = req.body.gameid;
+    var matchType = req.body.matchType;
+    var comments = req.body.comments;
+    client.index({
+        index: 'games',
+        id: gameid,
+        type: matchType,
+        body: {
+            "blueTeams": blueTeams,
+            "redTeams": redTeams,
+            "comments": comments,
+            "gameId": gameid
+        }
+    }, function(err, resp, status) {
+        console.log(resp);
+        if (err) {
+            console.log(err);
+            res.sendStatus(500); // Internal server error
+        } else {
+            /// .   .   .   Insert into ES and get gameid
+            console.log(req);
+            res.render('upload', {success: 1, firstTime: 0});
+        }
+    });
 
-    /// .   .   .   Insert into ES and get gameid
-    console.log(req);
-    res.render('upload', {success: 1, firstTime: 0});
 };
 
 
 /* GET upload page. */
 router.get('/', function(req, res, next) {
-    res.render('upload', {success: 0, firstTime: 1});
+    client.search({
+        index: 'games',
+        type: 'game',
+        body: {
+            aggs : {
+                max_gameid : {
+                    max : {
+                        field : "gameId"
+                    }
+                }
+            }
+        }
+    },function (error, response,status) {
+        if (error){
+            console.log("search error: " + error);
+            res.sendStatus(500);
+        }
+        else {
+            res.render('upload', {success: 0, firstTime: 1, gameId: response.aggregations.max_gameid.value + 1});
+        }
+    });
 });
 
 module.exports = {router: router, handleUpload: handleUpload};
