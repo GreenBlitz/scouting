@@ -58,7 +58,7 @@ router.get('/', function(req, res, next) {
             res.sendStatus(500);
         }
         else {
-            res.render('upload', {success: 0, firstTime: 1, gameId: response.aggregations.max_gameid.value});
+            res.render('upload', {success: 0, firstTime: 1, gameId: response.aggregations.max_gameid.value + 1});
         }
     });
 });
