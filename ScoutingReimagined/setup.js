@@ -1,18 +1,53 @@
-var client = require('./connection');
+function setup() {
+    var client = require('./connection');
+    client.indices.exists({
+        index: 'games'
+    }, function(err, exists) {
+        if (!exists) {
+            client.indices.create({
+                index: 'games'
+            }, function(err, res) {
+                console.log("err", err);
+                console.log("res", res);
+                if (!err) {
+                    // Push mappings
+                    mapGames(client);
+                }
+            });
+        } else {
+            mapGames(client);
+        }
 
-client.indices.exists({
-    index: 'games'
-}, function(err, exists) {
-    if (!exists) {
-        client.indices.create({
-            index: 'games'
-        }, function(err, res) {
-            console.log("err", err);
-            console.log("res", res);
-        });
-    }
-});
+    });
+}
 
-// if (!0) {
-//     client.indices.create('games');
-// }
+
+function mapGames(client) {
+    client.indices.putMapping({
+        index: "games",
+        type: "game",
+        body: {
+            properties: {
+                gameId: {
+                    type: "integer"
+                },
+                blueTeams: {
+                    type: "integer"
+                },
+                redTeams: {
+                    type: "integer"
+                },
+                comments: {
+                    type: "text"
+                }
+            }
+        }
+    }, function(err, res) {
+        console.log("err: ", err);
+        console.log("rees: ", res);
+    });
+}
+
+module.exports = {
+    setup: setup
+};
