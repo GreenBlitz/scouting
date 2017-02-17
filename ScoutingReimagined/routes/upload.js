@@ -14,6 +14,7 @@ var handleUpload = function(req, res) {
     var matchType = req.body.matchType;
     var comments = req.body.comments;
     client.index({
+        // teams/team/4590 : {}
         index: 'games',
         id: gameid,
         type: matchType,

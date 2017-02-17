@@ -39,7 +39,7 @@
                                                 <% Playoffs.forEach(function(game) { console.log(game); %>
                                                 <% if (game['blueTeams']) {  Array.prototype.forEach.call(game['blueTeams'], blueTeam => { %>
                                                 <div class="col-md-2">
-                                                    <a href="/game/<%= game['gameId'] + '/' + blueTeam %>" class="tile tile-default games-team blue-team">
+                                                    <a href="/game?gameId=<%= game['gameId'] + '&teamNumber=' + blueTeam %>" class="tile tile-default games-team blue-team">
                                                         <%= blueTeam %>
                                                         <div class="informer informer-danger dir-tr"></div>
                                                     </a>
@@ -48,7 +48,7 @@
 
                                                 <% if (game['redTeams']) {  Array.prototype.forEach.call(game['redTeams'], redTeam => { %>
                                                 <div class="col-md-2">
-                                                    <a href="/game/<%= game['gameId'] + '/' + redTeam %>" class="tile tile-default games-team red-team">
+                                                    <a href="/game?gameId=<%= game['gameId'] + '&teamNumber=' + redTeam %>" class="tile tile-default games-team red-team">
                                                         <%= redTeam %>
                                                         <div class="informer informer-danger dir-tr"></div>
                                                     </a>
@@ -75,7 +75,7 @@
                                                 <% Qualification.forEach(function(game) { console.log(game); %>
                                                     <% if (game['blueTeams']) {  Array.prototype.forEach.call(game['blueTeams'], blueTeam => { %>
                                                         <div class="col-md-2">
-                                                            <a href="/game/<%= game['gameId'] + '/' + blueTeam %>" class="tile tile-default games-team blue-team">
+                                                            <a href="/game?gameId=<%= game['gameId'] + '&teamNumber=' + blueTeam %>" class="tile tile-default games-team blue-team">
                                                                 <%= blueTeam %>
                                                                 <div class="informer informer-danger dir-tr"></div>
                                                             </a>
@@ -84,7 +84,7 @@
 
                                                     <% if (game['redTeams']) {  Array.prototype.forEach.call(game['redTeams'], redTeam => { %>
                                                     <div class="col-md-2">
-                                                        <a href="/game/<%= game['gameId'] + '/' + redTeam %>" class="tile tile-default games-team red-team">
+                                                        <a href="/game?gameId=<%= game['gameId'] + '&teamNumber=' + redTeam %>" class="tile tile-default games-team red-team">
                                                             <%= redTeam %>
                                                             <div class="informer informer-danger dir-tr"></div>
                                                         </a>
@@ -112,7 +112,7 @@
                                                 <div class="row">
                                                     <% if (game['blueTeams']) {  Array.prototype.forEach.call(game['blueTeams'], blueTeam => { %>
                                                     <div class="col-md-2">
-                                                        <a href="/game/<%= game['gameId'] + '/' + blueTeam %>" class="tile tile-default games-team blue-team">
+                                                        <a href="/game?gameId=<%= game['gameId'] + '&teamNumber=' + blueTeam %>" class="tile tile-default games-team blue-team">
                                                             <%= blueTeam %>
                                                             <div class="informer informer-danger dir-tr"></div>
                                                         </a>
@@ -121,7 +121,7 @@
 
                                                     <% if (game['redTeams']) {  Array.prototype.forEach.call(game['redTeams'], redTeam => { %>
                                                     <div class="col-md-2">
-                                                        <a href="/game/<%= game['gameId'] + '/' + redTeam %>" class="tile tile-default games-team red-team">
+                                                        <a href="/game?gameId=<%= game['gameId'] + '&teamNumber=' + redTeam %>" class="tile tile-default games-team red-team">
                                                             <%= redTeam %>
                                                             <div class="informer informer-danger dir-tr"></div>
                                                         </a>

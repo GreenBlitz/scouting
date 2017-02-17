@@ -30,6 +30,7 @@ var upload = multer({ storage : storage}).fields([
 var index = require('./routes/index');
 var games = require('./routes/games');
 var users = require('./routes/users');
+var game = require('./routes/game');
 var uploadRouter = require('./routes/upload');
 var setup = require('./setup');
 setup.setup();
@@ -53,6 +54,7 @@ app.use('/', index);
 app.use('/users', users);
 app.use('/upload', uploadRouter.router);
 app.use('/games', games);
+app.use('/game', game);
 app.post('/upload', upload, uploadRouter.handleUpload);
 
 // Lower priority than routes
