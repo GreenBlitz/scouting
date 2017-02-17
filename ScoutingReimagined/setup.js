@@ -1,5 +1,9 @@
 function setup() {
     var client = require('./connection');
+    indexGames(client);
+}
+
+function indexGames(client) {
     client.indices.exists({
         index: 'games'
     }, function(err, exists) {
