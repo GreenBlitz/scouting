@@ -1,4 +1,4 @@
-var shooting = {
+var disabled = {
     "properties": {
         "meta_data": {
             "properties": {
@@ -20,16 +20,13 @@ var shooting = {
         "timeTook": {
             "type": "integer"
         },
-        "location": {
-            "type": "keyword" // Can be: "low" || "high"
+        "reason": {
+            "type": "keyword" // Can be: TODO: add disabled reason codes for disabled events
         },
-        "status": {
-            "type": "keyword" // Can be: "success" || "fail"
-        },
-        "failReason": {
-            "type": "keyword" // Can be: TODO: add fail reasons codes for shooting events
+        "recoverd": {
+            "type": "boolean"
         }
     }
 };
 
-module.exports = shooting;
+module.exports = disabled;

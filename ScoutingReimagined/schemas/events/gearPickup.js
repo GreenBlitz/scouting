@@ -1,4 +1,4 @@
-var shooting = {
+var gearPickup = {
     "properties": {
         "meta_data": {
             "properties": {
@@ -21,15 +21,15 @@ var shooting = {
             "type": "integer"
         },
         "location": {
-            "type": "keyword" // Can be: "low" || "high"
+            "type": "keyword" // Can be: "feeder" || "floor"
         },
         "status": {
             "type": "keyword" // Can be: "success" || "fail"
         },
         "failReason": {
-            "type": "keyword" // Can be: TODO: add fail reasons codes for shooting events
+            "type": "keyword" // Can be: TODO: add fail reasons codes for gearPickup events
         }
     }
 };
 
-module.exports = shooting;
+module.exports = gearPickup;
