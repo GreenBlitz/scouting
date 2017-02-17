@@ -22,7 +22,7 @@ var game = {
             "type": "integer"
         },
         "comments": {
-            "type": "string"
+            "type": "text"
         },
         "matchType": {
             "type:": "keyword" // Can be: "QUAL" || "PRAC" || "PLAYOFF"
