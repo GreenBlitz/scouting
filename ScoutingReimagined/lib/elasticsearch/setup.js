@@ -65,7 +65,7 @@ function mapGames(client) {
     var game = require(schemasDir + '/game');
     client.indices.putMapping({
         index: "games",
-        type: "game",
+        type: "_default_",
         body: game
     }, function (err, res) {
         console.log("err: ", err);

@@ -8,7 +8,6 @@ var router = express.Router();
 router.get('/', function (req, res, next) {
     client.search({
         index: 'games',
-        type: 'game',
         body: {
             query: {
                 match_all: {}

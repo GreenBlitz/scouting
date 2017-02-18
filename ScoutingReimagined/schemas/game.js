@@ -24,9 +24,6 @@ var game = {
         "comments": {
             "type": "text"
         },
-        "matchType": {
-            "type": "keyword" // Can be: "QUAL" || "PRAC" || "PLAYOFF"
-        },
         "winningAlliance": {
             "type": "keyword" // Can be: "red" || "blue"
         },
