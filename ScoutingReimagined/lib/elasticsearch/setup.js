@@ -60,7 +60,6 @@ function indexGames(client) {
 /**
  * Maps the type game to the index games using schema defined in @file schemas/games.js
  * @param  {ElasticsearchConnection} client connection to the elasticsearch instance
- * @return {[type]}        [description]
  */
 function mapGames(client) {
     var game = require(schemasDir + '/game');
