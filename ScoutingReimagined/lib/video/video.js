@@ -19,7 +19,8 @@ supportedTypes = [
 module.exports = {
     list: list,
     request: request,
-    upload: upload
+    upload: upload,
+    uploadPath: uploadPath
 };
 
 _checkUploadDir();
