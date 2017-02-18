@@ -3,11 +3,53 @@
 
 <head>
     <% include templates/head.ejs %>
+
+    <script>
+        function Shooting() {
+            console.log("SHOT!");
+            return {
+                "meta_data": {
+                    "teamNumber": <%- JSON.stringify(teamNumber) %>,
+                    "gameId": <%- JSON.stringify(gameId) %>
+                },
+                "startTime": 1,// videoCurrentTime,
+                "endTime": null,
+                "timeTook": null,
+                "location": null, // Can be: "low" || "high"
+                "status": null, // Can be: "success" || "fail"
+                "failReason": null // Can be: TODO: add fail reasons codes for shooting events
+            }
+        }
+
+        shooting = null;
+        buttonIds = ['shooting', 'pickup', 'gearplace', 'chassisfight', 'climb', 'stuck'];
+
+        function shooting_start() {
+            shooting = Shooting();
+            hideAllButtons();
+        }
+
+        function hideAllButtons() {
+            buttonIds.forEach(function(buttonId) {
+                $('#' + buttonId).addClass('hidden');
+            })
+        }
+
+        function showAllButtons() {
+            buttonIds.forEach(function(buttonId) {
+                $('#' + buttonId).removeClass('hidden');
+            })
+        }
+
+        function showbigEventDiv() {
+
+        }
+    </script>
 </head>
 
 <body>
 <!-- START PAGE CONTAINER -->
-<div class="page-container">
+<div class="page-container page-navigation-toggled">
 
     <% include templates/sidebar.ejs %>
 
@@ -42,31 +84,27 @@
                     <div class="panel panel-default">
                         <div class="panel-body">
                             <video id="gameVideo" style="display: block; margin: auto; width:70vw; height:80vh; margin-bottom: 1vh;" controls>
-                                Your browser does not support the video tag
-
+                                Your browser does not support the video tag.
                             </video>
 
                             <div class="form-group">
                                 <div class="col-sm-2">
-                                    <button class="btn btn-primary btn-block" style="height: 10vh; font-size: xx-large">Ball Pick Up</button>
+                                    <button id="shooting" class="btn btn-info btn-block" style="height: 10vh; font-size: xx-large" onclick="shooting_start()">Shooting</button>
                                 </div>
                                 <div class="col-sm-2">
-                                    <button class="btn btn-info btn-block" style="height: 10vh; font-size: xx-large">Shooting</button>
+                                    <button id="pickup" class="btn btn-info btn-block" style="height: 10vh; font-size: xx-large">Pick Up</button>
                                 </div>
                                 <div class="col-sm-2">
-                                    <button class="btn btn-info btn-block" style="height: 10vh; font-size: xx-large">Gear Pick Up</button>
+                                    <button id="gearplace" class="btn btn-info btn-block" style="height: 10vh; font-size: xx-large">Gear Place</button>
                                 </div>
                                 <div class="col-sm-2">
-                                    <button class="btn btn-info btn-block" style="height: 10vh; font-size: xx-large">Gear Place</button>
+                                    <button id="chassisfight" class="btn btn-info btn-block" style="height: 10vh; font-size: xx-large">Chassis Fight</button>
                                 </div>
                                 <div class="col-sm-2">
-                                    <button class="btn btn-info btn-block" style="height: 10vh; font-size: xx-large">Chassis Fight</button>
+                                    <button id="climb" class="btn btn-info btn-block" style="height: 10vh; font-size: xx-large">Climb</button>
                                 </div>
                                 <div class="col-sm-2">
-                                    <button class="btn btn-info btn-block" style="height: 10vh; font-size: xx-large">Climb</button>
-                                </div>
-                                <div class="col-sm-2">
-                                    <button class="btn btn-info btn-block" style="height: 10vh; font-size: xx-large">Stuck</button>
+                                    <button id="stuck" class="btn btn-info btn-block" style="height: 10vh; font-size: xx-large">Stuck</button>
                                 </div>
                             </div>
                         </div>

@@ -13,7 +13,7 @@ $(window)
 
         $video.attr({
             controls: true,
-            autoplay: true,
+            autoplay: true
         });
 
         // var sourceBuffer;
