@@ -85,7 +85,8 @@
 <% include templates/footer.ejs%>
 
 <script type="text/javascript">
-    gameId = <%= gameId %>
+    var gameId = <%- JSON.stringify(gameId) %>;
+    var teamNumber = <%- JSON.stringify(teamNumber) %>;
 </script>
 <script src="/js/scouting/binary.js"></script>
 <script src="/js/scouting/common.js"></script>
@@ -96,14 +97,9 @@
 <script type="text/javascript" src="/js/scouting/events/shootingEventsHandling.js"></script>
 
 <script>
-
-    var teamNumber = <%- JSON.stringify(teamNumber) %>;
-    var gameId = <%- JSON.stringify(gameId) %>;
-
-
     buttonIds = ['shooting', 'pickup', 'gearplace', 'chassisfight', 'climb', 'stuck'];
 
-
+    
     function hideAllButtons() {
         buttonIds.forEach(function(buttonId) {
             $('#' + buttonId).addClass('hidden');
