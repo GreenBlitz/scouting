@@ -1,3 +1,5 @@
+var schemasDir = __dirname + "/../../schemas"
+
 function setup() {
     var client = require('./connection');
     indexGames(client);
@@ -61,7 +63,7 @@ function indexGames(client) {
  * @return {[type]}        [description]
  */
 function mapGames(client) {
-    var game = require('./schemas/game');
+    var game = require(schemasDir + '/game');
     client.indices.putMapping({
         index: "games",
         type: "game",
@@ -78,13 +80,13 @@ function mapGames(client) {
  */
 function mapEvents(client) {
     //	TODO: Check if inserting the require expression inside typeToMapping is possible
-    var ballPickup = require('./schemas/events/ballPickup');
-    var climb = require('./schemas/events/climb');
-    var disabled = require('./schemas/events/disabled');
-    var fight = require('./schemas/events/fight');
-    var gearPickup = require('./schemas/events/gearPickup');
-    var gearPlace = require('./schemas/events/gearPlace');
-    var shooting = require('./schemas/events/shooting');
+    var ballPickup = require(schemasDir + '/events/ballPickup');
+    var climb = require(schemasDir + '/events/climb');
+    var disabled = require(schemasDir + '/events/disabled');
+    var fight = require(schemasDir + '/events/fight');
+    var gearPickup = require(schemasDir + '/events/gearPickup');
+    var gearPlace = require(schemasDir + '/events/gearPlace');
+    var shooting = require(schemasDir + '/events/shooting');
 
     /**
      * Maps the type name to it's mapping

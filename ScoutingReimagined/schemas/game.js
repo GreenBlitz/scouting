@@ -25,7 +25,7 @@ var game = {
             "type": "text"
         },
         "matchType": {
-            "type:": "keyword" // Can be: "QUAL" || "PRAC" || "PLAYOFF"
+            "type": "keyword" // Can be: "QUAL" || "PRAC" || "PLAYOFF"
         },
         "winningAlliance": {
             "type": "keyword" // Can be: "red" || "blue"
