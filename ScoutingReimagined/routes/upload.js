@@ -17,12 +17,13 @@ var handleUpload = function (req, res) {
         // teams/team/4590 : {}
         index: 'games',
         id: gameid,
-        type: matchType,
+        type: 'game',
         body: {
             "blueTeams": blueTeams,
             "redTeams": redTeams,
             "comments": comments,
-            "gameId": gameid
+            "gameId": gameid,
+            "matchType": matchType
         }
     }, function (err, resp, status) {
         console.log(resp);
