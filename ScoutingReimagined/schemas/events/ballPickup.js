@@ -18,7 +18,7 @@ var ballPickup = {
             "type": "integer" // In seconds from start of video
         },
         "timeTook": {
-            "type": "integer"
+            "type": "integer" // =endTime-startTime seconds
         },
         "location": {
             "type": "keyword" // Can be: "feeder" || "floor"

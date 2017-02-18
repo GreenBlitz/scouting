@@ -35,7 +35,6 @@ var upload = multer({
 
 
 
-var index = require('./routes/index');
 var games = require('./routes/games');
 var users = require('./routes/users');
 var game = require('./routes/game');
@@ -58,7 +57,7 @@ app.use(bodyParser.urlencoded({
 }));
 app.use(cookieParser());
 
-app.use('/', index);
+app.use('/', game);
 app.use('/users', users);
 app.use('/upload', uploadRouter.router);
 app.use('/games', games);

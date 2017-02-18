@@ -17,7 +17,7 @@ router.get('/', function (req, res, next) {
     }, function (error, response, status) {
         if (error) {
             console.log("search error: " + error);
-            res.send(500);
+            res.sendStatus(500);
         } else {
             var games = {
                 'Practice': [],
