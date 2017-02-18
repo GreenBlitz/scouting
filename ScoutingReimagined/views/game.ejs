@@ -3,90 +3,6 @@
 
 <head>
     <% include templates/head.ejs %>
-
-    <script>
-
-        <% include js/shootingEventsHandling.js %>
-        buttonIds = ['shooting', 'pickup', 'gearplace', 'chassisfight', 'climb', 'stuck'];
-
-
-        function hideAllButtons() {
-            buttonIds.forEach(function(buttonId) {
-                $('#' + buttonId).addClass('hidden');
-            })
-        }
-
-        function showEventButtons() {
-            buttonIds.forEach(function(buttonId) {
-                $('#' + buttonId).removeClass('hidden');
-            })
-        }
-
-
-        // objects = {type: 'BUTTON'||'SELECT', value: value}
-        function fillEventsDivWithObjects(objects, functionToCallWhenDone) {
-            var eventsDiv = $('#eventsDiv');
-            console.log(eventsDiv);
-            eventsDiv.empty();
-
-            var gridSize = parseInt(12 / objects.length); // Bootstrap columns grid works on size 12
-            var colClass = 'col-md-' + gridSize;
-
-            objects.forEach(function(object) {
-                if (!object['type'] || !object['value']) {
-                    console.error("Error got wrong form of objects in function fillEventsDivWithObjects! wrong format: " + objects);
-                    return;
-                }
-                var element = null;
-                switch (object.type) {
-                    case 'button':
-                        element = document.createElement("div");
-                        element.className = colClass;
-                        var button = document.createElement("button")
-                        button.className = "btn btn-info btn-block event-button";
-                        var heightText = document.createTextNode(object.value);
-                        button.appendChild(heightText);
-                        button.addEventListener("click", function() {functionToCallWhenDone(object.value)} );
-                        element.appendChild(button);
-                        break;
-                    case 'select':
-                        //Create and append select list
-                        element = document.createElement("select");
-                        element.className = colClass + ' event-button';
-                        element.id = "shootingFailureSelect";
-
-                        //Create and append the options
-                        object.value.forEach(function(optionValue) {
-                            var option = document.createElement("option");
-                            option.value = optionValue;
-                            option.text = optionValue;
-                            element.appendChild(option);
-                        });
-
-                        $(element).on('change', function() {
-                            functionToCallWhenDone(this.value);
-                        })
-                        break;
-                }
-
-                eventsDiv.append(element);
-            });
-
-            eventsDiv.removeClass('hidden')
-        }
-
-
-        function hideEventsDiv() {
-            var eventsDiv = $('#eventsDiv');
-            eventsDiv.empty();
-            eventsDiv.addClass('hidden');
-        }
-
-        function sendEvent(event) {
-            console.log('Sending event: ' + JSON.stringify(event));
-            //TODO really send event
-        }
-    </script>
 </head>
 
 <body>
@@ -176,6 +92,95 @@
 <script src="/js/scouting/video.js"></script>
 <script src="/js/scouting/main.js"></script>
 
+
+<script type="text/javascript" src="/js/scouting/events/shootingEventsHandling.js"></script>
+
+<script>
+
+    var teamNumber = <%- JSON.stringify(teamNumber) %>;
+    var gameId = <%- JSON.stringify(gameId) %>;
+
+
+    buttonIds = ['shooting', 'pickup', 'gearplace', 'chassisfight', 'climb', 'stuck'];
+
+
+    function hideAllButtons() {
+        buttonIds.forEach(function(buttonId) {
+            $('#' + buttonId).addClass('hidden');
+        })
+    }
+
+    function showEventButtons() {
+        buttonIds.forEach(function(buttonId) {
+            $('#' + buttonId).removeClass('hidden');
+        })
+    }
+
+
+    // objects = {type: 'BUTTON'||'SELECT', value: value}
+    function fillEventsDivWithObjects(objects, functionToCallWhenDone) {
+        var eventsDiv = $('#eventsDiv');
+        console.log(eventsDiv);
+        eventsDiv.empty();
+
+        var gridSize = parseInt(12 / objects.length); // Bootstrap columns grid works on size 12
+        var colClass = 'col-md-' + gridSize;
+
+        objects.forEach(function(object, index) {
+            if (!object['type'] || !object['value']) {
+                console.error("Error got wrong form of objects in function fillEventsDivWithObjects! wrong format: " + objects);
+                return;
+            }
+            var element = null;
+            switch (object.type) {
+                case 'button':
+                    element = document.createElement("div");
+                    element.className = colClass;
+                    var button = document.createElement("button")
+                    button.className = "btn btn-info btn-block event-button";
+                    var heightText = document.createTextNode(object.value);
+                    button.appendChild(heightText);
+                    button.addEventListener("click", function() {functionToCallWhenDone(object.value)} );
+                    element.appendChild(button);
+                    break;
+                case 'select':
+                    //Create and append select list
+                    element = document.createElement("select");
+                    element.className = colClass + ' event-button';
+                    element.id = "shootingFailureSelect";
+
+                    //Create and append the options
+                    object.value.forEach(function(optionValue) {
+                        var option = document.createElement("option");
+                        option.value = optionValue;
+                        option.text = optionValue;
+                        element.appendChild(option);
+                    });
+
+                    $(element).on('change', function() {
+                        functionToCallWhenDone(this.value);
+                    })
+                    break;
+            }
+
+            eventsDiv.append(element);
+        });
+
+        eventsDiv.removeClass('hidden')
+    }
+
+
+    function hideEventsDiv() {
+        var eventsDiv = $('#eventsDiv');
+        eventsDiv.empty();
+        eventsDiv.addClass('hidden');
+    }
+
+    function sendEvent(event) {
+        console.log('Sending event: ' + JSON.stringify(event));
+        //TODO really send event
+    }
+</script>
 </body>
 
 </html>

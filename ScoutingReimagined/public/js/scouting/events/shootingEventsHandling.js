@@ -2,8 +2,8 @@ function Shooting() {
     console.log("SHOT!");
     return {
         "meta_data": {
-            "teamNumber": <%- JSON.stringify(teamNumber) %>,
-            "gameId": <%- JSON.stringify(gameId) %>
+            "teamNumber": teamNumber,
+            "gameId": gameId
         },
         "startTime": 1,// videoCurrentTime,
         "endTime": null,
