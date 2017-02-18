@@ -1,38 +1,46 @@
+BinaryServer = require('binaryjs')
+    .BinaryServer;
+video = require('./lib/video/video');
 var express = require('express');
 var path = require('path');
 var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
-var multer  =   require('multer');
 
-var storage =   multer.diskStorage({
-  destination: function (req, file, callback) {
-    if(file.fieldname == 'gameVideo') {
-        callback(null, __dirname + '/public/games/');
+
+var multer = require('multer');
+
+var storage = multer.diskStorage({
+    destination: function (req, file, callback) {
+        if (file.fieldname == 'gameVideo') {
+            callback(null, video.uploadPath);
+        }
+    },
+
+    filename: function (req, file, callback) {
+        var id = req.body.gameid;
+        if (file.fieldname == 'gameVideo') {
+            callback(null, id + ".mp4");
+        }
     }
-  },
-
-  filename: function (req, file, callback) {
-      var id = req.body.gameid;
-      if(file.fieldname == 'gameVideo') {
-          callback(null, id + ".mp4");
-      }
-  }
 });
-var upload = multer({ storage : storage}).fields([
-    {
+var upload = multer({
+        storage: storage
+    })
+    .fields([{
         name: 'gameVideo',
-        maxCount:1
-    }
-]);
+        maxCount: 1
+    }]);
+
+
 
 var index = require('./routes/index');
 var games = require('./routes/games');
 var users = require('./routes/users');
 var game = require('./routes/game');
 var uploadRouter = require('./routes/upload');
-var setup = require('./setup');
+var setup = require('./lib/elasticsearch/setup');
 setup.setup();
 
 var app = express();
@@ -64,14 +72,14 @@ app.post('/upload', upload, uploadRouter.handleUpload);
 app.use(express.static(path.join(__dirname, 'public')));
 
 // catch 404 and forward to error handler
-app.use(function(req, res, next) {
+app.use(function (req, res, next) {
     var err = new Error('Not Found');
     err.status = 404;
     next(err);
 });
 
 // error handler
-app.use(function(err, req, res, next) {
+app.use(function (err, req, res, next) {
     // set locals, only providing error in development
     res.locals.message = err.message;
     res.locals.error = req.app.get('env') === 'development' ? err : {};

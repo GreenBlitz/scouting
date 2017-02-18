@@ -8,6 +8,7 @@ services:
       NODE_ENV: development
     ports:
       - '3000:3000'
+      - '9000:9000'
     networks:
       - scouting
     depends_on:
@@ -24,17 +25,6 @@ services:
       ES_JAVA_OPTS: "-Xms1g -Xmx1g"
     networks:
       - scouting
-  logstash:
-    build: logstash/
-    command: -f /etc/logstash/conf.d/
-    volumes:
-      - ./logstash/config:/etc/logstash/conf.d
-    ports:
-      - "5000:5000"
-    networks:
-      - scouting
-    depends_on:
-      - elasticsearch
   kibana:
     build: kibana/
     volumes:
