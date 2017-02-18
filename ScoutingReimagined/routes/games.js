@@ -2,6 +2,8 @@ var express = require('express');
 var client = require('../lib/elasticsearch/connection');
 var router = express.Router();
 
+
+// TODO solve problem of simultaneous reiviweing of games
 /* GET games page. */
 router.get('/', function (req, res, next) {
     client.search({
@@ -15,7 +17,7 @@ router.get('/', function (req, res, next) {
     }, function (error, response, status) {
         if (error) {
             console.log("search error: " + error);
-            res.send(500);
+            res.sendStatus(500);
         } else {
             var games = {
                 'Practice': [],

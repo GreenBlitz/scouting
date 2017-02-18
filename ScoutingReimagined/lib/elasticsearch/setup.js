@@ -98,7 +98,7 @@ function mapEvents(client) {
         "fight": fight,
         "gearPickup": gearPickup,
         "gearPlace": gearPlace,
-        "shooting": shooting,
+        "shooting": shooting
     };
 
     for (var type in typeToMapping) {

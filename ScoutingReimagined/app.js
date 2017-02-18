@@ -35,7 +35,6 @@ var upload = multer({
 
 
 
-var index = require('./routes/index');
 var games = require('./routes/games');
 var users = require('./routes/users');
 var game = require('./routes/game');
@@ -58,11 +57,14 @@ app.use(bodyParser.urlencoded({
 }));
 app.use(cookieParser());
 
-app.use('/', index);
+app.use('/', game);
 app.use('/users', users);
 app.use('/upload', uploadRouter.router);
 app.use('/games', games);
 app.use('/game', game);
+
+// TODO: compare teams that wil play with and against you
+// TODO: find the best team to choose at playoffs
 app.post('/upload', upload, uploadRouter.handleUpload);
 
 // Lower priority than routes
