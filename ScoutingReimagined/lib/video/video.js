@@ -28,7 +28,10 @@ function _checkUploadDir(cb) {
     cb = cb || function () {};
 
     fs.stat(uploadPath, function (err, stats) {
-        if (
+        if (err && err.errno == -2) {
+            // No such file or directory
+            fs.mkdir(uploadPath, cb);
+        } else if (
             (err && err.errno === 34) ||
             !stats.isDirectory()
         ) {
