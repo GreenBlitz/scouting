@@ -9,38 +9,38 @@ $(window)
         // $progress = $('#progress');
         // $list = $('#list');
 
-        var mediaSource = new MediaSource();
+        // var mediaSource = new MediaSource();
 
         $video.attr({
             controls: true,
             autoplay: true,
         });
 
-        var sourceBuffer;
-        $video.attr('src', (window.URL || window.webkitURL)
-            .createObjectURL(mediaSource));
+        // var sourceBuffer;
+        // $video.attr('src', (window.URL || window.webkitURL)
+        //     .createObjectURL(mediaSource));
 
-        function callback(e) {
-            console.log("sourceopen or webkitsourceopen");
-            console.log("readyState:", this.readyState);
-            // sourceBuffer = mediaSource.addSourceBuffer('video/mp4; codecs="avc1.42E01E, mp4a.40.2"');
-            sourceBuffer = mediaSource.addSourceBuffer('video/webm; codecs="vp8"');
-            sourceBuffer.addEventListener('updateend', function () {
-                console.log("Updated Ended");
-                var data = parts.shift();
-                if (data) {
-                    console.log("Adding new data");
-                    sourceBuffer.appendBuffer(parts.shift());
-                }
-            }, false);
-        }
-
-        mediaSource.addEventListener('sourceopen', callback, false);
-        mediaSource.addEventListener('webkitsourceopen', callback, false);
-
-        mediaSource.addEventListener('webkitsourceended', function (e) {
-            console.log("readyState:", this.readyState);
-        }, false);
+        // function callback(e) {
+        //     console.log("sourceopen or webkitsourceopen");
+        //     console.log("readyState:", this.readyState);
+        //     // sourceBuffer = mediaSource.addSourceBuffer('video/mp4; codecs="avc1.42E01E, mp4a.40.2"');
+        //     sourceBuffer = mediaSource.addSourceBuffer('video/webm; codecs="vorbis,vp8"');
+        //     sourceBuffer.addEventListener('updateend', function () {
+        //         console.log("Updated Ended");
+        //         var data = parts.shift();
+        //         if (data) {
+        //             console.log("Adding new data");
+        //             sourceBuffer.appendBuffer(parts.shift());
+        //         }
+        //     }, false);
+        // }
+        //
+        // mediaSource.addEventListener('sourceopen', callback, false);
+        // mediaSource.addEventListener('webkitsourceopen', callback, false);
+        //
+        // mediaSource.addEventListener('webkitsourceended', function (e) {
+        //     console.log("readyState:", this.readyState);
+        // }, false);
 
         video.request(gameId + ".mp4");
 
@@ -58,21 +58,22 @@ $(window)
 
         client.on('stream', function (stream) {
             console.log("Stream Event");
-            video.download(stream, sourceBuffer, mediaSource, function (err, result) {
+            video.download(stream, function (err, src) {
                 console.log("err:", err);
-                // console.log("src:", src);
-                // $video.attr('src', src);
-                if (result == true) {
-                    sourceBuffer.addEventListener('updateend', function () {
-                        console.log("Updated Ended Phase 2");
-                        var data = parts.shift();
-                        if (data) {
-                            console.log("Adding new data");
-                            sourceBuffer.appendBuffer(parts.shift());
-                        }
-                    }, false);
-                }
-            }, parts);
+                console.log("src:", src);
+                $video.attr('src', src);
+                // if (result == true) {
+                //     console.log("event ended and returned true");
+                //     sourceBuffer.addEventListener('updateend', function () {
+                //         console.log("Updated Ended Phase 2");
+                //         var data = parts.shift();
+                //         if (data) {
+                //             console.log("Adding new data");
+                //             sourceBuffer.appendBuffer(parts.shift());
+                //         }
+                //     }, true);
+                // }
+            });
         });
 
         function setupList(err, files) {

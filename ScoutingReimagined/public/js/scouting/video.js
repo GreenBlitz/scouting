@@ -36,17 +36,10 @@ var video = (function () {
         });
     }
 
-    function download(stream, sourceBuffer, mediaSource, cb, parts) {
-        var firstTime = true;
+    function download(stream, cb) {
+        var parts = [];
         stream.on('data', function (data) {
-            if (firstTime) {
-                firstTime = false;
-                sourceBuffer.appendBuffer(data);
-            } else {
-                console.log("Pushing more data");
-                parts.push(data);
-                // console.log("parts.length:", parts.length);
-            }
+            parts.push(data);
         });
 
         stream.on('error', function (err) {
@@ -54,13 +47,11 @@ var video = (function () {
         });
 
         stream.on('end', function () {
-            // $video.webkitSourceEndOfStream(HTMLMediaElement.EOS_NO_ERROR);
-            cb(null, true);
             console.log("Ended stream")
-            // var src = (window.URL || window.webkitURL)
-            //     .createObjectURL(new Blob(parts));
-            //
-            // cb(null, src);
+            var src = (window.URL || window.webkitURL)
+                .createObjectURL(new Blob(parts));
+
+            cb(null, src);
         });
     }
 })();
