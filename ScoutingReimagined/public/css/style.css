@@ -16,6 +16,16 @@
     overflow: hidden;
 }
 
+.game-title {
+    font-weight: bolder;
+    font-size: 300%!important;
+    color:green!important;
+    text-align:center;
+    vertical-align: middle;
+    position: relative;
+    transform: translateY(50%);
+}
+
 .games-team {
     font-weight: bolder;
     font-size: 459%!important;
