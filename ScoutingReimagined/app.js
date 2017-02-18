@@ -55,6 +55,9 @@ app.use('/users', users);
 app.use('/upload', uploadRouter.router);
 app.use('/games', games);
 app.use('/game', game);
+
+// TODO: compare teams that wil play with and against you
+// TODO: find the best team to choose at playoffs
 app.post('/upload', upload, uploadRouter.handleUpload);
 
 // Lower priority than routes

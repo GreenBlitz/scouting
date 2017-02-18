@@ -2,6 +2,8 @@ var express = require('express');
 var client = require('../connection.js');
 var router = express.Router();
 
+
+// TODO solve problem of simultaneous reiviweing of games
 /* GET games page. */
 router.get('/', function(req, res, next) {
     client.search({
