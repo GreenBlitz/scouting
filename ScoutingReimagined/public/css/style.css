@@ -38,3 +38,8 @@
 .blue-team {
     color: blue!important;
 }
+
+.event-button {
+    height: 10vh;
+    font-size: xx-large;
+}
