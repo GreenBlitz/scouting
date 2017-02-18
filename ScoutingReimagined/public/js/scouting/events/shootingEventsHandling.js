@@ -62,6 +62,5 @@ function shooting_finish(status) {
     }
     sendEvent(shooting);
 
-    hideEventsDiv();
-    showEventButtons();
+    initializeEvents();
 }

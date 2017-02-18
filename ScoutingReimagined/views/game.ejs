@@ -17,22 +17,6 @@
         <% include templates/xnavigation.ejs %>
 
 
-        <script>
-            $(window).keypress(function(e) {
-                var video = document.getElementById("gameVideo");
-                if (e.which == 32 && e.target == document.body) {
-                    e.preventDefault();
-                    if (video.paused == true)
-                        video.play();
-                    else
-                        video.pause();
-                } else if (e.which == 61 && e.target == document.body) {
-                    skip(+5);
-                } else if (e.which == 45 && e.target == document.body) {
-                    skip(-5);
-                }
-            });
-        </script>
         <!-- PAGE CONTENT WRAPPER -->
         <div class="page-content-wrap">
 
@@ -99,7 +83,7 @@
 <script>
     buttonIds = ['shooting', 'pickup', 'gearplace', 'chassisfight', 'climb', 'stuck'];
 
-    
+
     function hideAllButtons() {
         buttonIds.forEach(function(buttonId) {
             $('#' + buttonId).addClass('hidden');
@@ -112,6 +96,34 @@
         })
     }
 
+    var buttonClickEvent = {}
+
+    function initializeButtonClickEvent() {
+        buttonClickEvent = {
+            1: shooting_start
+        }
+    }
+
+    initializeButtonClickEvent();
+
+    $(window).keypress(function(e) {
+        var video = document.getElementById("gameVideo");
+        if (e.which == 32 && e.target == document.body) {
+            e.preventDefault();
+            if (video.paused == true)
+                video.play();
+            else
+                video.pause();
+            return;
+        }
+        var VALUE_OF_KEY_1 = 49;
+        for(var i = 0; i < 6; i++) {
+            if (e.which == (VALUE_OF_KEY_1 + i) && e.target == document.body) {
+                console.log("SOMEONE CLICKED 1!!!")
+                buttonClickEvent[i+1]();
+            }
+        }
+    });
 
     // objects = {type: 'BUTTON'||'SELECT', value: value}
     function fillEventsDivWithObjects(objects, functionToCallWhenDone) {
@@ -122,7 +134,9 @@
         var gridSize = parseInt(12 / objects.length); // Bootstrap columns grid works on size 12
         var colClass = 'col-md-' + gridSize;
 
-        objects.forEach(function(object, index) {
+        var buttonIndex = 1;
+
+        objects.forEach(function(object) {
             if (!object['type'] || !object['value']) {
                 console.error("Error got wrong form of objects in function fillEventsDivWithObjects! wrong format: " + objects);
                 return;
@@ -138,6 +152,10 @@
                     button.appendChild(heightText);
                     button.addEventListener("click", function() {functionToCallWhenDone(object.value)} );
                     element.appendChild(button);
+
+                    // key value of '1': 49
+                    buttonClickEvent[buttonIndex++] = function() { functionToCallWhenDone(object.value) };
+
                     break;
                 case 'select':
                     //Create and append select list
@@ -170,6 +188,12 @@
         var eventsDiv = $('#eventsDiv');
         eventsDiv.empty();
         eventsDiv.addClass('hidden');
+    }
+
+    function initializeEvents() {
+        hideEventsDiv();
+        showEventButtons();
+        initializeButtonClickEvent();
     }
 
     function sendEvent(event) {
