@@ -15,9 +15,6 @@ var pickup = {
         "endTime": {
             "type": "integer" // In seconds from start of video
         },
-        "timeTook": {
-            "type": "integer" // =endTime-startTime seconds
-        },
         "location": {
             "type": "keyword" // Can be: "feeder" || "floor"
         },

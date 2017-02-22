@@ -15,9 +15,6 @@ var climb = {
         "endTime": {
             "type": "integer" // In seconds from start of video
         },
-        "timeTook": {
-            "type": "integer"
-        },
         "status": {
             "type": "keyword" // Can be: "success" || "fail"
         },

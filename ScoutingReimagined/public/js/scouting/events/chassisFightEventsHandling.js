@@ -67,7 +67,6 @@ function chassisFight_status(chassisFight_location) {
 function chassisFight_finish(chassisFight_status) {
     chassisFight.status = chassisFight_status;
     chassisFight.endTime = 10; //videoCurrentTime
-    chassisFight.timeTook = chassisFight.endTime - chassisFight.startTime;
     if (status === 'Success') {
         chassisFight.status = status;
     } else {

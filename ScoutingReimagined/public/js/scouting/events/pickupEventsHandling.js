@@ -78,7 +78,6 @@ function pickup_status(pickup_location) {
 function pickup_finish(pickup_status) {
     pickup.status = pickup_status;
     pickup.endTime = 10; //videoCurrentTime
-    pickup.timeTook = pickup.endTime - pickup.startTime;
     if (status === 'Success') {
         pickup.status = status;
     } else {

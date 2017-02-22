@@ -71,7 +71,6 @@ function stuck_finish(stuck_recovery) {
     stuck.recovered = stuck_recovery == 'Recovered';
     stuck.endTime = 10; //videoCurrentTime
     var videoLength = 100; // TODO video length
-    stuck.timeTook = stuck.recovered ? videoLength : (stuck.endTime - stuck.startTime);
     sendEvent(stuck);
 
     initializeEvents();

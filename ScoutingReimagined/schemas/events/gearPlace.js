@@ -12,9 +12,6 @@ var gearPlace = {
         "endTime": {
             "type": "integer" // In seconds from start of video
         },
-        "timeTook": {
-            "type": "integer"
-        },
         "location": {
             "type": "keyword" // Can be: "left" || "center" || "right"
         },

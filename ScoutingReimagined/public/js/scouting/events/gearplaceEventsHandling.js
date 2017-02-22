@@ -54,7 +54,6 @@ function gearplace_status(gearplace_location) {
 function gearplace_finish(gearplace_status) {
     gearplace.status = gearplace_status;
     gearplace.endTime = 10; //videoCurrentTime
-    gearplace.timeTook = gearplace.endTime - gearplace.startTime;
     if (status === 'Success') {
         gearplace.status = status;
     } else {

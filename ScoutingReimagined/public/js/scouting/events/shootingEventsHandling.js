@@ -49,7 +49,6 @@ function shooting_status(height) {
 
 function shooting_finish(status) {
     shooting.endTime = 10; //videoCurrentTime
-    shooting.timeTook = shooting.endTime - shooting.startTime;
     if (status === 'Success') {
         shooting.status = status;
     } else {

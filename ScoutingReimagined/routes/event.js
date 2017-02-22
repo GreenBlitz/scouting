@@ -6,8 +6,13 @@ var client = require('../lib/elasticsearch/connection');
 router.post('/', function(req, res){
     console.log('GOT EVENT TO /event!!!! event body: ' + JSON.stringify(req.body));
 
-    var eventName = req.body.eventName;
+    var event = req.body;
+    var eventName = event.eventName;
+
     delete req.body.eventName;
+    event.timeTook = event.endTime - event.startTime;
+
+
 
     client.index({
         // teams/team/4590 : {}

@@ -15,9 +15,6 @@ var fight = {
         "endTime": {
             "type": "integer" // In seconds from start of video
         },
-        "timeTook": {
-            "type": "integer"
-        },
         "enemyTeam": {
             "type": "integer" // List of all enemy team numbers involved
         },

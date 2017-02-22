@@ -15,9 +15,6 @@ var disabled = {
         "endTime": {
             "type": "integer" // In seconds from start of video
         },
-        "timeTook": {
-            "type": "integer"
-        },
         "reason": {
             "type": "keyword" // Can be: TODO: add disabled reason codes for disabled events
         },
