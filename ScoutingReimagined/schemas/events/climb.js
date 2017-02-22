@@ -7,6 +7,9 @@ var climb = {
                 },
                 "gameId": {
                     "type": "integer"
+                },
+                "eventName": {
+                    "type": "keyword"
                 }
             }
         },

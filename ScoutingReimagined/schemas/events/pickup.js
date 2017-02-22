@@ -7,6 +7,9 @@ var pickup = {
                 },
                 "gameId": {
                     "type": "integer"
+                },
+                "eventName": {
+                    "type": "keyword"
                 }
             }
         },

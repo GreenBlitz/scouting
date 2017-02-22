@@ -2,7 +2,8 @@ function ChassisFight() {
     return {
         "meta_data": {
             "teamNumber": teamNumber,
-            "gameId": gameId
+            "gameId": gameId,
+            "eventName": "chassisFight"
         },
         "startTime": 1,// videoCurrentTime,
         "endTime": null,

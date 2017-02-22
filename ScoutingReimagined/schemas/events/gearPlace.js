@@ -7,6 +7,9 @@ var gearPlace = {
                 },
                 "gameId": {
                     "type": "integer"
+                },
+                "eventName": {
+                    "type": "keyword"
                 }
             }
         },

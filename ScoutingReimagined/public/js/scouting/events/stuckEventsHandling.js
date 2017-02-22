@@ -2,7 +2,8 @@ function Stuck() {
     return {
         "meta_data": {
             "teamNumber": teamNumber,
-            "gameId": gameId
+            "gameId": gameId,
+            "eventName": "stuck"
         },
         "startTime": 1,// videoCurrentTime,
         "endTime": null,

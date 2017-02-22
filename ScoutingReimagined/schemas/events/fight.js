@@ -7,6 +7,9 @@ var fight = {
                 },
                 "gameId": {
                     "type": "integer"
+                },
+                "eventName": {
+                    "type": "keyword"
                 }
             }
         },

@@ -7,6 +7,9 @@ var disabled = {
                 },
                 "gameId": {
                     "type": "integer"
+                },
+                "eventName": {
+                    "type": "keyword"
                 }
             }
         },
