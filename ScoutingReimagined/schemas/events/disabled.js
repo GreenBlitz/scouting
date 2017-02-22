@@ -23,7 +23,7 @@ var disabled = {
         "reason": {
             "type": "keyword" // Can be: TODO: add disabled reason codes for disabled events
         },
-        "recoverd": {
+        "recovered": {
             "type": "boolean"
         }
     }

@@ -1,4 +1,4 @@
-var ballPickup = {
+var pickup = {
     "properties": {
         "meta_data": {
             "properties": {
@@ -10,7 +10,9 @@ var ballPickup = {
                 }
             }
         },
-
+        "type": {
+            "type": "keyword" // can be: "ball" || "gear"
+        },
         "startTime": { // In seconds from start of video
             "type": "integer"
         },
@@ -32,4 +34,4 @@ var ballPickup = {
     }
 };
 
-module.exports = ballPickup;
+module.exports = pickup;

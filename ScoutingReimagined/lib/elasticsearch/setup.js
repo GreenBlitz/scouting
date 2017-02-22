@@ -79,11 +79,10 @@ function mapGames(client) {
  */
 function mapEvents(client) {
     //	TODO: Check if inserting the require expression inside typeToMapping is possible
-    var ballPickup = require(schemasDir + '/events/ballPickup');
+    var pickup = require(schemasDir + '/events/pickup');
     var climb = require(schemasDir + '/events/climb');
     var disabled = require(schemasDir + '/events/disabled');
     var fight = require(schemasDir + '/events/fight');
-    var gearPickup = require(schemasDir + '/events/gearPickup');
     var gearPlace = require(schemasDir + '/events/gearPlace');
     var shooting = require(schemasDir + '/events/shooting');
 
@@ -92,11 +91,10 @@ function mapEvents(client) {
      * @type {Dictionary}
      */
     var typeToMapping = {
-        "ballPickup": ballPickup,
         "climb": climb,
         "disabled": disabled,
         "fight": fight,
-        "gearPickup": gearPickup,
+        "pickup": pickup,
         "gearPlace": gearPlace,
         "shooting": shooting
     };

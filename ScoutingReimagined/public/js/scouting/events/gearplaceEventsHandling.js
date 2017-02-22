@@ -1,4 +1,4 @@
-function Shooting() {
+function GearPlace() {
     return {
         "meta_data": {
             "teamNumber": teamNumber,
@@ -7,35 +7,39 @@ function Shooting() {
         "startTime": 1,// videoCurrentTime,
         "endTime": null,
         "timeTook": null,
-        "location": null, // Can be: "low" || "high"
+        "location": null, // Can be: "left" || "center" || "right"
         "status": null, // Can be: "success" || "fail"
         "failReason": null // Can be: TODO: add fail reasons codes for shooting events
     }
 }
 
-var shooting = null;
+var gearplace = null;
 
-function shooting_start() {
-    shooting = Shooting();
+function gearplace_start() {
+    gearplace = GearPlace();
     hideAllButtons();
-    shooting_HighLow();
+    pickup_gearOrBall();
 }
 
-function shooting_HighLow() {
+function gearplace_location() {
     fillEventsDivWithObjects([
         {
             type: 'button',
-            value: 'High'
+            value: 'Left'
         },
         {
             type: 'button',
-            value: 'Low'
+            value: 'Center'
+        },
+        {
+            type: 'button',
+            value: 'Right'
         }
-    ], shooting_status);
+    ], gearplace_status);
 }
 
-function shooting_status(height) {
-    shooting.location = height;
+function gearplace_status(gearplace_location) {
+    gearplace.location = gearplace_location;
     fillEventsDivWithObjects([
         {
             type: 'button',
@@ -45,19 +49,20 @@ function shooting_status(height) {
             type:'select',
             value: ['Failure', 'Failed because of interruption', 'Failed because of mechanical failure']
         }
-    ], shooting_finish)
+    ], gearplace_finish);
 }
 
-function shooting_finish(status) {
-    shooting.endTime = 10; //videoCurrentTime
-    shooting.timeTook = shooting.endTime - shooting.startTime;
+function gearplace_finish(gearplace_status) {
+    gearplace.status = gearplace_status;
+    gearplace.endTime = 10; //videoCurrentTime
+    gearplace.timeTook = gearplace.endTime - gearplace.startTime;
     if (status === 'Success') {
-        shooting.status = status;
+        gearplace.status = status;
     } else {
-        shooting.status = 'Failure';
-        shooting.failReason = status;
+        gearplace.status = 'Failure';
+        gearplace.failReason = status;
     }
-    sendEvent(shooting);
+    sendEvent(gearplace);
 
     initializeEvents();
 }
