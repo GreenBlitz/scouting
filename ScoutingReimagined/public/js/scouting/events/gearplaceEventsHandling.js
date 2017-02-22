@@ -1,10 +1,8 @@
 function GearPlace() {
     return {
-        "meta_data": {
-            "teamNumber": teamNumber,
-            "gameId": gameId,
-            "eventName": "gearplace"
-        },
+        "teamNumber": teamNumber,
+        "gameId": gameId,
+        "eventName": "gearplace",
         "startTime": 1,// videoCurrentTime,
         "endTime": null,
         "timeTook": null,

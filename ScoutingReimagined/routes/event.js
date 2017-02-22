@@ -6,16 +6,14 @@ var client = require('../lib/elasticsearch/connection');
 router.post('/', function(req, res){
     console.log('GOT EVENT TO /event!!!! event body: ' + JSON.stringify(req.body));
 
-    var eventName = req.body['meta_data[eventName]'];
-    var gameId = req.body['meta_data[gameId]'];
-    var teamNumber = req.body['meta_data[teamNumber]'];
-
+    var eventName = req.body.eventName;
+    delete req.body.eventName;
 
     client.index({
         // teams/team/4590 : {}
         index: 'events',
         type: eventName,
-        body: eventBodyToEvent(req.body)
+        body: req.body
     }, function (err, resp, status) {
         console.log(resp);
         if (err) {
@@ -28,13 +26,5 @@ router.post('/', function(req, res){
         }
     });
 });
-
-function eventBodyToEvent(bodyEvent) {
-    delete bodyEvent['meta_data[eventName]'];
-    delete bodyEvent['meta_data[gameId]'];
-    bodyEvent.teamNumber = bodyEvent['meta_data[teamNumber]'];
-    delete bodyEvent['meta_data[teamNumber]'];
-    return bodyEvent;
-}
 
 module.exports = router;

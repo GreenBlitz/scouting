@@ -1,10 +1,8 @@
 function PickUp() {
     return {
-        "meta_data": {
-            "teamNumber": teamNumber,
-            "gameId": gameId,
-            "eventName": "pickup"
-        },
+        "teamNumber": teamNumber,
+        "gameId": gameId,
+        "eventName": "pickup",
         "type": null,
         "startTime": 1,// videoCurrentTime,
         "endTime": null,

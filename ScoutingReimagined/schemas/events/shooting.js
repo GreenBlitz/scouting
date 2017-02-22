@@ -1,19 +1,11 @@
 var shooting = {
     "properties": {
-        "meta_data": {
-            "properties": {
-                "teamNumber": {
-                    "type": "integer"
-                },
-                "gameId": {
-                    "type": "integer"
-                },
-                "eventName": {
-                    "type": "keyword"
-                }
-            }
+        "teamNumber": {
+            "type": "integer"
         },
-
+        "gameId": {
+            "type": "integer"
+        },
         "startTime": { // In seconds from start of video
             "type": "integer"
         },

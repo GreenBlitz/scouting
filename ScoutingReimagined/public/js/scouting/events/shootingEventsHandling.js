@@ -1,10 +1,8 @@
 function Shooting() {
     return {
-        "meta_data": {
-            "teamNumber": teamNumber,
-            "gameId": gameId,
-            "eventName": "shooting"
-        },
+        "teamNumber": teamNumber,
+        "gameId": gameId,
+        "eventName": "shooting",
         "startTime": 1,// videoCurrentTime,
         "endTime": null,
         "timeTook": null,

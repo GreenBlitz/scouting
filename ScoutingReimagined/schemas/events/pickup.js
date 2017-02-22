@@ -1,17 +1,10 @@
 var pickup = {
     "properties": {
-        "meta_data": {
-            "properties": {
-                "teamNumber": {
-                    "type": "integer"
-                },
-                "gameId": {
-                    "type": "integer"
-                },
-                "eventName": {
-                    "type": "keyword"
-                }
-            }
+        "teamNumber": {
+            "type": "integer"
+        },
+        "gameId": {
+            "type": "integer"
         },
         "type": {
             "type": "keyword" // can be: "ball" || "gear"
