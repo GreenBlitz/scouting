@@ -114,6 +114,10 @@
         }
     }
 
+    function resetButtonClickEvents() {
+        buttonClickEvent = {};
+    }
+
     initializeButtonClickEvent();
 
     $(window).keypress(function(e) {
@@ -143,6 +147,8 @@
         var colClass = 'col-md-' + gridSize;
 
         var buttonIndex = 1;
+
+        resetButtonClickEvents();
 
         objects.forEach(function(object) {
             if (!object['type'] || !object['value']) {
