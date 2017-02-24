@@ -69,6 +69,7 @@ function chassisFight_finish(chassisFight_status) {
     chassisFight.endTime = 10; //videoCurrentTime
     if (status === 'Success') {
         chassisFight.status = status;
+        delete chassisFight.failReason; // Prevent ElasticSearch from indexing this value
     } else {
         chassisFight.status = 'Failure';
         chassisFight.failReason = status;

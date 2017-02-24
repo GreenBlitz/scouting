@@ -79,6 +79,7 @@ function pickup_finish(pickup_status) {
     pickup.endTime = 10; //videoCurrentTime
     if (pickup_status === 'Success') {
         pickup.status = pickup_status;
+        delete pickup.failReason;  // Prevent ElasticSearch from indexing this value
     } else {
         pickup.status = 'Failure';
         pickup.failReason = pickup_status;

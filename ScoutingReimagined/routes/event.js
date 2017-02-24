@@ -14,6 +14,7 @@ router.post('/', function(req, res){
 
 
 
+
     client.index({
         // teams/team/4590 : {}
         index: 'events',

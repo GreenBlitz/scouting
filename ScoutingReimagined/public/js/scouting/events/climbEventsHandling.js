@@ -36,6 +36,7 @@ function climb_finish(climb_status) {
     climb.endTime = 10; //videoCurrentTime
     if (climb_status === 'Success') {
         climb.status = climb_status;
+        delete climb.failReason; // Prevent ElasticSearch from indexing this value
     } else {
         climb.status = 'Failure';
         climb.failReason = climb_status;

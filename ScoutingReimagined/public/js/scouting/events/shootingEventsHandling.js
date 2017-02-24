@@ -51,6 +51,7 @@ function shooting_finish(status) {
     shooting.endTime = 10; //videoCurrentTime
     if (status === 'Success') {
         shooting.status = status;
+        delete shooting.failReason; // Prevent ElasticSearch from indexing this value
     } else {
         shooting.status = 'Failure';
         shooting.failReason = status;

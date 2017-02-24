@@ -56,6 +56,7 @@ function gearplace_finish(gearplace_status) {
     gearplace.endTime = 10; //videoCurrentTime
     if (status === 'Success') {
         gearplace.status = status;
+        delete gearplace.failReason; // Prevent ElasticSearch from indexing this value
     } else {
         gearplace.status = 'Failure';
         gearplace.failReason = status;
