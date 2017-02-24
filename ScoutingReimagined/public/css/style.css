@@ -44,6 +44,15 @@
     font-size: xx-large;
 }
 
+.team-label {
+    text-align: center;
+    display: inline-block;
+    border: solid 1px #ddd;
+    background-color: #eee;
+    width: 100%;
+    font-size: 333%;
+}
+
 .timeline {
     list-style: none;
     padding: 20px 0 20px;

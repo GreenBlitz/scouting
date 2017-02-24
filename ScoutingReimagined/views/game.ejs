@@ -136,7 +136,7 @@
                                     <button id="gearplace" class="btn btn-info btn-block" style="height: 10vh; font-size: xx-large" onclick="gearplace_start()">Gear Place</button>
                                 </div>
                                 <div class="col-sm-2">
-                                    <button id="chassisfight" class="btn btn-info btn-block" style="height: 10vh; font-size: xx-large">Fight</button>
+                                    <button id="chassisfight" class="btn btn-info btn-block" style="height: 10vh; font-size: xx-large" onclick="chassisFight_start()">Fight</button>
                                 </div>
                                 <div class="col-sm-2">
                                     <button id="climb" class="btn btn-info btn-block" style="height: 10vh; font-size: xx-large" onclick="climb_start()">Climb</button>
@@ -199,8 +199,10 @@
     console.log("blueTeams: " + blueTeams);
     console.log("redTeams: " + redTeams);
 
-    function seconds_since_epoch(){ return Math.floor( Date.now() / 1000 ) }
-
+    function isFunction(functionToCheck) {
+        var getType = {};
+        return functionToCheck && getType.toString.call(functionToCheck) === '[object Function]';
+    }
     function hideAllButtons() {
         buttonIds.forEach(function(buttonId) {
             $('#' + buttonId).addClass('hidden');
@@ -213,14 +215,15 @@
         })
     }
 
-    var buttonClickEvent = {}
+    var buttonClickEvent = {};
+    var onEnterKeyClick = function(){};
 
     function initializeButtonClickEvent() {
         buttonClickEvent = {
             1: shooting_start,
             2: pickup_start,
             3: gearplace_start,
-            4: function(){},
+            4: chassisFight_start,
             5: climb_start,
             6: stuck_start
         }
@@ -242,10 +245,15 @@
                 video.pause();
             return;
         }
+        if (e.which == 13) {
+            console.log("Clicked enter!");
+            onEnterKeyClick();
+        }
         var VALUE_OF_KEY_1 = 49;
         for(var i = 0; i < 6; i++) {
-            if (e.which == (VALUE_OF_KEY_1 + i) && e.target == document.body) {
-                buttonClickEvent[i+1]();
+            if (e.which == (VALUE_OF_KEY_1 + i) && e.target == document.body
+                && isFunction(buttonClickEvent[i+1])) {
+                    buttonClickEvent[i + 1]()
             }
         }
     });

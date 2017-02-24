@@ -5,7 +5,6 @@ function Shooting() {
         "eventName": "shooting",
         "startTime": Math.round(gameUploadTime + gameVideo.currentTime),
         "endTime": null,
-        "timeTook": null,
         "location": null, // Can be: "low" || "high"
         "status": null, // Can be: "success" || "fail"
         "failReason": null // Can be: TODO: add fail reasons codes for shooting events
