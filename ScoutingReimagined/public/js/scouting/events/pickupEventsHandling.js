@@ -76,13 +76,12 @@ function pickup_status(pickup_location) {
 }
 
 function pickup_finish(pickup_status) {
-    pickup.status = pickup_status;
     pickup.endTime = 10; //videoCurrentTime
-    if (status === 'Success') {
-        pickup.status = status;
+    if (pickup_status === 'Success') {
+        pickup.status = pickup_status;
     } else {
         pickup.status = 'Failure';
-        pickup.failReason = status;
+        pickup.failReason = pickup_status;
     }
     sendEvent(pickup);
 
