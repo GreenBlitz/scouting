@@ -29,6 +29,10 @@ router.get('/', function(req, res, next) {
                 res.sendStatus(500);
             }
         } else {
+            if (!response['hits'] || response['hits'].total == 0) {
+                res.sendStatus(404);
+                return;
+            }
             console.log("Response got from elasticsearch on game: " + JSON.stringify(response));
             var data = response.hits.hits[0]._source;
             res.render('game', {teamNumber: teamNumber, gameId: gameId, matchType: matchType,

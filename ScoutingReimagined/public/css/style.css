@@ -43,3 +43,12 @@
     height: 10vh;
     font-size: xx-large;
 }
+
+.team-label {
+    text-align: center;
+    display: inline-block;
+    border: solid 1px #ddd;
+    background-color: #eee;
+    width: 100%;
+    font-size: 333%;
+}

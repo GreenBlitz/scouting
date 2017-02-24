@@ -5,7 +5,6 @@ function Stuck() {
         "eventName": "stuck",
         "startTime": Math.round(gameUploadTime + gameVideo.currentTime),
         "endTime": null,
-        "timeTook": null,
         "reason": null, // Can be: TODO: add disabled reason codes for disabled events
         "recovered": null // boolean
     }
