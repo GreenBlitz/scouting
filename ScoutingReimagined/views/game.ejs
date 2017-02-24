@@ -99,8 +99,10 @@
     console.log("blueTeams: " + blueTeams);
     console.log("redTeams: " + redTeams);
 
-    function seconds_since_epoch(){ return Math.floor( Date.now() / 1000 ) }
-
+    function isFunction(functionToCheck) {
+        var getType = {};
+        return functionToCheck && getType.toString.call(functionToCheck) === '[object Function]';
+    }
     function hideAllButtons() {
         buttonIds.forEach(function(buttonId) {
             $('#' + buttonId).addClass('hidden');
@@ -144,8 +146,9 @@
         }
         var VALUE_OF_KEY_1 = 49;
         for(var i = 0; i < 6; i++) {
-            if (e.which == (VALUE_OF_KEY_1 + i) && e.target == document.body) {
-                buttonClickEvent[i+1]();
+            if (e.which == (VALUE_OF_KEY_1 + i) && e.target == document.body
+                && isFunction(buttonClickEvent[i+1])) {
+                    buttonClickEvent[i + 1]()
             }
         }
     });
