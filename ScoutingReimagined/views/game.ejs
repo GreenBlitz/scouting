@@ -89,6 +89,18 @@
     buttonIds = ['shooting', 'pickup', 'gearplace', 'chassisfight', 'climb', 'stuck'];
 
 
+    var gameVideo = document.getElementById("gameVideo");
+
+    var blueTeams = <%- JSON.stringify(blueTeams) %>;
+    var redTeams = <%- JSON.stringify(redTeams) %>;
+    var gameUploadTime = <%- JSON.stringify(gameUploadTime) %>;
+
+
+    console.log("blueTeams: " + blueTeams);
+    console.log("redTeams: " + redTeams);
+
+    function seconds_since_epoch(){ return Math.floor( Date.now() / 1000 ) }
+
     function hideAllButtons() {
         buttonIds.forEach(function(buttonId) {
             $('#' + buttonId).addClass('hidden');

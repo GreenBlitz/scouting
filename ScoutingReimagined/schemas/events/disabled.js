@@ -1,5 +1,8 @@
 var disabled = {
     "properties": {
+        "date": {
+            "type": "date"
+        },
         "teamNumber": {
             "type": "integer"
         },
@@ -9,11 +12,11 @@ var disabled = {
         "eventName": {
             "type": "keyword"
         },
-        "startTime": { // In seconds from start of video
-            "type": "integer"
+        "startTime": {
+            "type": "date" // Epoch time, videoCurrentTime+gameUploadTime
         },
         "endTime": {
-            "type": "integer" // In seconds from start of video
+            "type": "date" // Epoch time, videoCurrentTime+gameUploadTime
         },
         "reason": {
             "type": "keyword" // Can be: TODO: add disabled reason codes for disabled events

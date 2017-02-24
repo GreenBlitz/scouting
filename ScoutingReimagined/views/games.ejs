@@ -36,7 +36,7 @@
                                                 </ul>
                                             </div>
                                             <div class="panel-body">
-                                                <% Playoffs.forEach(function(game) { console.log(game); %>
+                                                <% Playoffs.sort(function(a, b) {return a.gameId < b.gameId});Playoffs.forEach(function(game) { console.log(game); %>
                                                     <div class="row">
                                                         <div class="col-md-2 game-title">
                                                             Game #<%= game['gameId'] %>
@@ -44,7 +44,7 @@
                                                         <div class="col-md-10">
                                                             <% if (game['blueTeams']) {  Array.prototype.forEach.call(game['blueTeams'], blueTeam => { %>
                                                             <div class="col-md-2">
-                                                                <a href="/game?gameId=<%= game['gameId'] + '&teamNumber=' + blueTeam %>" class="tile tile-default games-team blue-team">
+                                                                <a href="/game?gameId=<%= game['gameId'] + '&teamNumber=' + blueTeam + "&type=Playoffs" %>" class="tile tile-default games-team blue-team">
                                                                     <%= blueTeam %>
                                                                     <div class="informer informer-danger dir-tr"></div>
                                                                 </a>
@@ -53,7 +53,7 @@
 
                                                             <% if (game['redTeams']) {  Array.prototype.forEach.call(game['redTeams'], redTeam => { %>
                                                             <div class="col-md-2">
-                                                                <a href="/game?gameId=<%= game['gameId'] + '&teamNumber=' + redTeam %>" class="tile tile-default games-team red-team">
+                                                                <a href="/game?gameId=<%= game['gameId'] + '&teamNumber=' + redTeam + "&type=Playoffs" %>" class="tile tile-default games-team red-team">
                                                                     <%= redTeam %>
                                                                     <div class="informer informer-danger dir-tr"></div>
                                                                 </a>
@@ -79,7 +79,7 @@
                                                 </ul>
                                             </div>
                                             <div class="panel-body">
-                                                <% Qualification.forEach(function(game) { console.log(game); %>
+                                                <% Qualification.sort(function(a, b) {return a.gameId < b.gameId});Qualification.forEach(function(game) { console.log(game); %>
                                                     <div class="row">
                                                         <div class="col-md-2 game-title">
                                                             Game #<%= game['gameId'] %>
@@ -87,7 +87,7 @@
                                                         <div class="col-md-10">
                                                             <% if (game['blueTeams']) {  Array.prototype.forEach.call(game['blueTeams'], blueTeam => { %>
                                                             <div class="col-md-2">
-                                                                <a href="/game?gameId=<%= game['gameId'] + '&teamNumber=' + blueTeam %>" class="tile tile-default games-team blue-team">
+                                                                <a href="/game?gameId=<%= game['gameId'] + '&teamNumber=' + blueTeam + "&type=Qualification" %>" class="tile tile-default games-team blue-team">
                                                                     <%= blueTeam %>
                                                                     <div class="informer informer-danger dir-tr"></div>
                                                                 </a>
@@ -96,7 +96,7 @@
 
                                                             <% if (game['redTeams']) {  Array.prototype.forEach.call(game['redTeams'], redTeam => { %>
                                                             <div class="col-md-2">
-                                                                <a href="/game?gameId=<%= game['gameId'] + '&teamNumber=' + redTeam %>" class="tile tile-default games-team red-team">
+                                                                <a href="/game?gameId=<%= game['gameId'] + '&teamNumber=' + redTeam  + "&type=Qualification" %>" class="tile tile-default games-team red-team">
                                                                     <%= redTeam %>
                                                                     <div class="informer informer-danger dir-tr"></div>
                                                                 </a>
@@ -122,7 +122,7 @@
                                                 </ul>
                                             </div>
                                             <div class="panel-body">
-                                                <% Practice.forEach(function(game) { console.log(game); %>
+                                                <% Practice.sort(function(a, b) {return a.gameId < b.gameId});Practice.forEach(function(game) { console.log(game); %>
                                                     <div class="row">
                                                         <div class="col-md-2 game-title">
                                                             Game #<%= game['gameId'] %>
@@ -130,7 +130,7 @@
                                                         <div class="col-md-10">
                                                             <% if (game['blueTeams']) {  Array.prototype.forEach.call(game['blueTeams'], blueTeam => { %>
                                                             <div class="col-md-2">
-                                                                <a href="/game?gameId=<%= game['gameId'] + '&teamNumber=' + blueTeam %>" class="tile tile-default games-team blue-team">
+                                                                <a href="/game?gameId=<%= game['gameId'] + '&teamNumber=' + blueTeam + "&type=Practice"%>" class="tile tile-default games-team blue-team">
                                                                     <%= blueTeam %>
                                                                     <div class="informer informer-danger dir-tr"></div>
                                                                 </a>
@@ -139,7 +139,7 @@
 
                                                             <% if (game['redTeams']) {  Array.prototype.forEach.call(game['redTeams'], redTeam => { %>
                                                             <div class="col-md-2">
-                                                                <a href="/game?gameId=<%= game['gameId'] + '&teamNumber=' + redTeam %>" class="tile tile-default games-team red-team">
+                                                                <a href="/game?gameId=<%= game['gameId'] + '&teamNumber=' + redTeam + "&type=Practice"%>" class="tile tile-default games-team red-team">
                                                                     <%= redTeam %>
                                                                     <div class="informer informer-danger dir-tr"></div>
                                                                 </a>
@@ -170,6 +170,16 @@
     <% include templates/logoutMessagebox.ejs %>
 
         <% include templates/footer.ejs%>
+
+    <script>
+        var playoffs = <%- JSON.stringify(Playoffs) %>;
+        var practice = <%- JSON.stringify(Practice) %>;
+
+        console.log("playoffs: " + JSON.stringify(playoffs));
+        console.log("practice: " + JSON.stringify(practice));
+
+    </script>
+
 
 </body>
 

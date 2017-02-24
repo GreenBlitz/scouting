@@ -3,7 +3,7 @@ function ChassisFight() {
         "teamNumber": teamNumber,
         "gameId": gameId,
         "eventName": "chassisFight",
-        "startTime": 1,// videoCurrentTime,
+        "startTime": Math.round(gameUploadTime + gameVideo.currentTime),// videoCurrentTime,
         "endTime": null,
         "timeTook": null,
         "alliedTeam": null, // List of all allied team numbers involved
@@ -66,7 +66,7 @@ function chassisFight_status(chassisFight_location) {
 
 function chassisFight_finish(chassisFight_status) {
     chassisFight.status = chassisFight_status;
-    chassisFight.endTime = 10; //videoCurrentTime
+    chassisFight.endTime = Math.round(gameUploadTime + gameVideo.currentTime);
     if (status === 'Success') {
         chassisFight.status = status;
         delete chassisFight.failReason; // Prevent ElasticSearch from indexing this value

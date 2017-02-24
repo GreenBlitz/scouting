@@ -3,7 +3,7 @@ function GearPlace() {
         "teamNumber": teamNumber,
         "gameId": gameId,
         "eventName": "gearplace",
-        "startTime": 1,// videoCurrentTime,
+        "startTime": Math.round(gameUploadTime + gameVideo.currentTime),
         "endTime": null,
         "timeTook": null,
         "location": null, // Can be: "left" || "center" || "right"
@@ -53,7 +53,7 @@ function gearplace_status(gearplace_location) {
 
 function gearplace_finish(gearplace_status) {
     gearplace.status = gearplace_status;
-    gearplace.endTime = 10; //videoCurrentTime
+    gearplace.endTime = Math.round(gameUploadTime + gameVideo.currentTime);
     if (status === 'Success') {
         gearplace.status = status;
         delete gearplace.failReason; // Prevent ElasticSearch from indexing this value

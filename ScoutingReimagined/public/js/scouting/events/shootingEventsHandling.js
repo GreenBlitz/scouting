@@ -3,7 +3,7 @@ function Shooting() {
         "teamNumber": teamNumber,
         "gameId": gameId,
         "eventName": "shooting",
-        "startTime": 1,// videoCurrentTime,
+        "startTime": Math.round(gameUploadTime + gameVideo.currentTime),
         "endTime": null,
         "timeTook": null,
         "location": null, // Can be: "low" || "high"
@@ -48,7 +48,7 @@ function shooting_status(height) {
 }
 
 function shooting_finish(status) {
-    shooting.endTime = 10; //videoCurrentTime
+    shooting.endTime = Math.round(gameUploadTime + gameVideo.currentTime);
     if (status === 'Success') {
         shooting.status = status;
         delete shooting.failReason; // Prevent ElasticSearch from indexing this value

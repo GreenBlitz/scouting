@@ -4,7 +4,7 @@ function PickUp() {
         "gameId": gameId,
         "eventName": "pickup",
         "type": null,
-        "startTime": 1,// videoCurrentTime,
+        "startTime": Math.round(gameUploadTime + gameVideo.currentTime),
         "endTime": null,
         "timeTook": null,
         "location": null, // Can be: "low" || "high"
@@ -76,7 +76,7 @@ function pickup_status(pickup_location) {
 }
 
 function pickup_finish(pickup_status) {
-    pickup.endTime = 10; //videoCurrentTime
+    pickup.endTime = Math.round(gameUploadTime + gameVideo.currentTime);
     if (pickup_status === 'Success') {
         pickup.status = pickup_status;
         delete pickup.failReason;  // Prevent ElasticSearch from indexing this value

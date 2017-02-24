@@ -3,7 +3,7 @@ function Stuck() {
         "teamNumber": teamNumber,
         "gameId": gameId,
         "eventName": "stuck",
-        "startTime": 1,// videoCurrentTime,
+        "startTime": Math.round(gameUploadTime + gameVideo.currentTime),
         "endTime": null,
         "timeTook": null,
         "reason": null, // Can be: TODO: add disabled reason codes for disabled events
@@ -69,7 +69,7 @@ function stuck_recovered(stuck_reason) {
 
 function stuck_finish(stuck_recovery) {
     stuck.recovered = stuck_recovery == 'Recovered';
-    stuck.endTime = 10; //videoCurrentTime
+    stuck.endTime = Math.round(gameUploadTime + gameVideo.currentTime);
     var videoLength = 100; // TODO video length
     sendEvent(stuck);
 

@@ -13,6 +13,12 @@ var handleUpload = function (req, res) {
     var gameid = req.body.gameid;
     var matchType = req.body.matchType;
     var comments = req.body.comments;
+
+
+
+    var d = new Date();
+    var gameUploadTime = Math.round(d.getTime() / 1000);
+
     client.index({
         // teams/team/4590 : {}
         index: 'games',
@@ -22,7 +28,8 @@ var handleUpload = function (req, res) {
             "blueTeams": blueTeams,
             "redTeams": redTeams,
             "comments": comments,
-            "gameId": gameid
+            "gameId": gameid,
+            "date": gameUploadTime
         }
     }, function (err, resp, status) {
         console.log(resp);

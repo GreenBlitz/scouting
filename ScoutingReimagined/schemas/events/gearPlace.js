@@ -1,16 +1,19 @@
 var gearPlace = {
     "properties": {
+        "date": {
+            "type": "date"
+        },
         "teamNumber": {
             "type": "integer"
         },
         "gameId": {
             "type": "integer"
         },
-        "startTime": { // In seconds from start of video
-            "type": "integer"
+        "startTime": {
+            "type": "date" // Epoch time, videoCurrentTime+gameUploadTime
         },
         "endTime": {
-            "type": "integer" // In seconds from start of video
+            "type": "date" // Epoch time, videoCurrentTime+gameUploadTime
         },
         "location": {
             "type": "keyword" // Can be: "left" || "center" || "right"

@@ -12,6 +12,9 @@
 
 var game = {
     "properties": {
+        "date": {
+            "type": "date"
+        },
         "gameId": {
             "type": "integer"
         },

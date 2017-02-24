@@ -1,5 +1,8 @@
 var fight = {
     "properties": {
+        "date": {
+            "type": "date"
+        },
         "teamNumber": {
             "type": "integer"
         },
@@ -9,11 +12,11 @@ var fight = {
         "eventName": {
             "type": "keyword"
         },
-        "startTime": { // In seconds from start of video
-            "type": "integer"
+        "startTime": {
+            "type": "date" // Epoch time, videoCurrentTime+gameUploadTime
         },
         "endTime": {
-            "type": "integer" // In seconds from start of video
+            "type": "date" // Epoch time, videoCurrentTime+gameUploadTime
         },
         "enemyTeam": {
             "type": "integer" // List of all enemy team numbers involved

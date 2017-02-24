@@ -3,7 +3,7 @@ function Climb() {
         "teamNumber": teamNumber,
         "gameId": gameId,
         "eventName": "climb",
-        "startTime": 1,// videoCurrentTime,
+        "startTime": Math.round(gameUploadTime + gameVideo.currentTime),// videoCurrentTime,
         "endTime": null,
         "timeTook": null,
         "status": null, // Can be: "success" || "fail"
@@ -33,7 +33,7 @@ function climb_status() {
 }
 
 function climb_finish(climb_status) {
-    climb.endTime = 10; //videoCurrentTime
+    climb.endTime = Math.round(gameUploadTime + gameVideo.currentTime);
     if (climb_status === 'Success') {
         climb.status = climb_status;
         delete climb.failReason; // Prevent ElasticSearch from indexing this value
