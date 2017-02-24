@@ -59,7 +59,7 @@
         content: " ";
         width: 3px;
         background-color: #eeeeee;
-        left: 50%;
+        left: 85%;
         margin-left: -1.5px;
     }
 
@@ -89,7 +89,7 @@
         }
 
         .timeline > li > .timeline-panel {
-            width: 46%;
+            width: 82%;
             float: left;
             border: 1px solid #d4d4d4;
             border-radius: 2px;
@@ -132,7 +132,7 @@
             text-align: center;
             position: absolute;
             top: 16px;
-            left: 50%;
+            left: 93%;
             margin-left: -25px;
             background-color: #999999;
             z-index: 100;
