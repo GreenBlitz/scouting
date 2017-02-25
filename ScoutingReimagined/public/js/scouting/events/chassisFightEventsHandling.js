@@ -85,6 +85,16 @@ function addCheckbox(content, color, id, name) {
     var element = document.createElement("div");
     element.className = "col-md-2";
 
+    var clickOffset = name == "red" ? 3 : 0;
+
+    console.log(name + ":" + (id + clickOffset));
+    console.log(name == "red");
+    console.log(clickOffset);
+
+    buttonClickEvent[id + clickOffset] = function() {
+        checkbox.checked = !checkbox.checked;
+    };
+
     element.appendChild(checkbox);
     element.appendChild(label);
     eventsDiv.append(element);
@@ -124,7 +134,7 @@ function chassisFight_status() {
 }
 
 function chassisFight_finish(chassisFight_status) {
-    chassisFight.status = chassisFight_status;
+    chassisFight.status = chassisFight_status == 'Win' ? 'Success' : 'Failure';
     chassisFight.endTime = Math.round(gameUploadTime + gameVideo.currentTime);
     sendEvent(chassisFight);
 

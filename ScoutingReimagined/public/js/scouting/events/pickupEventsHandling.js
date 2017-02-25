@@ -12,7 +12,7 @@ function PickUp() {
     }
 }
 
-var pickup = null;
+var pickup = pickup || PickUp();
 
 function pickup_start() {
     pickup = PickUp();

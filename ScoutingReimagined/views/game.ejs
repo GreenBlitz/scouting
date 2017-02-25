@@ -167,12 +167,17 @@
 <script type="text/javascript">
     var gameId = <%- JSON.stringify(gameId) %>;
     var teamNumber = <%- JSON.stringify(teamNumber) %>;
+
+    var gameVideo = document.getElementById("gameVideo");
+
+    var blueTeams = <%- JSON.stringify(blueTeams) %>;
+    var redTeams = <%- JSON.stringify(redTeams) %>;
+    var gameUploadTime = <%- JSON.stringify(gameUploadTime) %>;
 </script>
 <script src="/js/scouting/binary.js"></script>
 <script src="/js/scouting/common.js"></script>
 <script src="/js/scouting/video.js"></script>
 <script src="/js/scouting/main.js"></script>
-
 
 <script type="text/javascript" src="/js/scouting/events/shootingEventsHandling.js"></script>
 <script type="text/javascript" src="/js/scouting/events/pickupEventsHandling.js"></script>
@@ -181,7 +186,6 @@
 <script type="text/javascript" src="/js/scouting/events/climbEventsHandling.js"></script>
 <script type="text/javascript" src="/js/scouting/events/stuckEventsHandling.js"></script>
 
-
 <script type="text/javascript" src="/js/scouting/events/timeline/utils.js"></script>
 
 
@@ -189,17 +193,8 @@
     buttonIds = ['shooting', 'pickup', 'gearplace', 'chassisfight', 'climb', 'stuck'];
 
 
-    var gameVideo = document.getElementById("gameVideo");
-
-    var blueTeams = <%- JSON.stringify(blueTeams) %>;
-    var redTeams = <%- JSON.stringify(redTeams) %>;
-    var gameUploadTime = <%- JSON.stringify(gameUploadTime) %>;
-
-
-    console.log("blueTeams: " + blueTeams);
-    console.log("redTeams: " + redTeams);
-
     function isFunction(functionToCheck) {
+        console.log("Is function?")
         var getType = {};
         return functionToCheck && getType.toString.call(functionToCheck) === '[object Function]';
     }
@@ -340,6 +335,9 @@
         });
     }
 </script>
+
+
+
 </body>
 
 </html>
