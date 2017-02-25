@@ -106,10 +106,10 @@ function chassisFight_status() {
         var blue = document.getElementById('blue' + i);
         var red = document.getElementById('red' + i);
         if (blue.checked) {
-            blues.push(blueTeams[i])
+            blues.push(blueTeams[i-1])
         }
-        if (blue.red) {
-            blues.push(redTeams[i])
+        if (red.checked) {
+            reds.push(redTeams[i-1])
         }
     }
 
@@ -120,6 +120,9 @@ function chassisFight_status() {
         chassisFight.alliedTeam = reds;
         chassisFight.enemyTeam = blues;
     }
+
+    console.log('Allies: ' + chassisFight.alliedTeam);
+    console.log('Enemies: ' + chassisFight.enemyTeam);
 
     fillEventsDivWithObjects([
         {

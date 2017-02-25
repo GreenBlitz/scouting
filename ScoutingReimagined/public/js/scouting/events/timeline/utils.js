@@ -102,7 +102,7 @@ function getBodyContent(event) {
         case "climb":
             return "Attempted climbing. " + (event.failReason ? event.failReason : "Succeeded") + ". Time Took: " + timeTook;
         case "chassisFight":
-            return (event.initiated ? "Initiated" : "Endured") + " fight against: " + event.enemyTeam + ", with: " + event.alliedTeam + ". " +
+            return (event.initiated ? "Initiated" : "Endured") + " fight against: " + event.enemyTeam + " with: " + event.alliedTeam + ". " +
                 (event.failReason ? event.failReason : "Succeeded") + ". Time Took: " + timeTook;
         case "pickup":
             return "Attempted Picking up " + event.type + " from " + event.location + ". " + (event.failReason ? event.failReason : "Succeeded") + ". Time Took: " + timeTook;
