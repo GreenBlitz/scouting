@@ -87,10 +87,6 @@ function addCheckbox(content, color, id, name) {
 
     var clickOffset = name == "red" ? 3 : 0;
 
-    console.log(name + ":" + (id + clickOffset));
-    console.log(name == "red");
-    console.log(clickOffset);
-
     buttonClickEvent[id + clickOffset] = function() {
         checkbox.checked = !checkbox.checked;
     };
