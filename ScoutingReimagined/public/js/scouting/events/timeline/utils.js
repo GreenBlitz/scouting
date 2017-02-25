@@ -98,7 +98,7 @@ function getBodyContent(event) {
         case "shooting":
             return "Attempted shooting from " + event.location + ". " + (event.failReason ? event.failReason : "Succeeded") + ". Time Took: " + timeTook;
         case "gearplace":
-            return "Attempted placing gear on " + event.location + ". " (event.failReason ? event.failReason : "Succeeded") + ". Time Took: " + timeTook;
+            return "Attempted placing gear on " + event.location + ". " + (event.failReason ? event.failReason : "Succeeded") + ". Time Took: " + timeTook;
         case "climb":
             return "Attempted climbing. " + (event.failReason ? event.failReason : "Succeeded") + ". Time Took: " + timeTook;
         case "chassisFight":

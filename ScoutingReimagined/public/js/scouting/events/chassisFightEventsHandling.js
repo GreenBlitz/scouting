@@ -121,9 +121,6 @@ function chassisFight_status() {
         chassisFight.enemyTeam = blues;
     }
 
-    console.log('Allies: ' + chassisFight.alliedTeam);
-    console.log('Enemies: ' + chassisFight.enemyTeam);
-
     fillEventsDivWithObjects([
         {
             type: 'button',
