@@ -3,7 +3,8 @@ function Stuck() {
         "teamNumber": teamNumber,
         "gameId": gameId,
         "eventName": "stuck",
-        "startTime": Math.round(gameUploadTime + gameVideo.currentTime),
+        "startTime": Math.round(gameVideo.currentTime - autonomousStartTime),// videoCurrentTime,
+        "matchPart": (gameVideo.currentTime - autonomousStartTime) < 15 ? "autonomous" : "teleop",
         "endTime": null,
         "reason": null, // Can be: TODO: add disabled reason codes for disabled events
         "recovered": null // boolean
@@ -68,7 +69,7 @@ function stuck_recovered(stuck_reason) {
 
 function stuck_finish(stuck_recovery) {
     stuck.recovered = stuck_recovery == 'Recovered';
-    stuck.endTime = Math.round(gameUploadTime + gameVideo.currentTime);
+    stuck.endTime = Math.round(gameVideo.currentTime - autonomousStartTime);
     var videoLength = 100; // TODO video length
     sendEvent(stuck);
 

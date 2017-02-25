@@ -127,24 +127,27 @@
                         <div class="panel-body">
                             <div class="form-group">
                                 <div class="col-sm-2">
-                                    <button id="shooting" class="btn btn-info btn-block" style="height: 10vh; font-size: xx-large" onclick="shooting_start()">Shooting</button>
+                                    <button id="shooting" class="btn btn-info btn-block hidden" style="height: 10vh; font-size: xx-large" onclick="shooting_start()">Shooting</button>
                                 </div>
                                 <div class="col-sm-2">
-                                    <button id="pickup" class="btn btn-info btn-block" style="height: 10vh; font-size: xx-large" onclick="pickup_start()">Pick Up</button>
+                                    <button id="pickup" class="btn btn-info btn-block hidden" style="height: 10vh; font-size: xx-large" onclick="pickup_start()">Pick Up</button>
                                 </div>
                                 <div class="col-sm-2">
-                                    <button id="gearplace" class="btn btn-info btn-block" style="height: 10vh; font-size: xx-large" onclick="gearplace_start()">Gear Place</button>
+                                    <button id="gearplace" class="btn btn-info btn-block hidden" style="height: 10vh; font-size: xx-large" onclick="gearplace_start()">Gear Place</button>
                                 </div>
                                 <div class="col-sm-2">
-                                    <button id="chassisfight" class="btn btn-info btn-block" style="height: 10vh; font-size: xx-large" onclick="chassisFight_start()">Fight</button>
+                                    <button id="chassisfight" class="btn btn-info btn-block hidden" style="height: 10vh; font-size: xx-large" onclick="chassisFight_start()">Fight</button>
                                 </div>
                                 <div class="col-sm-2">
-                                    <button id="climb" class="btn btn-info btn-block" style="height: 10vh; font-size: xx-large" onclick="climb_start()">Climb</button>
+                                    <button id="climb" class="btn btn-info btn-block hidden" style="height: 10vh; font-size: xx-large" onclick="climb_start()">Climb</button>
                                 </div>
                                 <div class="col-sm-2">
-                                    <button id="stuck" class="btn btn-info btn-block" style="height: 10vh; font-size: xx-large" onclick="stuck_start()">Stuck</button>
+                                    <button id="stuck" class="btn btn-info btn-block hidden" style="height: 10vh; font-size: xx-large" onclick="stuck_start()">Stuck</button>
                                 </div>
-                                <div id="eventsDiv" style="width: 100%; height:10vh;" class="hidden">
+                                <div id="eventsDiv" style="width: 100%; height:10vh;">
+                                    <div class="col-md-12">
+                                        <button id="autonomous_begin" class="btn btn-info btn-block btn-default" style="height: 10vh; font-size: xx-large" onclick="autonomous_start()">Autonomous begin</button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -172,7 +175,11 @@
 
     var blueTeams = <%- JSON.stringify(blueTeams) %>;
     var redTeams = <%- JSON.stringify(redTeams) %>;
-    var gameUploadTime = <%- JSON.stringify(gameUploadTime) %>;
+
+    var buttonClickEvent = {};
+    var onEnterKeyClick = function(){};
+
+    var autonomousStartTime = null;
 </script>
 <script src="/js/scouting/binary.js"></script>
 <script src="/js/scouting/common.js"></script>
@@ -185,6 +192,7 @@
 <script type="text/javascript" src="/js/scouting/events/chassisFightEventsHandling.js"></script>
 <script type="text/javascript" src="/js/scouting/events/climbEventsHandling.js"></script>
 <script type="text/javascript" src="/js/scouting/events/stuckEventsHandling.js"></script>
+<script type="text/javascript" src="/js/scouting/events/autonomousEventsHandling.js"></script>
 
 <script type="text/javascript" src="/js/scouting/events/timeline/utils.js"></script>
 
@@ -210,8 +218,6 @@
         })
     }
 
-    var buttonClickEvent = {};
-    var onEnterKeyClick = function(){};
 
     function initializeButtonClickEvent() {
         buttonClickEvent = {
@@ -228,7 +234,6 @@
         buttonClickEvent = {};
     }
 
-    initializeButtonClickEvent();
 
     $(window).keypress(function(e) {
         var video = document.getElementById("gameVideo");
@@ -334,8 +339,12 @@
             data: event
         });
     }
+
 </script>
 
+<script>
+    onEnterKeyClick = autonomous_start;
+</script>
 
 
 </body>

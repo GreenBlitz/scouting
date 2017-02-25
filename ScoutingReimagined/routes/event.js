@@ -11,7 +11,6 @@ router.post('/', function(req, res){
 
     delete event.eventName;
     event.timeTook = event.endTime - event.startTime;
-    event.date = event.startTime;
 
     client.index({
         // teams/team/4590 : {}

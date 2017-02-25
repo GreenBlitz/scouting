@@ -3,7 +3,8 @@ function GearPlace() {
         "teamNumber": teamNumber,
         "gameId": gameId,
         "eventName": "gearplace",
-        "startTime": Math.round(gameUploadTime + gameVideo.currentTime),
+        "startTime": Math.round(gameVideo.currentTime - autonomousStartTime),// videoCurrentTime,
+        "matchPart": (gameVideo.currentTime - autonomousStartTime) < 15 ? "autonomous" : "teleop",
         "endTime": null,
         "location": null, // Can be: "left" || "center" || "right"
         "status": null, // Can be: "success" || "fail"
@@ -52,7 +53,7 @@ function gearplace_status(gearplace_location) {
 
 function gearplace_finish(gearplace_status) {
     gearplace.status = gearplace_status;
-    gearplace.endTime = Math.round(gameUploadTime + gameVideo.currentTime);
+    gearplace.endTime = Math.round(gameVideo.currentTime - autonomousStartTime);
     if (status === 'Success') {
         gearplace.status = status;
         delete gearplace.failReason; // Prevent ElasticSearch from indexing this value

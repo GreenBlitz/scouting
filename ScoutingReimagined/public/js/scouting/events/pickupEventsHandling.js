@@ -4,7 +4,8 @@ function PickUp() {
         "gameId": gameId,
         "eventName": "pickup",
         "type": null,
-        "startTime": Math.round(gameUploadTime + gameVideo.currentTime),
+        "startTime": Math.round(gameVideo.currentTime - autonomousStartTime),// videoCurrentTime,
+        "matchPart": (gameVideo.currentTime - autonomousStartTime) < 15 ? "autonomous" : "teleop",
         "endTime": null,
         "location": null, // Can be: "low" || "high"
         "status": null, // Can be: "success" || "fail"
@@ -75,7 +76,7 @@ function pickup_status(pickup_location) {
 }
 
 function pickup_finish(pickup_status) {
-    pickup.endTime = Math.round(gameUploadTime + gameVideo.currentTime);
+    pickup.endTime = Math.round(gameVideo.currentTime - autonomousStartTime);
     if (pickup_status === 'Success') {
         pickup.status = pickup_status;
         delete pickup.failReason;  // Prevent ElasticSearch from indexing this value

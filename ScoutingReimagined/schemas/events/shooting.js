@@ -1,8 +1,5 @@
 var shooting = {
     "properties": {
-        "date": {
-            "type": "date"
-        },
         "teamNumber": {
             "type": "integer"
         },
@@ -10,10 +7,16 @@ var shooting = {
             "type": "integer"
         },
         "startTime": {
-            "type": "date" // Epoch time, videoCurrentTime+gameUploadTime
+            "type": "integer" // The amount of seconds passed since video start when the event was triggered
         },
         "endTime": {
-            "type": "date" // Epoch time, videoCurrentTime+gameUploadTime
+            "type": "integer" // The amount of seconds passed since video start when the event was over
+        },
+        "duration": {
+            "type": "integer" // Seconds
+        },
+        "matchPart": {
+            "type": "keyword"
         },
         "location": {
             "type": "keyword" // Can be: "low" || "high"

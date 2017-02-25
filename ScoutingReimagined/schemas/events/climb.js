@@ -1,8 +1,5 @@
 var climb = {
     "properties": {
-        "date": {
-            "type": "date"
-        },
         "teamNumber": {
             "type": "integer"
         },
@@ -13,10 +10,16 @@ var climb = {
             "type": "keyword"
         },
         "startTime": {
-            "type": "date" // Epoch time, videoCurrentTime+gameUploadTime
+            "type": "integer" // The amount of seconds passed since video start when the event was triggered
         },
         "endTime": {
-            "type": "date" // Epoch time, videoCurrentTime+gameUploadTime
+            "type": "integer" // The amount of seconds passed since video start when the event was over
+        },
+        "duration": {
+            "type": "integer" // Seconds
+        },
+        "matchPart": {
+            "type": "keyword"
         },
         "status": {
             "type": "keyword" // Can be: "success" || "fail"

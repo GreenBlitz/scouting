@@ -3,7 +3,8 @@ function Shooting() {
         "teamNumber": teamNumber,
         "gameId": gameId,
         "eventName": "shooting",
-        "startTime": Math.round(gameUploadTime + gameVideo.currentTime),
+        "startTime": Math.round(gameVideo.currentTime - autonomousStartTime),// videoCurrentTime,
+        "matchPart": (gameVideo.currentTime - autonomousStartTime) < 15 ? "autonomous" : "teleop",
         "endTime": null,
         "location": null, // Can be: "low" || "high"
         "status": null, // Can be: "success" || "fail"
@@ -47,7 +48,7 @@ function shooting_status(height) {
 }
 
 function shooting_finish(status) {
-    shooting.endTime = Math.round(gameUploadTime + gameVideo.currentTime);
+    shooting.endTime = Math.round(gameVideo.currentTime - autonomousStartTime);
     if (status === 'Success') {
         shooting.status = status;
         delete shooting.failReason; // Prevent ElasticSearch from indexing this value

@@ -3,7 +3,8 @@ function Climb() {
         "teamNumber": teamNumber,
         "gameId": gameId,
         "eventName": "climb",
-        "startTime": Math.round(gameUploadTime + gameVideo.currentTime),// videoCurrentTime,
+        "startTime": Math.round(gameVideo.currentTime - autonomousStartTime),// videoCurrentTime,
+        "matchPart": (gameVideo.currentTime - autonomousStartTime) < 15 ? "autonomous" : "teleop",
         "endTime": null,
         "timeTook": null,
         "status": null, // Can be: "success" || "fail"
@@ -33,7 +34,7 @@ function climb_status() {
 }
 
 function climb_finish(climb_status) {
-    climb.endTime = Math.round(gameUploadTime + gameVideo.currentTime);
+    climb.endTime = Math.round(gameVideo.currentTime - autonomousStartTime);
     if (climb_status === 'Success') {
         climb.status = climb_status;
         delete climb.failReason; // Prevent ElasticSearch from indexing this value

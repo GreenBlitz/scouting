@@ -3,7 +3,8 @@ function ChassisFight() {
         "teamNumber": teamNumber,
         "gameId": gameId,
         "eventName": "chassisFight",
-        "startTime": Math.round(gameUploadTime + gameVideo.currentTime),// videoCurrentTime,
+        "startTime": Math.round(gameVideo.currentTime - autonomousStartTime),// videoCurrentTime,
+        "matchPart": (gameVideo.currentTime - autonomousStartTime) < 15 ? "autonomous" : "teleop",
         "endTime": null,
         "alliedTeam": null, // List of all allied team numbers involved
         "enemyTeam": null,  // List of all enemy team numbers involved
@@ -131,7 +132,7 @@ function chassisFight_status() {
 
 function chassisFight_finish(chassisFight_status) {
     chassisFight.status = chassisFight_status == 'Win' ? 'Success' : 'Failure';
-    chassisFight.endTime = Math.round(gameUploadTime + gameVideo.currentTime);
+    chassisFight.endTime = Math.round(gameVideo.currentTime - autonomousStartTime);
     sendEvent(chassisFight);
 
     initializeEvents();
