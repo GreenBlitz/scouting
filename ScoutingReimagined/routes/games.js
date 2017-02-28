@@ -37,6 +37,7 @@ function getAllGames(resolve, reject) {
     }, function (error, response, status) {
         if (error) {
             console.log("search error: " + error);
+            reject(error);
         } else {
             var games = {
                 'Practice': [],
@@ -69,7 +70,7 @@ function getImportantTeams(resolve, reject) {
     }, function (error, response, status) {
         if (error) {
             console.log("search error on getImportantTeams: " + error);
-            return [];
+            reject(error);
         } else {
             var importants = [];
             response.hits.hits.forEach(function (hit) {
