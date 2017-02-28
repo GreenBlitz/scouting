@@ -1,5 +1,5 @@
 function tag(spec, type) {
-    console.log("hello");
+    console.log(spec);
     var query = preProcess(spec);
     var a = $(query);
     console.log(a);
@@ -12,6 +12,7 @@ function tag(spec, type) {
 }
 
 function preProcess(raw) {
-    return raw.map(a => "#" + a.gameId + "_" + a.teamNumber)
+    return raw.map(a => a.games.map(g => "#" + g + "_" + a.teamNumber)
+            .join(", "))
         .join(", ");
 }
