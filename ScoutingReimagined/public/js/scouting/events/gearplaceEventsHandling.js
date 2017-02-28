@@ -17,7 +17,7 @@ var gearplace = null;
 function gearplace_start() {
     gearplace = GearPlace();
     hideAllButtons();
-    pickup_gearOrBall();
+    gearplace_location();
 }
 
 function gearplace_location() {
