@@ -1,4 +1,5 @@
 var u_id = 0;
+var events = [];
 
 function addEventToTimeline(event) {
     var timeline = document.getElementById("timeline");
@@ -16,13 +17,15 @@ function addEventToTimeline(event) {
     //     </div>
     //   </div>
     // </li>
-    var eventEntry = createEventEntry(event, u_id);
-    timeline.appendChild(eventEntry);
+    var index = InsertEventToList(event.startTime);
+    console.log("index", index);
+    var eventEntry = createEventEntry(event, u_id, index);
+    timeline.insertBefore(eventEntry, timeline.children[index]);
     u_id++;
     timeline.scrollTop = timeline.scrollHeight;
 }
 
-function createEventEntry(event, unique_id) {
+function createEventEntry(event, unique_id, index) {
     var eventEntry = document.createElement("li");
     var success;
     if (event.status) {
@@ -32,7 +35,7 @@ function createEventEntry(event, unique_id) {
         success = event.recovered;
     }
     var badge = createBadge(event.eventName, success);
-    var panel = createPanel(event, unique_id);
+    var panel = createPanel(event, unique_id, index);
     eventEntry.appendChild(badge);
     eventEntry.appendChild(panel);
     eventEntry.id = "eventEntry-" + unique_id;
@@ -59,11 +62,11 @@ function createBadge(eventName, success) {
     return badge;
 }
 
-function createPanel(event, unique_id) {
+function createPanel(event, unique_id, index) {
     var panel = document.createElement("div");
     panel.className = "timeline-panel";
     var panelHeading = createHeading(event);
-    var panelBody = createBody(event, unique_id);
+    var panelBody = createBody(event, unique_id, index);
     panel.appendChild(panelHeading);
     panel.appendChild(panelBody);
     return panel;
@@ -84,7 +87,7 @@ function getHeadingContent(event) {
 }
 
 
-function createBody(event, unique_id) {
+function createBody(event, unique_id, index) {
     var panelBody = document.createElement("div");
     panelBody.className = "timeline-body";
     var p = document.createElement("p");
@@ -99,6 +102,7 @@ function createBody(event, unique_id) {
                 console.log(data);
                 var timeline = document.getElementById("timeline");
                 timeline.removeChild(document.getElementById("eventEntry-" + unique_id));
+                removeEventFromList(index);
             });
     };
     panelBody.appendChild(icon);
@@ -151,5 +155,22 @@ function initializeTimeline(g_id, t_number) {
                 addEventToTimeline(result[i]);
             }
         }
-    })
+    });
+}
+
+
+
+function InsertEventToList(startTime) {
+    for (var i = 0; i < events.length; i++) {
+        if (startTime <= events[i]) {
+            events.splice(i, 0, startTime);
+            return i;
+        }
+    }
+    events.push(startTime);
+    return events.length - 1;
+}
+
+function removeEventFromList(index) {
+    events.splice(index, 1);
 }
