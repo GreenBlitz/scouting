@@ -44,7 +44,7 @@
                                                         <div class="col-md-10">
                                                             <% if (game['blueTeams']) {  Array.prototype.forEach.call(game['blueTeams'], blueTeam => { %>
                                                             <div class="col-md-2">
-                                                                <a href="/game?gameId=<%= game['gameId'] + '&teamNumber=' + blueTeam + "&type=Playoffs" %>" class="tile tile-default games-team blue-team">
+                                                                <a href="/game?gameId=<%= game['gameId'] + '&teamNumber=' + blueTeam + "&type=Playoffs" %>" class="tile tile-default games-team blue-team" id="<%=game['gameId'] + '_' + blueTeam%>">
                                                                     <%= blueTeam %>
                                                                     <div class="informer informer-danger dir-tr"></div>
                                                                 </a>
@@ -53,7 +53,7 @@
 
                                                             <% if (game['redTeams']) {  Array.prototype.forEach.call(game['redTeams'], redTeam => { %>
                                                             <div class="col-md-2">
-                                                                <a href="/game?gameId=<%= game['gameId'] + '&teamNumber=' + redTeam + "&type=Playoffs" %>" class="tile tile-default games-team red-team">
+                                                                <a href="/game?gameId=<%= game['gameId'] + '&teamNumber=' + redTeam + "&type=Playoffs" %>" class="tile tile-default games-team red-team" id="<%=game['gameId'] + '_' + redTeam%>">
                                                                     <%= redTeam %>
                                                                     <div class="informer informer-danger dir-tr"></div>
                                                                 </a>
@@ -87,7 +87,7 @@
                                                         <div class="col-md-10">
                                                             <% if (game['blueTeams']) {  Array.prototype.forEach.call(game['blueTeams'], blueTeam => { %>
                                                             <div class="col-md-2">
-                                                                <a href="/game?gameId=<%= game['gameId'] + '&teamNumber=' + blueTeam + "&type=Qualification" %>" class="tile tile-default games-team blue-team">
+                                                                <a href="/game?gameId=<%= game['gameId'] + '&teamNumber=' + blueTeam + "&type=Qualification" %>" class="tile tile-default games-team blue-team" id="<%=game['gameId'] + '_' + blueTeam%>">
                                                                     <%= blueTeam %>
                                                                     <div class="informer informer-danger dir-tr"></div>
                                                                 </a>
@@ -96,7 +96,7 @@
 
                                                             <% if (game['redTeams']) {  Array.prototype.forEach.call(game['redTeams'], redTeam => { %>
                                                             <div class="col-md-2">
-                                                                <a href="/game?gameId=<%= game['gameId'] + '&teamNumber=' + redTeam  + "&type=Qualification" %>" class="tile tile-default games-team red-team">
+                                                                <a href="/game?gameId=<%= game['gameId'] + '&teamNumber=' + redTeam  + "&type=Qualification" %>" class="tile tile-default games-team red-team" id="<%=game['gameId'] + '_' + redTeam%>">
                                                                     <%= redTeam %>
                                                                     <div class="informer informer-danger dir-tr"></div>
                                                                 </a>
@@ -130,7 +130,7 @@
                                                         <div class="col-md-10">
                                                             <% if (game['blueTeams']) {  Array.prototype.forEach.call(game['blueTeams'], blueTeam => { %>
                                                             <div class="col-md-2">
-                                                                <a href="/game?gameId=<%= game['gameId'] + '&teamNumber=' + blueTeam + "&type=Practice"%>" class="tile tile-default games-team blue-team">
+                                                                <a href="/game?gameId=<%= game['gameId'] + '&teamNumber=' + blueTeam + "&type=Practice"%>" class="tile tile-default games-team blue-team" id="<%=game['gameId'] + '_' + blueTeam%>">
                                                                     <%= blueTeam %>
                                                                     <div class="informer informer-danger dir-tr"></div>
                                                                 </a>
@@ -139,7 +139,7 @@
 
                                                             <% if (game['redTeams']) {  Array.prototype.forEach.call(game['redTeams'], redTeam => { %>
                                                             <div class="col-md-2">
-                                                                <a href="/game?gameId=<%= game['gameId'] + '&teamNumber=' + redTeam + "&type=Practice"%>" class="tile tile-default games-team red-team">
+                                                                <a href="/game?gameId=<%= game['gameId'] + '&teamNumber=' + redTeam + "&type=Practice"%>" class="tile tile-default games-team red-team" id="<%=game['gameId'] + '_' + redTeam%>">
                                                                     <%= redTeam %>
                                                                     <div class="informer informer-danger dir-tr"></div>
                                                                 </a>
@@ -180,7 +180,7 @@
 
     </script>
 
-
+    <script src="js/scouting/games/tag.js"></script>
 </body>
 
 

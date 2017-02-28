@@ -16,6 +16,18 @@
     overflow: hidden;
 }
 
+.badge-important{
+    color: rgb(215, 184, 19)!important;
+}
+
+.badge-done{
+   color: green!important;
+}
+
+.badge-unwanted{
+   color: gray!important;
+}
+
 .game-title {
     font-weight: bolder;
     font-size: 300%!important;
