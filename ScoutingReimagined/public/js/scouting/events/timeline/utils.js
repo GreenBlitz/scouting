@@ -110,18 +110,30 @@ function getBodyContent(event) {
     var timeTook = event.endTime - event.startTime;
     switch (event.eventName) {
         case "stuck":
-            return "Stuck for " + timeTook + " Seconds. Due to " + event.reason;
+            return "Robot stuck for " + timeTook + " seconds," +
+                " because it was " + event.reason + ". " +
+                "Eventually, he " + (event.recovered ? "recovered" : "did not recover") + ".";
         case "shooting":
-            return "Attempted shooting from " + event.location + ". " + (event.failReason ? event.failReason : "Succeeded") + ". Time Took: " + timeTook;
+            return "Attempted shooting to the " + event.location + " goal. " +
+                "Event " + (event.failReason ? event.failReason : "Succeeded") + "." +
+                " Took " + timeTook + " seconds.";
         case "gearplace":
-            return "Attempted placing gear on " + event.location + ". " + (event.failReason ? event.failReason : "Succeeded") + ". Time Took: " + timeTook;
+            return "Attempted placing gear on " + event.location + " bar. " +
+                "Event " + (event.failReason ? event.failReason : "Succeeded") + "." +
+                " Took " + timeTook + " seconds.";
         case "climb":
-            return "Attempted climbing. " + (event.failReason ? event.failReason : "Succeeded") + ". Time Took: " + timeTook;
+            return "Attempted climbing. " +
+                "Event " + (event.failReason ? event.failReason : "Succeeded") + "." +
+                " Took " + timeTook + " seconds.";
         case "chassisFight":
-            return (event.initiated ? "Initiated" : "Endured") + " fight against: " + event.enemyTeam + " with: " + event.alliedTeam + ". " +
-                (event.failReason ? event.failReason : "Succeeded") + ". Time Took: " + timeTook;
+            return (event.initiated ? "Initiated" : "Endured") + " fight against: " + event.enemyTeam +
+                (event.alliedTeam ? " with the help of: " + event.alliedTeam : "") + ". " +
+                "Event " + (event.failReason ? event.failReason : "Succeeded") + ". Took " + timeTook + " seconds.";
         case "pickup":
-            return "Attempted Picking up " + event.type + " from " + event.location + ". " + (event.failReason ? event.failReason : "Succeeded") + ". Time Took: " + timeTook;
+            return "Attempted Picking up " + event.type.toLowerCase() + " from the " + event.location.toLowerCase() + "." +
+                "Event " + (event.failReason ? event.failReason : "Succeeded") + "." +
+                "Took " + timeTook + " seconds.";
+
         default:
             return "No description could be provided";
     }
