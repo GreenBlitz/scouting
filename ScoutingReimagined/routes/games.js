@@ -1,22 +1,6 @@
 var express = require('express');
 var client = require('../lib/elasticsearch/connection');
 var router = express.Router();
-var async = require('async');
-
-var calls = [];
-
-['aaa','bbb','ccc'].forEach(function(name){
-    calls.push(function(callback) {
-            conn.collection(name).drop(function(err) {
-                if (err)
-                    return callback(err);
-                console.log('dropped');
-                callback(null, name);
-            });
-        }
-    )});
-
-
 
 
 // TODO solve problem of simultaneous reviewing of games
