@@ -1,3 +1,5 @@
+var u_id = 0;
+
 function addEventToTimeline(event) {
     var timeline = document.getElementById("timeline");
 
@@ -14,12 +16,13 @@ function addEventToTimeline(event) {
     //     </div>
     //   </div>
     // </li>
-    var eventEntry = createEventEntry(event);
+    var eventEntry = createEventEntry(event, u_id);
     timeline.appendChild(eventEntry);
+    u_id++;
     timeline.scrollTop = timeline.scrollHeight;
 }
 
-function createEventEntry(event) {
+function createEventEntry(event, unique_id) {
     var eventEntry = document.createElement("li");
     var success;
     if (event.status) {
@@ -29,9 +32,10 @@ function createEventEntry(event) {
         success = event.recovered;
     }
     var badge = createBadge(event.eventName, success);
-    var panel = createPanel(event);
+    var panel = createPanel(event, unique_id);
     eventEntry.appendChild(badge);
     eventEntry.appendChild(panel);
+    eventEntry.id = "eventEntry-" + unique_id;
     return eventEntry;
 }
 
@@ -55,11 +59,11 @@ function createBadge(eventName, success) {
     return badge;
 }
 
-function createPanel(event) {
+function createPanel(event, unique_id) {
     var panel = document.createElement("div");
     panel.className = "timeline-panel";
     var panelHeading = createHeading(event);
-    var panelBody = createBody(event);
+    var panelBody = createBody(event, unique_id);
     panel.appendChild(panelHeading);
     panel.appendChild(panelBody);
     return panel;
@@ -80,12 +84,24 @@ function getHeadingContent(event) {
 }
 
 
-function createBody(event) {
+function createBody(event, unique_id) {
     var panelBody = document.createElement("div");
     panelBody.className = "timeline-body";
     var p = document.createElement("p");
     p.textContent = getBodyContent(event);
     panelBody.appendChild(p);
+    var icon = document.createElement("span");
+    icon.className = "fa fa-ban fa-2x";
+    icon.style = "color: red; cursor: pointer; cursor: hand;";
+    icon.onclick = function () {
+        deleteEvent(event)
+            .done(function (data) {
+                console.log(data);
+                var timeline = document.getElementById("timeline");
+                timeline.removeChild(document.getElementById("eventEntry-" + unique_id));
+            });
+    };
+    panelBody.appendChild(icon);
     return panelBody;
 }
 
@@ -109,4 +125,31 @@ function getBodyContent(event) {
         default:
             return "No description could be provided";
     }
+}
+
+
+function deleteEvent(event) {
+    // console.log('Deleting event: ' + JSON.stringify(event));
+    return $.ajax({
+        type: 'DELETE',
+        url: '/event',
+        data: event
+    });
+}
+
+function initializeTimeline(g_id, t_number) {
+    console.log("g_id", g_id, "t_number", t_number);
+    $.ajax({
+        type: 'GET',
+        url: '/event',
+        data: {
+            "gameId": g_id,
+            "teamNumber": t_number
+        },
+        success: function (result) {
+            for (var i = 0; i < result.length; i++) {
+                addEventToTimeline(result[i]);
+            }
+        }
+    })
 }
