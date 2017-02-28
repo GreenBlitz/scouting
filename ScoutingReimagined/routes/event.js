@@ -68,9 +68,7 @@ router.delete('/', function (req, res) {
             }
         }
     }, function (err, resp) {
-        console.log("here");
         console.log(resp);
-        console.log("after");
         if (err) {
             console.log(err);
             res.sendStatus(500); // Internal server error

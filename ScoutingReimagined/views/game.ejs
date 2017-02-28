@@ -202,7 +202,6 @@
 
 
     function isFunction(functionToCheck) {
-        console.log("Is function?")
         var getType = {};
         return functionToCheck && getType.toString.call(functionToCheck) === '[object Function]';
     }
@@ -245,7 +244,6 @@
             console.log("Window not focused - not responding to key click");
             return;
         }
-        console.log(e.which);
         if (e.which == SPACE_BAR) {
             e.preventDefault();
             if (video.paused == true)
