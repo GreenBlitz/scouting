@@ -171,16 +171,29 @@
 
         <% include templates/footer.ejs%>
 
+    <script src="js/scouting/games/tag.js"></script>
     <script>
         var playoffs = <%- JSON.stringify(Playoffs) %>;
         var practice = <%- JSON.stringify(Practice) %>;
-
+        var importantTeams = <%- JSON.stringify(importantTeams) %>;
+        var reviewedTeams = <%- JSON.stringify(reviewedTeams) %>;
+        var unwantedTeams = <%- JSON.stringify(unwantedTeams) %>;
         console.log("playoffs: " + JSON.stringify(playoffs));
         console.log("practice: " + JSON.stringify(practice));
+        if(window.attachEvent){
+            window.attachEvent("onload",load);
+         } else{
+            window.addEventListener("load",load,true);
+         }
 
+         function load(){
+             tag(importantTeams, "important");
+             tag(reviewedTeams, "done");
+             tag(unwantedTeams, "unwanted");
+         }
     </script>
 
-    <script src="js/scouting/games/tag.js"></script>
+
 </body>
 
 
