@@ -39,6 +39,7 @@ var games = require('./routes/games');
 var users = require('./routes/users');
 var game = require('./routes/game');
 var event = require('./routes/event');
+var teamgamedata = require('./routes/teamGameData');
 var uploadRouter = require('./routes/upload');
 var setup = require('./lib/elasticsearch/setup');
 setup.setup();
@@ -68,6 +69,7 @@ app.use('/upload', uploadRouter.router);
 app.use('/games', games);
 app.use('/game', game);
 app.use('/event', event);
+app.use('/teamgamedata', teamgamedata);
 
 // TODO: compare teams that wil play with and against you
 // TODO: find the best team to choose at playoffs
