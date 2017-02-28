@@ -12,22 +12,23 @@ router.get('/', function (req, res, next) {
     calls.push(new Promise(getTeamGameData));
 
 
-    Promise.all(calls).then(function(values) {
-        console.log("result of promise: " + JSON.stringify(values));
-        var games = values[0];
-        var importants = values[1][0];
-        var reviewed = values[1][1];
-        var unwanted = values[1][2];
+    Promise.all(calls)
+        .then(function (values) {
+            console.log("result of promise: " + JSON.stringify(values));
+            var games = values[0];
+            var importants = values[1][0];
+            var reviewed = values[1][1];
+            var unwanted = values[1][2];
 
-        res.render('games', {
-            Practice: games['Practice'],
-            Qualification: games['Qualification'],
-            Playoffs: games['Playoffs'],
-            importantTeams: importants,
-            reviewed: reviewed,
-            unwanted: unwanted
+            res.render('games', {
+                Practice: games['Practice'],
+                Qualification: games['Qualification'],
+                Playoffs: games['Playoffs'],
+                importantTeams: importants,
+                reviewedTeams: reviewed,
+                unwantedTeams: unwanted
+            });
         });
-    });
 });
 
 function getAllGames(resolve, reject) {
@@ -76,7 +77,9 @@ function getTeamGameData(resolve, reject) {
             console.log("search error on getTeamGameData: " + error);
             reject(error);
         } else {
-            var importants = [], reviewed = [], unwanted = [];
+            var importants = [],
+                reviewed = [],
+                unwanted = [];
             response.hits.hits.forEach(function (hit) {
                 var data = hit['_source'];
                 var teamNumber = hit['_id'];
@@ -88,10 +91,9 @@ function getTeamGameData(resolve, reject) {
                 }
                 if (data.reviewedGames) {
                     reviewed.push({
-                            teamNumber: teamNumber,
-                            games: data.reviewedGames
-                        }
-                    );
+                        teamNumber: teamNumber,
+                        games: data.reviewedGames
+                    });
                 }
                 if (data.unwantedGames) {
                     unwanted.push({
