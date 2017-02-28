@@ -4,6 +4,7 @@ function setup() {
     var client = require('./connection');
     indexGames(client);
     indexEvents(client);
+    indexImportants(client);
 }
 
 /**
@@ -57,6 +58,7 @@ function indexGames(client) {
     });
 }
 
+
 /**
  * Maps the type game to the index games using schema defined in @file schemas/games.js
  * @param  {ElasticsearchConnection} client connection to the elasticsearch instance
@@ -109,6 +111,43 @@ function mapEvents(client) {
             console.log("res: ", res);
         });
     }
+}
+
+
+function indexImportants(client) {
+    client.indices.exists({
+        index: 'importants'
+    }, function (err, exists) {
+        if (!exists) {
+            client.indices.create({
+                index: 'importants'
+            }, function (err, res) {
+                console.log("err", err);
+                console.log("res", res);
+                if (!err) {
+                    // Push mappings
+                    mapImportants(client);
+                }
+            });
+        } else {
+            mapImportants(client);
+        }
+
+    });
+}
+
+function mapImportants(client) {
+    var importants = require(schemasDir + '/importants');
+    console.log("Mapped importants!!!");
+    console.log(importants);
+    client.indices.putMapping({
+        index: "importants",
+        type: "_default_",
+        body: importants
+    }, function (err, res) {
+        console.log("err: ", err);
+        console.log("res: ", res);
+    });
 }
 
 module.exports = {

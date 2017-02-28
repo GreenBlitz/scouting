@@ -68,14 +68,12 @@ router.delete('/', function (req, res) {
             }
         }
     }, function (err, resp) {
-        console.log("here");
         console.log(resp);
-        console.log("after");
         if (err) {
             console.log(err);
             res.sendStatus(500); // Internal server error
         } else {
-            console.log("Successfully deleted from elasticsearch! response: " + resp);
+            console.log("Successfully deleted from elasticsearch! response: " + JSON.stringify(resp));
             res.sendStatus(200);
         }
     });
