@@ -179,13 +179,9 @@
         console.log("playoffs: " + JSON.stringify(playoffs));
         console.log("practice: " + JSON.stringify(practice));
         if(window.attachEvent){
-
             window.attachEvent("onload",load);
-
-         }else{
-
+         } else{
             window.addEventListener("load",load,true);
-
          }
 
          function load(){
