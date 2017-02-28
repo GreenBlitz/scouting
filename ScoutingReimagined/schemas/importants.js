@@ -1,7 +1,7 @@
 var importants = {
     "properties": {
-        "important": {
-            "type": "boolean"
+        "importantGames": {
+            "type": "integer"
         }
     }
 };

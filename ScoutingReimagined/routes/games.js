@@ -90,8 +90,12 @@ function getImportantTeams(resolve, reject) {
             var importants = [];
             response.hits.hits.forEach(function (hit) {
                 var data = hit['_source'];
-                if (data.important) {
-                    importants.push(hit['_id']); // Add team id to importants.
+                if (data.importantGames) {
+                    var teamNumber = hit['_id'];
+                    importants.push({
+                        teamNumber: teamNumber,
+                        games: data.importantGames
+                    }); // Add team id to importants.
                 }
             });
 
