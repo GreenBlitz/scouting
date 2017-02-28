@@ -4,7 +4,8 @@ function setup() {
     var client = require('./connection');
     indexGames(client);
     indexEvents(client);
-    indexImportants(client);
+    indexTeamGameData(client);
+
 }
 
 /**
@@ -114,36 +115,36 @@ function mapEvents(client) {
 }
 
 
-function indexImportants(client) {
+function indexTeamGameData(client) {
     client.indices.exists({
-        index: 'importants'
+        index: 'team-game-data'
     }, function (err, exists) {
         if (!exists) {
             client.indices.create({
-                index: 'importants'
+                index: 'team-game-data'
             }, function (err, res) {
                 console.log("err", err);
                 console.log("res", res);
                 if (!err) {
                     // Push mappings
-                    mapImportants(client);
+                    mapTeamGameData(client);
                 }
             });
         } else {
-            mapImportants(client);
+            mapTeamGameData(client);
         }
 
     });
 }
 
-function mapImportants(client) {
-    var importants = require(schemasDir + '/importants');
-    console.log("Mapped importants!!!");
-    console.log(importants);
+function mapTeamGameData(client) {
+    var teamGameDataMapping = require(schemasDir + '/teamGameData');
+    console.log("Mapping team game data!!!");
+    console.log(teamGameDataMapping);
     client.indices.putMapping({
-        index: "importants",
+        index: "team-game-data",
         type: "_default_",
-        body: importants
+        body: teamGameDataMapping
     }, function (err, res) {
         console.log("err: ", err);
         console.log("res: ", res);

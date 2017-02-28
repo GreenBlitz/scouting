@@ -9,19 +9,23 @@ router.get('/', function (req, res, next) {
     var calls = [];
 
     calls.push(new Promise(getAllGames));
-    calls.push(new Promise(getImportantTeams));
+    calls.push(new Promise(getTeamGameData));
 
 
     Promise.all(calls).then(function(values) {
         console.log("result of promise: " + JSON.stringify(values));
         var games = values[0];
-        var importants = values[1];
+        var importants = values[1][0];
+        var reviewed = values[1][1];
+        var unwanted = values[1][2];
 
         res.render('games', {
             Practice: games['Practice'],
             Qualification: games['Qualification'],
             Playoffs: games['Playoffs'],
-            importantTeams: importants
+            importantTeams: importants,
+            reviewed: reviewed,
+            unwanted: unwanted
         });
     });
 });
@@ -59,9 +63,9 @@ function getAllGames(resolve, reject) {
 
 
 
-function getImportantTeams(resolve, reject) {
+function getTeamGameData(resolve, reject) {
     client.search({
-        index: 'importants',
+        index: 'team-game-data',
         body: {
             query: {
                 match_all: {}
@@ -69,24 +73,37 @@ function getImportantTeams(resolve, reject) {
         }
     }, function (error, response, status) {
         if (error) {
-            console.log("search error on getImportantTeams: " + error);
+            console.log("search error on getTeamGameData: " + error);
             reject(error);
         } else {
-            var importants = [];
+            var importants = [], reviewed = [], unwanted = [];
             response.hits.hits.forEach(function (hit) {
                 var data = hit['_source'];
+                var teamNumber = hit['_id'];
                 if (data.importantGames) {
-                    var teamNumber = hit['_id'];
                     importants.push({
                         teamNumber: teamNumber,
                         games: data.importantGames
                     }); // Add team id to importants.
                 }
+                if (data.reviewedGames) {
+                    reviewed.push({
+                            teamNumber: teamNumber,
+                            games: data.reviewedGames
+                        }
+                    );
+                }
+                if (data.unwantedGames) {
+                    unwanted.push({
+                        teamNumber: teamNumber,
+                        games: data.unwantedGames
+                    })
+                }
             });
 
-            console.log("Calling callback on getImportantTeams...");
+            console.log("Calling callback on getTeamGameData...");
 
-            resolve(importants);
+            resolve([importants, reviewed, unwanted]);
 
         }
     });
