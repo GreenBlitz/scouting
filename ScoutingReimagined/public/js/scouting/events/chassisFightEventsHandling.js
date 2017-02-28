@@ -110,6 +110,11 @@ function chassisFight_status() {
         }
     }
 
+    if (reds.length == 0) {
+        console.log("Must pick at least 1 enemy team for a fight.");
+        return;
+    }
+
     if (teamNumber in blueTeams) {
         chassisFight.alliedTeam = blues;
         chassisFight.enemyTeam = reds;

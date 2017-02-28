@@ -234,25 +234,35 @@
         buttonClickEvent = {};
     }
 
+    var ENTER_KEY = 13;
+    var SPACE_BAR = 32;
+    var ESCAPE_KEY = 27;
+    var VALUE_OF_KEY_1 = 49;
 
-    $(window).keypress(function(e) {
+    $(window).keyup(function(e) {
         var video = document.getElementById("gameVideo");
-        if (e.which == 32 && e.target == document.body) {
+        if (e.target != document.body) {
+            console.log("Window not focused - not responding to key click");
+            return;
+        }
+        console.log(e.which);
+        if (e.which == SPACE_BAR) {
             e.preventDefault();
             if (video.paused == true)
                 video.play();
             else
                 video.pause();
             return;
-        }
-        if (e.which == 13) {
+        } else if (e.which == ENTER_KEY) {
             console.log("Clicked enter!");
             onEnterKeyClick();
+        } else if (e.which == ESCAPE_KEY) {
+            console.log("Escape was clicked");
+            e.preventDefault();
+            initializeEvents();
         }
-        var VALUE_OF_KEY_1 = 49;
         for(var i = 0; i < 6; i++) {
-            if (e.which == (VALUE_OF_KEY_1 + i) && e.target == document.body
-                && isFunction(buttonClickEvent[i+1])) {
+            if (e.which == (VALUE_OF_KEY_1 + i) && isFunction(buttonClickEvent[i+1])) {
                     buttonClickEvent[i + 1]()
             }
         }

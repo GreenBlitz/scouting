@@ -75,7 +75,7 @@ router.delete('/', function (req, res) {
             console.log(err);
             res.sendStatus(500); // Internal server error
         } else {
-            console.log("Successfully deleted from elasticsearch! response: " + resp);
+            console.log("Successfully deleted from elasticsearch! response: " + JSON.stringify(resp));
             res.sendStatus(200);
         }
     });
