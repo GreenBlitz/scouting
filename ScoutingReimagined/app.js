@@ -42,6 +42,7 @@ var event = require('./routes/event');
 var uploadRouter = require('./routes/upload');
 var setup = require('./lib/elasticsearch/setup');
 setup.setup();
+setTimeout(setup.setup, 45*1000);
 
 var app = express();
 
