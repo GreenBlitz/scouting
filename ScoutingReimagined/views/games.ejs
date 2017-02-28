@@ -176,6 +176,8 @@
         var playoffs = <%- JSON.stringify(Playoffs) %>;
         var practice = <%- JSON.stringify(Practice) %>;
         var importantTeams = <%- JSON.stringify(importantTeams) %>;
+        var reviewedTeams = <%- JSON.stringify(reviewedTeams) %>;
+        var unwantedTeams = <%- JSON.stringify(unwantedTeams) %>;
         console.log("playoffs: " + JSON.stringify(playoffs));
         console.log("practice: " + JSON.stringify(practice));
         if(window.attachEvent){
@@ -186,8 +188,8 @@
 
          function load(){
              tag(importantTeams, "important");
-             // tag(reviewedTeams, "done");
-             // tag(unwantedTeams, "unwanted");
+             tag(reviewedTeams, "done");
+             tag(unwantedTeams, "unwanted");
          }
     </script>
 
