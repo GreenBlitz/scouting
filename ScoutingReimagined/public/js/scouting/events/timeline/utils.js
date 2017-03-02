@@ -25,6 +25,10 @@ function addEventToTimeline(event) {
     timeline.scrollTop = timeline.scrollHeight;
 }
 
+function capitalizeFirstLetter(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+}
+
 function createEventEntry(event, unique_id, index) {
     var eventEntry = document.createElement("li");
     var success;
@@ -83,7 +87,7 @@ function createHeading(event) {
 }
 
 function getHeadingContent(event) {
-    return event.eventName;
+    return capitalizeFirstLetter(event.eventName);
 }
 
 
