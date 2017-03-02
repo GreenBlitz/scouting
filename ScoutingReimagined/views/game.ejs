@@ -209,6 +209,7 @@
         buttonIds.forEach(function(buttonId) {
             $('#' + buttonId).addClass('hidden');
         })
+        gameVideo.pause();
     }
 
     function showEventButtons() {
@@ -237,6 +238,10 @@
     var SPACE_BAR = 32;
     var ESCAPE_KEY = 27;
     var VALUE_OF_KEY_1 = 49;
+    var RIGHT_ARROW = 39;
+    var LEFT_ARROW = 37;
+    var J_KEY = 74;
+    var K_KEY = 75;
 
     $(window).keyup(function(e) {
         var video = document.getElementById("gameVideo");
@@ -244,6 +249,7 @@
             console.log("Window not focused - not responding to key click");
             return;
         }
+        console.log("clicked key: " + e.which);
         if (e.which == SPACE_BAR) {
             e.preventDefault();
             if (video.paused == true)
@@ -258,6 +264,14 @@
             console.log("Escape was clicked");
             e.preventDefault();
             initializeEvents();
+        } else if (e.which == RIGHT_ARROW) {
+            gameVideo.currentTime += 5;
+        } else if (e.which == LEFT_ARROW) {
+            gameVideo.currentTime -= 5;
+        } else if (e.which == K_KEY) {
+            gameVideo.currentTime += 10;
+        } else if (e.which == J_KEY) {
+            gameVideo.currentTime -= 10;
         }
         for(var i = 0; i < 6; i++) {
             if (e.which == (VALUE_OF_KEY_1 + i) && isFunction(buttonClickEvent[i+1])) {
