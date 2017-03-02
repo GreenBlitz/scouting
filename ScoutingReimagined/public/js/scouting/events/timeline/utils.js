@@ -120,23 +120,23 @@ function getBodyContent(event) {
         case "shooting":
             return "Attempted shooting to the " + event.location + " goal. " +
                 "Event " + (event.failReason ? event.failReason : "Succeeded") + "." +
-                " Took " + timeTook + " seconds.";
+                " Took " + timeTook + " seconds, started on second " + event.startTime + ".";
         case "gearplace":
             return "Attempted placing gear on " + event.location + " bar. " +
                 "Event " + (event.failReason ? event.failReason : "Succeeded") + "." +
-                " Took " + timeTook + " seconds.";
+                " Took " + timeTook + " seconds, started on second " + event.startTime + ".";
         case "climb":
             return "Attempted climbing. " +
                 "Event " + (event.failReason ? event.failReason : "Succeeded") + "." +
-                " Took " + timeTook + " seconds.";
+                " Took " + timeTook + " seconds, started on second " + event.startTime + ".";
         case "chassisFight":
             return (event.initiated ? "Initiated" : "Endured") + " fight against: " + event.enemyTeam +
                 (event.alliedTeam ? " with the help of: " + event.alliedTeam : "") + ". " +
-                "Event " + (event.failReason ? event.failReason : "Succeeded") + ". Took " + timeTook + " seconds.";
+                "Event " + (event.failReason ? event.failReason : "Succeeded") + ". Took " + timeTook + " seconds, started on second " + event.startTime + ".";
         case "pickup":
             return "Attempted Picking up " + event.type.toLowerCase() + " from the " + event.location.toLowerCase() + "." +
                 "Event " + (event.failReason ? event.failReason : "Succeeded") + "." +
-                "Took " + timeTook + " seconds.";
+                "Took " + timeTook + " seconds, started on second " + event.startTime + ".";
 
         default:
             return "No description could be provided";
