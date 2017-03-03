@@ -41,8 +41,8 @@ function shooting_status(height) {
             value: 'Success'
         },
         {
-            type:'select',
-            value: ['Failure', 'Failed because of interruption', 'Failed because of mechanical failure']
+            type:'buttonSelect',
+            value: ['Failed because of interruption', 'Failed because of mechanical failure']
         }
     ], shooting_finish)
 }

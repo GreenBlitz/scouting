@@ -304,8 +304,8 @@
                     element.className = colClass;
                     var button = document.createElement("button")
                     button.className = "btn btn-info btn-block btn-rounded event-button";
-                    var heightText = document.createTextNode(object.value);
-                    button.appendChild(heightText);
+                    var buttonText = document.createTextNode(object.value);
+                    button.appendChild(buttonText);
                     button.addEventListener("click", function() {functionToCallWhenDone(object.value)} );
                     element.appendChild(button);
 
@@ -313,23 +313,30 @@
                     buttonClickEvent[buttonIndex++] = function() { functionToCallWhenDone(object.value) };
 
                     break;
-                case 'select':
+                case 'buttonSelect':
                     //Create and append select list
-                    element = document.createElement("select");
-                    element.className = colClass + ' event-button';
-                    element.id = "shootingFailureSelect";
+                    element = document.createElement("div");
+                    element.className = colClass;
+//                    element.id = "shootingFailureSelect";
+
+                    console.log("object in select: " + JSON.stringify(object));
+
+                    var heightInVh = 10.0 / object.value.length;
 
                     //Create and append the options
                     object.value.forEach(function(optionValue) {
-                        var option = document.createElement("option");
-                        option.value = optionValue;
-                        option.text = optionValue;
-                        element.appendChild(option);
+                        var button = document.createElement("button");
+                        button.className = "btn btn-info btn-block btn-rounded event-button";
+                        button.text = optionValue;
+                        button.setAttribute("style", "height:" + heightInVh + "vh;!important");
+
+                        var buttonText = document.createTextNode(optionValue);
+                        button.appendChild(buttonText);
+                        button.addEventListener("click", function() {functionToCallWhenDone(object.value)} );
+
+                        element.appendChild(button);
                     });
 
-                    $(element).on('change', function() {
-                        functionToCallWhenDone(this.value);
-                    })
                     break;
             }
 

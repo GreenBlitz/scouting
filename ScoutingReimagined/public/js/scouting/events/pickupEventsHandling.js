@@ -69,8 +69,8 @@ function pickup_status(pickup_location) {
             value: 'Success'
         },
         {
-            type:'select',
-            value: ['Failure', 'Failed because of interruption', 'Failed because of mechanical failure']
+            type:'buttonSelect',
+            value: ['Failed because of interruption', 'Failed because of mechanical failure']
         }
     ], pickup_finish);
 }
