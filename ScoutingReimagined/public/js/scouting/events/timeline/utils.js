@@ -134,9 +134,9 @@ function getBodyContent(event) {
                 "Event " + (event.failReason ? event.failReason : "Succeeded") + "." +
                 " Took " + timeTook + " seconds, started on second " + event.startTime + ".";
         case "chassisFight":
-            return (event.initiated ? "Initiated" : "Endured") + " fight against: " + event.enemyTeam +
-                (event.alliedTeam ? " with the help of: " + event.alliedTeam : "") + ". " +
-                "Event " + (event.failReason ? event.failReason : "Succeeded") + ". Took " + timeTook + " seconds, started on second " + event.startTime + ".";
+            return (event.initiated ? "Initiated" : "Endured") + " fight. " +
+                "They " + (event.status == 'Success' ? "won" : "lost") + " the fight." +
+                "Fight took " + timeTook + " seconds, started on second " + event.startTime + ".";
         case "pickup":
             return "Attempted Picking up " + event.type.toLowerCase() + " from the " + event.location.toLowerCase() + "." +
                 "Event " + (event.failReason ? event.failReason : "Succeeded") + "." +

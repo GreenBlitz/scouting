@@ -6,8 +6,8 @@ function ChassisFight() {
         "startTime": Math.round(gameVideo.currentTime - autonomousStartTime),// videoCurrentTime,
         "matchPart": (gameVideo.currentTime - autonomousStartTime) < 15 ? "autonomous" : "teleop",
         "endTime": null,
-        "alliedTeam": null, // List of all allied team numbers involved
-        "enemyTeam": null,  // List of all enemy team numbers involved
+        // "alliedTeam": null, // List of all allied team numbers involved
+        // "enemyTeam": null,  // List of all enemy team numbers involved
         "status": null, // Can be: "success" || "fail"
         "fightReason": null, // Can be: TODO: add fight reason codes for fight events
         "failReason": null, // Can be: TODO: add fail reason codes for fight events
@@ -33,7 +33,7 @@ function chassisFight_initiated() {
             type: 'button',
             value: 'Got attacked'
         }
-    ], chassisFight_Teams);
+    ], chassisFight_status_noTeamsInput);
 }
 
 function chassisFight_Teams(chassisFight_initiated) {
@@ -122,6 +122,23 @@ function chassisFight_status() {
         chassisFight.alliedTeam = reds;
         chassisFight.enemyTeam = blues;
     }
+
+    fillEventsDivWithObjects([
+        {
+            type: 'button',
+            value: 'Win'
+        },
+        {
+            type:'button',
+            value: 'Lose'
+        }
+    ], chassisFight_finish);
+}
+
+function chassisFight_status_noTeamsInput(chassisFight_initiated) {
+    chassisFight.initiated = chassisFight_initiated == 'Initiated';
+    var eventsDiv = $('#eventsDiv');
+    eventsDiv.empty();
 
     fillEventsDivWithObjects([
         {
