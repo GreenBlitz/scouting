@@ -52,14 +52,13 @@ function gearplace_status(gearplace_location) {
 }
 
 function gearplace_finish(gearplace_status) {
-    gearplace.status = gearplace_status;
     gearplace.endTime = Math.round(gameVideo.currentTime - autonomousStartTime);
-    if (status === 'Success') {
-        gearplace.status = status;
+    if (gearplace_status === 'Success') {
+        gearplace.status = gearplace_status;
         delete gearplace.failReason; // Prevent ElasticSearch from indexing this value
     } else {
         gearplace.status = 'Failure';
-        gearplace.failReason = status;
+        gearplace.failReason = gearplace_status;
     }
     sendEvent(gearplace);
 
