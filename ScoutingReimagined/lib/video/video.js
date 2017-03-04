@@ -8,7 +8,7 @@
 var fs, uploadPath, supportedTypes;
 
 fs = require('fs');
-uploadPath = __dirname + '/../../games';
+uploadPath = __dirname + '/../../public/games';
 console.log("uploadPath:", uploadPath);
 supportedTypes = [
     'video/mp4',
