@@ -4,9 +4,9 @@ var client = require('../lib/elasticsearch/connection');
 
 /* GET home page. */
 router.post('/', function (req, res) {
-    console.log('GOT EVENT TO /event!!!! event body: ' + JSON.stringify(req.body));
+    var event = JSON.parse(req.body.eventJSON);
 
-    var event = req.body;
+    console.log('GOT EVENT TO /event!!!! event body: ' + JSON.stringify(event));
     var eventName = event.eventName;
 
     delete event.eventName;
@@ -117,6 +117,8 @@ router.get('/', function (req, res) {
         for (var i = 0; i < resp.hits.hits.length; i++) {
             var event = resp.hits.hits[i]._source;
             event.eventName = resp.hits.hits[i]._type;
+            console.log(JSON.stringify(event));
+            event.startTime = parseInt(event.startTime);
             events.push(event);
         }
         res.send(events);

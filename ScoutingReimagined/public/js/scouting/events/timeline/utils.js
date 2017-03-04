@@ -1,6 +1,10 @@
 var u_id = 0;
 var events = [];
 
+function addBatchEventsToTimeline(events) {
+
+}
+
 function addEventToTimeline(event) {
     var timeline = document.getElementById("timeline");
 
@@ -179,11 +183,15 @@ function initializeTimeline(g_id, t_number) {
 function InsertEventToList(startTime) {
     for (var i = 0; i < events.length; i++) {
         if (startTime <= events[i]) {
+            console.log('"sorted" events before splice: ' + events);
+            console.log(typeof startTime, "is smaller than", typeof events[i]);
             events.splice(i, 0, startTime);
+            console.log('"sorted" events: ' + events);
             return i;
         }
     }
     events.push(startTime);
+    console.log('"sorted" events: ' + events);
     return events.length - 1;
 }
 

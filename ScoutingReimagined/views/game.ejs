@@ -169,8 +169,8 @@
 <% include templates/footer.ejs%>
 
 <script type="text/javascript">
-    var gameId = <%- JSON.stringify(gameId) %>;
-    var teamNumber = <%- JSON.stringify(teamNumber) %>;
+    var gameId = parseInt(<%- JSON.stringify(gameId) %>);
+    var teamNumber = parseInt(<%- JSON.stringify(teamNumber) %>);
 
     var gameVideo = document.getElementById("gameVideo");
 
@@ -362,7 +362,9 @@
         $.ajax({
             type: "POST",
             url: '/event',
-            data: event
+            data: {
+                eventJSON: JSON.stringify(event)
+            }
         });
     }
 
