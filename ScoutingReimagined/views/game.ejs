@@ -240,6 +240,10 @@
     var J_KEY = 74;
     var K_KEY = 75;
 
+    window.onkeydown = function(e) {
+        return !(e.keyCode == 32);
+    }
+
     $(window).keyup(function(e) {
         var video = document.getElementById("gameVideo");
         if (e.target != document.body) {
