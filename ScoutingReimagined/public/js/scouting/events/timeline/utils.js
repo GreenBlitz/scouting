@@ -124,23 +124,23 @@ function getBodyContent(event) {
         case "shooting":
             return "Attempted shooting to the " + event.location + " goal. " +
                 "Event " + (event.failReason ? event.failReason : "Succeeded") + "." +
-                " Took " + timeTook + " seconds, started on second " + event.startTime + ".";
+                " Took " + timeTook + " seconds, started on " + new Date(event.startTime* 1000).toISOString().substr(14, 5) + ".";
         case "gearplace":
             return "Attempted placing gear on " + event.location + " bar. " +
                 "Event " + (event.failReason ? event.failReason : "Succeeded") + "." +
-                " Took " + timeTook + " seconds, started on second " + event.startTime + ".";
+                " Took " + timeTook + " seconds, started on " + new Date(event.startTime* 1000).toISOString().substr(14, 5) + ".";
         case "climb":
             return "Attempted climbing. " +
                 "Event " + (event.failReason ? event.failReason : "Succeeded") + "." +
-                " Took " + timeTook + " seconds, started on second " + event.startTime + ".";
+                " Took " + timeTook + " seconds, started on " + new Date(event.startTime* 1000).toISOString().substr(14, 5) + ".";
         case "chassisFight":
             return (event.initiated ? "Initiated" : "Endured") + " fight. " +
                 "They " + (event.status == 'Success' ? "won" : "lost") + " the fight." +
-                "Fight took " + timeTook + " seconds, started on second " + event.startTime + ".";
+                "Fight took " + timeTook + " seconds, started on " + new Date(event.startTime* 1000).toISOString().substr(14, 5) + ".";
         case "pickup":
             return "Attempted Picking up " + event.type.toLowerCase() + " from the " + event.location.toLowerCase() + "." +
                 "Event " + (event.failReason ? event.failReason : "Succeeded") + "." +
-                "Took " + timeTook + " seconds, started on second " + event.startTime + ".";
+                "Took " + timeTook + " seconds, started on " + new Date(event.startTime* 1000).toISOString().substr(14, 5) + ".";
 
         default:
             return "No description could be provided";
