@@ -11,7 +11,32 @@ router.post('/', function (req, res) {
 
     delete event.eventName;
     event.timeTook = event.endTime - event.startTime;
+    client.update({
+        index: 'team-game-data',
+        type: 'team',
+        id: String(event.teamNumber),
+        body: {
+            script: {
+                lang: "painless",
+                inline: "if(!ctx._source.reviewedGames.contains(params.gameId)){ctx._source.reviewedGames.add(params.gameId)}",
+                params: {
+                    gameId: event.gameId
+                }
+            },
+            upsert: {
+                reviewedGames: [event.gameId],
+                importantGames: [],
+                unwantedGames: [],
 
+            }
+        }
+
+    }, function (err, resp) {
+        console.log(resp);
+        if (err) {
+            console.log(err);
+        }
+    });
     client.index({
         // teams/team/4590 : {}
         index: 'events',
@@ -126,5 +151,3 @@ router.get('/', function (req, res) {
 });
 
 module.exports = router;
-
-

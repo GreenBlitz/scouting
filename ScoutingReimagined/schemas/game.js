@@ -21,9 +21,6 @@ var game = {
         "redTeams": {
             "type": "integer"
         },
-        "reviewed": {
-            "type": "boolean" // a boolean list the size of all the teams (6) - [false,false,false,false,false,false], that states which games were reviewed.
-        },
         "comments": {
             "type": "text"
         },

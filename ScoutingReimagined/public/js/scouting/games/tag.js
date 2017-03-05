@@ -3,7 +3,6 @@ function tag(spec, type) {
     if (!spec) {
         return;
     }
-    console.log(spec);
     var query = preProcess(spec);
     var a = $(query);
     console.log(a);
@@ -16,10 +15,20 @@ function tag(spec, type) {
 }
 
 function preProcess(raw) {
-    raw.map(function(a) {
+    var query = "";
+    raw.map(function (a) {
         if (typeof a.games == "string") {
             a.games = [a.games];
         }
     });
-    return raw.map(a => a.games.map(g => "#" + g + "_" + a.teamNumber).join(", ")).join(", ");
+    for (var i = 0; i < raw.length; i++) {
+        for (var g = 0; g < raw[i].games.length; g++) {
+            if (query !== "") {
+                query += ", ";
+            }
+            query += "#" + raw[i].games[g] + "_" + raw[i].teamNumber;
+        }
+    }
+
+    return query;
 }
