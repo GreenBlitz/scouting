@@ -23,6 +23,7 @@ services:
       - "9300:9300"
     environment:
       ES_JAVA_OPTS: "-Xms1g -Xmx1g"
+      script.engine.groovy.inline.search: "on"
     networks:
       - scouting
   kibana:

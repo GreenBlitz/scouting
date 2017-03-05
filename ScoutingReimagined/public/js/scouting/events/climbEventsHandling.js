@@ -3,7 +3,7 @@ function Climb() {
         "teamNumber": teamNumber,
         "gameId": gameId,
         "eventName": "climb",
-        "startTime": Math.round(gameVideo.currentTime - autonomousStartTime),// videoCurrentTime,
+        "startTime": Math.round(gameVideo.currentTime - autonomousStartTime), // videoCurrentTime,
         "matchPart": (gameVideo.currentTime - autonomousStartTime) < 15 ? "autonomous" : "teleop",
         "endTime": null,
         "timeTook": null,
@@ -21,14 +21,13 @@ function climb_start() {
 }
 
 function climb_status() {
-    fillEventsDivWithObjects([
-        {
+    fillEventsDivWithObjects([{
             type: 'button',
             value: 'Success'
         },
         {
-            type:'buttonSelect',
-            value: ['Failed because of interruption', 'Failed because of mechanical failure']
+            type: 'buttonSelect',
+            value: ['Failed because of interruption', 'Failed because of no mechanical lock', 'Failed because of mechanical failure']
         }
     ], climb_finish);
 }

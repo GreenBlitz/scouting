@@ -3,7 +3,7 @@ function Stuck() {
         "teamNumber": teamNumber,
         "gameId": gameId,
         "eventName": "stuck",
-        "startTime": Math.round(gameVideo.currentTime - autonomousStartTime),// videoCurrentTime,
+        "startTime": Math.round(gameVideo.currentTime - autonomousStartTime), // videoCurrentTime,
         "matchPart": (gameVideo.currentTime - autonomousStartTime) < 15 ? "autonomous" : "teleop",
         "endTime": null,
         "reason": null, // Can be: TODO: add disabled reason codes for disabled events
@@ -20,8 +20,7 @@ function stuck_start() {
 }
 
 function stuck_reason() {
-    fillEventsDivWithObjects([
-        {
+    fillEventsDivWithObjects([{
             type: 'button',
             value: '[DEFAULT]Electrical failure'
         },
@@ -41,7 +40,7 @@ function stuck_reason() {
 }
 
 function stuck_recovered(stuck_reason) {
-    switch(stuck_reason) {
+    switch (stuck_reason) {
         case 'Disabled by referee':
             stuck.reason = 'disabled';
             break;
@@ -55,8 +54,7 @@ function stuck_recovered(stuck_reason) {
             stuck.reason = 'electrical';
             break;
     }
-    fillEventsDivWithObjects([
-        {
+    fillEventsDivWithObjects([{
             type: 'button',
             value: 'Recovered'
         },
