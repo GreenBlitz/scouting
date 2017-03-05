@@ -20,9 +20,10 @@ function stuck_start() {
 }
 
 function stuck_reason() {
-    fillEventsDivWithObjects([{
+    fillEventsDivWithObjects([
+        {
             type: 'button',
-            value: '[DEFAULT]Electrical failure'
+            value: 'Robot failure'
         },
         {
             type: 'button',

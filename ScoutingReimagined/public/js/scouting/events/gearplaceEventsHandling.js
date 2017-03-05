@@ -46,7 +46,7 @@ function gearplace_status(gearplace_location) {
         },
         {
             type:'buttonSelect',
-            value: ['Failed because of interruption', 'Failed because of mechanical failure']
+            value: ['Failed because of interruption', 'Failed because of mechanical failure / gear fell', 'Failed because human player dropped the gear']
         }
     ], gearplace_finish);
 }

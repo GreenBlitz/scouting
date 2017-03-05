@@ -27,7 +27,7 @@ function climb_status() {
         },
         {
             type: 'buttonSelect',
-            value: ['Failed because of interruption', 'Failed because of no mechanical lock', 'Failed because of mechanical failure']
+            value: ['Failed because of interruption', 'Failed because of no mechanical lock', 'Failed because of mechanical failure', 'Failed because game ended']
         }
     ], climb_finish);
 }

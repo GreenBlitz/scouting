@@ -56,6 +56,10 @@ function pickup_location(pickup_type) {
             {
                 type: 'button',
                 value: 'Hopper'
+            },
+            {
+                type: 'button',
+                value: 'Feeder'
             }
         ], pickup_status);
     }

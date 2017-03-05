@@ -140,20 +140,34 @@ function chassisFight_status_noTeamsInput(chassisFight_initiated) {
     var eventsDiv = $('#eventsDiv');
     eventsDiv.empty();
 
-    fillEventsDivWithObjects([
-        {
-            type: 'button',
-            value: 'Win'
-        },
-        {
-            type:'button',
-            value: 'Lose'
-        }
-    ], chassisFight_finish);
+    if (chassisFight.initiated) {
+        fillEventsDivWithObjects([
+            {
+                type: 'button',
+                value: 'Successful event interruption'
+            },
+            {
+                type: 'button',
+                value: 'Event was not interrupted'
+            }
+        ], chassisFight_finish);
+    } else {
+        fillEventsDivWithObjects([
+            {
+                type: 'button',
+                value: 'Continued in his task without interruption'
+            },
+            {
+                type:'button',
+                value: 'Event was interrupted'
+            }
+        ], chassisFight_finish);
+    }
 }
 
 function chassisFight_finish(chassisFight_status) {
-    chassisFight.status = chassisFight_status == 'Win' ? 'Success' : 'Failure';
+    chassisFight.status = (chassisFight_status == 'Successful event interruption'
+                        || chassisFight_status == 'Continued in his task without interruption');
     chassisFight.endTime = Math.round(gameVideo.currentTime - autonomousStartTime);
     sendEvent(chassisFight);
 
