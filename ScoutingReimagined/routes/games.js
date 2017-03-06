@@ -34,6 +34,7 @@ router.get('/', function (req, res, next) {
 function getAllGames(resolve, reject) {
     client.search({
         index: 'games',
+	size: 1000,
         body: {
             query: {
                 match_all: {}
@@ -67,6 +68,7 @@ function getAllGames(resolve, reject) {
 function getTeamGameData(resolve, reject) {
     client.search({
         index: 'team-game-data',
+	size: 1000,
         body: {
             query: {
                 match_all: {}
