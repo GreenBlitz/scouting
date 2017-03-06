@@ -69,7 +69,7 @@ app.use('/users', users);
 app.use('/upload', uploadRouter.router);
 app.use('/games', games);
 app.use('/game', game);
-app.use('/help', help);
+app.use('/event', event);
 app.use('/teamgamedata', teamgamedata);
 
 // TODO: compare teams that wil play with and against you
