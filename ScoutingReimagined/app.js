@@ -37,6 +37,7 @@ var upload = multer({
 
 var games = require('./routes/games');
 var users = require('./routes/users');
+var help = require('./routes/help');
 var game = require('./routes/game');
 var event = require('./routes/event');
 var teamgamedata = require('./routes/teamGameData');
@@ -68,7 +69,7 @@ app.use('/users', users);
 app.use('/upload', uploadRouter.router);
 app.use('/games', games);
 app.use('/game', game);
-app.use('/event', event);
+app.use('/help', help);
 app.use('/teamgamedata', teamgamedata);
 
 // TODO: compare teams that wil play with and against you
