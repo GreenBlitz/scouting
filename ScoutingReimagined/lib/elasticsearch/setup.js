@@ -88,6 +88,7 @@ function mapEvents(client) {
     var fight = require(schemasDir + '/events/fight');
     var gearPlace = require(schemasDir + '/events/gearPlace');
     var shooting = require(schemasDir + '/events/shooting');
+    var comment = require(schemasDir + '/events/comment');
 
     /**
      * Maps the type name to it's mapping
@@ -99,7 +100,8 @@ function mapEvents(client) {
         "fight": fight,
         "pickup": pickup,
         "gearPlace": gearPlace,
-        "shooting": shooting
+        "shooting": shooting,
+        "comment": comment
     };
 
     for (var type in typeToMapping) {

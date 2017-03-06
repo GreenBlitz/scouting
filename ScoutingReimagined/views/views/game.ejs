@@ -55,7 +55,7 @@
                                 <div class="col-sm-2">
                                     <button id="stuck" class="btn btn-info btn-block btn-rounded hidden" style="height: 10vh; font-size: xx-large; color:black" onclick="stuck_start()">Stuck</button>
                                 </div>
-                                <div class="col-sm-12">
+                                <div class="col-sm-2">
                                     <button id="comment" class="btn btn-info btn-block btn-rounded hidden" style="height: 10vh; font-size: xx-large; color:purple" onclick="comment_start()">Comment</button>
                                 </div>
                                 <div id="eventsDiv" style="width: 100%; height:10vh;">
@@ -103,13 +103,13 @@
 <script type="text/javascript" src="/js/scouting/events/climbEventsHandling.js"></script>
 <script type="text/javascript" src="/js/scouting/events/stuckEventsHandling.js"></script>
 <script type="text/javascript" src="/js/scouting/events/autonomousEventsHandling.js"></script>
-<script type="text/javascript" src="/js/scouting/events/commentsEventHandling.js"></script>
+<script type="text/javascript" src="/js/scouting/events/commentEventsHandling.js"></script>
 
 <script type="text/javascript" src="/js/scouting/events/timeline/utils.js"></script>
 
 
 <script>
-    buttonIds = ['shooting', 'pickup', 'gearplace', 'chassisfight', 'climb', 'stuck', 'comment'];
+    buttonIds = ['shooting', 'pickup', 'gearplace', 'chassisfight', 'climb', 'stuck'];
 
 
     function isFunction(functionToCheck) {
@@ -156,7 +156,7 @@
     var K_KEY = 75;
 
     window.onkeydown = function(e) {
-        return !(e.keyCode == 32 && e.target != document.getElementById("commentTextbox"));
+        return !(e.keyCode == 32);
     }
 
     $(window).keyup(function(e) {
@@ -266,8 +266,7 @@
 
                     //Create and append the options
                     var textarea = document.createElement("textarea");
-                    textarea.setAttribute("class", "form-control");
-                    textarea.setAttribute("style", "height:9vh;!important");
+                    textarea.class = "form-control";
                     textarea.id = "commentTextbox";
 
                     var button = document.createElement("button");

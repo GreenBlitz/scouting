@@ -57,7 +57,8 @@ function createBadge(eventName, success) {
         "gearplace": "fa-cogs",
         "pickup": "fa-download",
         "shooting": "fa-bullseye",
-        "stuck": "fa-wheelchair"
+        "stuck": "fa-wheelchair",
+        "comment": "fa-profile"
     };
 
     var color = success ? "success" : "danger";
@@ -145,7 +146,8 @@ function getBodyContent(event) {
             return "Attempted Picking up " + event.type.toLowerCase() + " from the " + event.location.toLowerCase() + "." +
                 "Event " + (event.failReason ? event.failReason : "Succeeded") + "." +
                 "Took " + timeTook + " seconds, started on " + new Date(event.startTime* 1000).toISOString().substr(14, 5) + ".";
-
+        case "comment":
+            return "Scouter comment: " + event.content;
         default:
             return "No description could be provided";
     }
