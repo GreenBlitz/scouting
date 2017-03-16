@@ -37,7 +37,11 @@ function getAllGames(resolve, reject) {
 	size: 1000,
         body: {
             query: {
-                match_all: {}
+                range: {
+                    gameId: {
+                        gt: 53 // Game id of the last game on district 1
+                    }
+                }
             }
         }
     }, function (error, response, status) {
