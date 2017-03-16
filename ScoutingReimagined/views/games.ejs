@@ -36,7 +36,7 @@
                                                 </ul>
                                             </div>
                                             <div class="panel-body">
-                                                <% Playoffs.sort(function(a, b) {return parseInt(a.gameId) < parseInt(b.gameId)});Playoffs.forEach(function(game) { console.log(game); %>
+                                                <% Playoffs.sort(function(a, b) {return parseInt(b['gameId']) - parseInt(a['gameId'])}).forEach(function(game) { console.log(game); %>
                                                     <div class="row">
                                                         <div class="col-md-2 game-title">
                                                             Game #<%= game['gameId'] %>
@@ -79,7 +79,7 @@
                                                 </ul>
                                             </div>
                                             <div class="panel-body">
-                                                <% Qualification.sort(function(a, b) {return parseInt(a.gameId) < parseInt(b.gameId)});Qualification.forEach(function(game) { console.log(game); %>
+                                                <% Qualification.sort(function(a, b) {return parseInt(b['gameId']) - parseInt(a['gameId'])}).forEach(function(game) { console.log(game); %>
                                                     <div class="row">
                                                         <div class="col-md-2 game-title">
                                                             Game #<%= game['gameId'] %>
@@ -122,7 +122,7 @@
                                                 </ul>
                                             </div>
                                             <div class="panel-body">
-                                                <% Practice.sort(function(a, b) {return parseInt(a.gameId) < parseInt(b.gameId)});Practice.forEach(function(game) { console.log(game); %>
+                                                <% Practice.sort(function(a, b) {return parseInt(b['gameId']) - parseInt(a['gameId'])}).forEach(function(game) { console.log(game); %>
                                                     <div class="row">
                                                         <div class="col-md-2 game-title">
                                                             Game #<%= game['gameId'] %>
