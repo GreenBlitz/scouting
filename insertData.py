@@ -4,7 +4,7 @@ import argparse
 
 parser = argparse.ArgumentParser(prog='insertData.py', description='Reads a database dump file and inserts it into a current live database')
 parser.add_argument('--host', type=str, default='localhost')
-parser.add_argument('--port', type=int, default=9201) # Intentionally left as 9201 instead of 9200 in order to not override my own database accidently
+parser.add_argument('--port', type=int, default=9200) # Intentionally left as 9201 instead of 9200 in order to not override my own database accidently
 parser.add_argument('filepath', type=str)
 
 
@@ -28,5 +28,6 @@ try:
 except Exception:
     sys.exit("Error in connection to database: %s" % str())
 
-for index, value in imported_data.iteritems():
-    es.index(index=doc_type['_index'], doc_type=value['_type'], id=value['_id'], body=value['_source'])
+for index, documents in imported_data.iteritems():
+    for document in documents:
+        es.index(index=document['_index'], doc_type=document['_type'], id=document['_id'], body=document['_source'])
