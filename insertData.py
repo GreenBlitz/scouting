@@ -42,7 +42,4 @@ except Exception:
 for index, documents in imported_data.iteritems():
     for document in documents:
         body = document['_source']
-        if (index == 'games' or index == 'events') and not 'competition' in body:
-            body['competition'] = getCompetition(int(body['gameId']))
-            print body
         es.index(index=document['_index'], doc_type=document['_type'], id=document['_id'], body=body)
