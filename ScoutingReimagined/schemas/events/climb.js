@@ -26,6 +26,9 @@ var climb = {
         },
         "failReason": {
             "type": "keyword" // Can be: TODO: add fail reason codes for climb events
+        },
+        "competition": {
+            "type": "keyword"
         }
     }
 };

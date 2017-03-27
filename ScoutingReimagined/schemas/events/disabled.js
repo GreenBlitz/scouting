@@ -26,6 +26,9 @@ var disabled = {
         },
         "recovered": {
             "type": "boolean"
+        },
+        "competition": {
+            "type": "keyword"
         }
     }
 };

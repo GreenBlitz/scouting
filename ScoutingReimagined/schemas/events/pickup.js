@@ -29,6 +29,9 @@ var pickup = {
         },
         "failReason": {
             "type": "keyword" // Can be: TODO: add fail reason codes for ballPickup events
+        },
+        "competition": {
+            "type": "keyword"
         }
     }
 };

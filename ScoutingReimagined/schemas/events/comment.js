@@ -11,6 +11,9 @@ var comment = {
         },
         "content": {
             "type": "text"
+        },
+        "competition": {
+            "type": "keyword"
         }
     }
 };

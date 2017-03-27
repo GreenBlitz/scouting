@@ -32,6 +32,9 @@ var game = {
         },
         "redTeamScore": {
             "type": "integer"
+        },
+        "competition": {
+            "type": "keyword"
         }
     }
 };

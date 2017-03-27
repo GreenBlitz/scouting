@@ -38,6 +38,9 @@ var fight = {
         },
         "failReason": {
             "type": "keyword" // Can be: TODO: add fail reason codes for fight events
+        },
+        "competition": {
+            "type": "keyword"
         }
     }
 };

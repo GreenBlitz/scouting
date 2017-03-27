@@ -26,6 +26,9 @@ var shooting = {
         },
         "failReason": {
             "type": "keyword" // Can be: TODO: add fail reasons codes for shooting events
+        },
+        "competition": {
+            "type": "keyword"
         }
     }
 };
