@@ -39,7 +39,7 @@ function getAllGames(resolve, reject) {
             query: {
                 range: {
                     gameId: {
-                        gt: 53 // Game id of the last game on district 1
+                        gt: 103 // Game id of the last game on district 1
                     }
                 }
             }
