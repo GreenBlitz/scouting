@@ -13,6 +13,7 @@ var handleUpload = function (req, res) {
     var gameid = req.body.gameid;
     var matchType = req.body.matchType;
     var comments = req.body.comments;
+    var competition = req.body.competition.toLowerCase();
 
 
 
@@ -29,7 +30,8 @@ var handleUpload = function (req, res) {
             "redTeams": redTeams,
             "comments": comments,
             "gameId": gameid,
-            "date": gameUploadTime
+            "date": gameUploadTime,
+            "competition": competition
         }
     }, function (err, resp, status) {
         console.log(resp);

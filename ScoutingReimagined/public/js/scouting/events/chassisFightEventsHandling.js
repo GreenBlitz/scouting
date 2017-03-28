@@ -11,7 +11,8 @@ function ChassisFight() {
         "status": null, // Can be: "success" || "fail"
         "fightReason": null, // Can be: TODO: add fight reason codes for fight events
         "failReason": null, // Can be: TODO: add fail reason codes for fight events
-        "initiated": null // Was the fight intentional or coerced upon the team
+        "initiated": null, // Was the fight intentional or coerced upon the team
+        "competition": competition
     }
 }
 

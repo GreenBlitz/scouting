@@ -9,7 +9,8 @@ function PickUp() {
         "endTime": null,
         "location": null, // Can be: "low" || "high"
         "status": null, // Can be: "success" || "fail"
-        "failReason": null // Can be: TODO: add fail reasons codes for shooting events
+        "failReason": null, // Can be: TODO: add fail reasons codes for shooting events
+        "competition": competition
     }
 }
 

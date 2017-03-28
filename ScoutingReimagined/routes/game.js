@@ -36,7 +36,7 @@ router.get('/', function(req, res, next) {
             console.log("Response got from elasticsearch on game: " + JSON.stringify(response));
             var data = response.hits.hits[0]._source;
             res.render('game', {teamNumber: teamNumber, gameId: gameId, matchType: matchType,
-                                blueTeams: data.blueTeams, redTeams: data.redTeams});
+                                blueTeams: data.blueTeams, redTeams: data.redTeams, competition: data.competition});
         }
     });
 

@@ -8,7 +8,8 @@ function Climb() {
         "endTime": null,
         "timeTook": null,
         "status": null, // Can be: "success" || "fail"
-        "failReason": null // Can be: TODO: add fail reasons codes for shooting events
+        "failReason": null, // Can be: TODO: add fail reasons codes for shooting events
+        "competition": competition
     }
 }
 

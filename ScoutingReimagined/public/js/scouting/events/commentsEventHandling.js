@@ -3,7 +3,8 @@ function Comment() {
         "teamNumber": teamNumber,
         "gameId": gameId,
         "eventName": "comment",
-        "content": null
+        "content": null,
+        "competition": competition
     }
 }
 

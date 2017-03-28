@@ -7,7 +7,8 @@ function Stuck() {
         "matchPart": (gameVideo.currentTime - autonomousStartTime) < 15 ? "autonomous" : "teleop",
         "endTime": null,
         "reason": null, // Can be: TODO: add disabled reason codes for disabled events
-        "recovered": null // boolean
+        "recovered": null, // boolean
+        "competition": competition
     }
 }
 
