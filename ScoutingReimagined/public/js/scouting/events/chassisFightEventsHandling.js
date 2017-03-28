@@ -168,7 +168,7 @@ function chassisFight_status_noTeamsInput(chassisFight_initiated) {
 
 function chassisFight_finish(chassisFight_status) {
     chassisFight.status = (chassisFight_status == 'Successful event interruption'
-                        || chassisFight_status == 'Continued in his task without interruption');
+                        || chassisFight_status == 'Continued in his task without interruption') ? "Success" : "Failure";
     chassisFight.endTime = Math.round(gameVideo.currentTime - autonomousStartTime);
     sendEvent(chassisFight);
 
