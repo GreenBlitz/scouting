@@ -250,8 +250,8 @@
 
                         var buttonText = document.createTextNode(optionValue);
                         button.appendChild(buttonText);
-                        button.addEventListener("click", function() {functionToCallWhenDone(object.value)} );
-                        buttonClickEvent[buttonIndex++] = function() { functionToCallWhenDone(object.value) };
+                        button.addEventListener("click", function() {functionToCallWhenDone(optionValue)} );
+                        buttonClickEvent[buttonIndex++] = function() { functionToCallWhenDone(optionValue) };
 
                         element.appendChild(button);
                     });
