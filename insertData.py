@@ -1,7 +1,7 @@
 import datetime, pickle, os, sys
 from elasticsearch import Elasticsearch
 import argparse
-
+import json
 
 parser = argparse.ArgumentParser(prog='insertData.py', description='Reads a database dump file and inserts it into a current live database')
 parser.add_argument('--host', type=str, default='localhost')
@@ -25,14 +25,55 @@ with open(filepath, 'r') as dumpfile:
         sys.exit("Error in loading pickle file '%s'. error: %s" % (filepath, str(e)))
 
 try:
-    es = Elasticsearch([{'host': host, 'port': port}])
+    es = Elasticsearch(['https://elastic:DGaWZE2n4z57zPw2Qjq0kD3B@d0711580ef13b7df91b9807c8cf82f1f.eu-west-1.aws.found.io:9243'])
 except Exception:
     sys.exit("Error in connection to database: %s" % str())
 
-for index, documents in imported_data.iteritems():
+MAX_SIZE = 10000
+
+def get_all_from_index(index):
+    res = es.search(index=index, body={ 'size': MAX_SIZE, 'query': {'match_all': { } } })
+    if not 'hits' in res or not 'hits' in res['hits']:
+        print('Could not find documents in index %s')
+        return ''
+    hits = res['hits']['hits']
+    for hit in hits:
+        del hit['_score']
+    return hits
+
+def differenceBetween(documents1, documents2):
+    found_in_documents1_and_not_in_documents2 = list()
+    for document in documents1:
+        if document not in documents2:
+            found_in_documents1_and_not_in_documents2.append(document)
+    return found_in_documents1_and_not_in_documents2
+
+all_games_to_insert = differenceBetween(imported_data['games'], get_all_from_index('games'))
+all_events_to_insert = differenceBetween(imported_data['events'], get_all_from_index('events'))
+all_team_game_data_to_insert = differenceBetween(imported_data['team-game-data'], get_all_from_index('team-game-data'))
+kibana_data_to_insert = differenceBetween(imported_data['.kibana'], get_all_from_index('.kibana'))
+
+data_to_insert = { \
+    'games': all_games_to_insert,\
+    'events': all_events_to_insert,\
+    'team-game-data': all_team_game_data_to_insert,\
+    '.kibana': kibana_data_to_insert\
+}
+
+#print data_to_insert
+
+mappings = {
+    'games': imported_data['games_mapping'],
+    'events': imported_data['events_mapping'],
+    'team-game-data': imported_data['team_game_data_mapping']
+}
+
+for index, mapping in mappings.iteritems():
+    indexMapping = mapping[index]['mappings']
+    for _type, typeMapping in indexMapping.iteritems():
+        es.indices.put_mapping(doc_type=_type, body=typeMapping, index=index)
+
+for index, documents in data_to_insert.iteritems():
     for document in documents:
         body = document['_source']
-        if 'status' in body and type(body['status']) == bool:
-            body['status'] = 'Success' if body['status'] else 'Failure'
-            print body
-            es.index(index=document['_index'], doc_type=document['_type'], id=document['_id'], body=body)
+        es.index(index=document['_index'], doc_type=document['_type'], id=document['_id'], body=body)
