@@ -33,13 +33,26 @@ def get_all_from_index(index):
         del hit['_score']
     return hits
 
+
+def get_mapping(index):
+    mapping = es.indices.get_mapping(index=index)
+    return mapping
+
+
 all_games = get_all_from_index('games')
 all_events = get_all_from_index('events')
 all_team_game_data = get_all_from_index('team-game-data')
 kibana_data = get_all_from_index('.kibana')
 
+games_mapping = get_mapping('games')
+events_mapping= get_mapping('events')
+team_game_data_mapping = get_mapping('team-game-data')
+
 data = { \
     'games': all_games,\
+    'games_mapping': games_mapping,
+    'events_mapping': events_mapping,
+    'team_game_data_mapping': team_game_data_mapping,
     'events': all_events,\
     'team-game-data': all_team_game_data,\
     '.kibana': kibana_data\
