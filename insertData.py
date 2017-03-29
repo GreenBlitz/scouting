@@ -2,16 +2,6 @@ import datetime, pickle, os, sys
 from elasticsearch import Elasticsearch
 import argparse
 
-def getCompetition(gameId):
-    FIRST_DISTRICT4_GAME = 54
-    FIRST_NOKIA_GAME = 104
-    if gameId < FIRST_DISTRICT4_GAME:
-        return "district1"
-    elif FIRST_DISTRICT4_GAME < gameId < FIRST_NOKIA_GAME:
-        return "district4"
-    elif FIRST_NOKIA_GAME < gameId:
-        return "nokia"
-
 
 parser = argparse.ArgumentParser(prog='insertData.py', description='Reads a database dump file and inserts it into a current live database')
 parser.add_argument('--host', type=str, default='localhost')
@@ -42,4 +32,7 @@ except Exception:
 for index, documents in imported_data.iteritems():
     for document in documents:
         body = document['_source']
-        es.index(index=document['_index'], doc_type=document['_type'], id=document['_id'], body=body)
+        if 'status' in body and type(body['status']) == bool:
+            body['status'] = 'Success' if body['status'] else 'Failure'
+            print body
+            es.index(index=document['_index'], doc_type=document['_type'], id=document['_id'], body=body)
