@@ -6,7 +6,8 @@
 >Follow the appropriate [installation instructions](https://docs.docker.com/engine/getstarted/step_one/) for your operating system
 #### Docker-Compose
 >Follow the appropriate [installation instructions](https://docs.docker.com/compose/install/) for your operating system
-
+#### Disclaimer Regarding Docker & Docker-Compose
+If you configured docker and docker-compose correctly you might not need to run all your docker commands with sudo. If this is the case ignore all of the sudo prefixes to docker commands. A good way to test it is to run: `docker ps`. if it returns a list of machines (whether empty or filled with different virtual machines) it's a sign you configured docker correctly. If docker complains about a not being able to connect to the Docker daemon, don't worry. Just run all your docker commands with a sudo prefix and you should be just fine :D
 ### Install
 That is it. Now you are ready to deploy your first scouting system ! :D
 It's as easy as:
@@ -50,7 +51,10 @@ optional arguments:
   --port PORT
 ```
 e.g. `python insertData.py db_dumps/currentDump.p`
-
+## Shutting Down the system
+Simply press Ctrl^C to allow all the machines to terminate gracefully. If you run `sudo docker-compose up` again in the same directory you will find that all of your data is safe :D
+When you truly wish to delete your data completely and remove all of the virtual machines created by the system run: `sudo docker-compose down`
+This is very dangerous as it deletes your entire databasee in just under 5 seconds. Be careful.
 ## Youtube Record Stream Script Instructions
 ### Prerequisites
 1. To download the youtube-dl tool run `sudo ./get-youtube-dl.sh` 
