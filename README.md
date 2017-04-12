@@ -12,7 +12,7 @@ If you configured docker and docker-compose correctly you might not need to run 
 That is it. Now you are ready to deploy your first scouting system ! :D
 It's as easy as:
 1. `cd <ROOT_REPOSITORY_CLONE_DIRECTORY>`
-2. If this is your first time installing the system run: `sudo sysctl -w vm.max_map_count=262144`
+2. If this is your first time installing the system run: `./elasticsearch_fix.sh`
 3. `sudo docker-compose up`
 
 * Your webapp will be found under the `port 3000`
