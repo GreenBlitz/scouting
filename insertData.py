@@ -5,7 +5,7 @@ import json
 
 parser = argparse.ArgumentParser(prog='insertData.py', description='Reads a database dump file and inserts it into a current live database')
 parser.add_argument('--host', type=str, default='localhost')
-parser.add_argument('--port', type=int, default=9200) # Intentionally left as 9201 instead of 9200 in order to not override my own database accidently
+parser.add_argument('--port', type=int, default=9200)
 parser.add_argument('filepath', type=str)
 
 
@@ -25,7 +25,7 @@ with open(filepath, 'r') as dumpfile:
         sys.exit("Error in loading pickle file '%s'. error: %s" % (filepath, str(e)))
 
 try:
-    es = Elasticsearch(['https://elastic:DGaWZE2n4z57zPw2Qjq0kD3B@d0711580ef13b7df91b9807c8cf82f1f.eu-west-1.aws.found.io:9243'])
+    es = Elasticsearch(['http://' + host + ':' + str(port)])
 except Exception:
     sys.exit("Error in connection to database: %s" % str())
 
