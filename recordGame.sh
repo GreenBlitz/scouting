@@ -1,1 +1,1 @@
-./download-video.sh 95 https://youtu.be/p55i16sox60 $1
+./download-video.sh $YOUTUBE_STREAM_FORMAT $YOUTUBE_STREAM_URL $1
