@@ -7,6 +7,39 @@ var router = express.Router();
 /* GET games page. */
 router.get('/', function (req, res, next) {
     var calls = [];
+    var getAllGames = function (resolve, reject) {
+        client.search({
+            index: 'games',
+            size: 1000,
+            body: {
+                query: {
+                    match: {
+                        competition: req.query.competition ? req.query.competition : 'houston'
+                    }
+                }
+            }
+        }, function (error, response, status) {
+            if (error) {
+                console.log("search error: " + error);
+                reject(error);
+            } else {
+                var games = {
+                    'Practice': [],
+                    'Qualification': [],
+                    'Playoffs': []
+                };
+                response.hits.hits.forEach(function (hit) {
+                    var data = hit['_source'];
+                    if (hit['_type'] in games) {
+                        games[hit['_type']].push(data);
+                    }
+                });
+                console.log("Calling callback on getAllGames...");
+
+                resolve(games);
+            }
+        });
+    };
 
     calls.push(new Promise(getAllGames));
     calls.push(new Promise(getTeamGameData));
@@ -30,42 +63,6 @@ router.get('/', function (req, res, next) {
             });
         });
 });
-
-function getAllGames(resolve, reject) {
-    client.search({
-        index: 'games',
-	size: 1000,
-        body: {
-            query: {
-                range: {
-                    gameId: {
-                        gt: 103 // Game id of the last game on district 1
-                    }
-                }
-            }
-        }
-    }, function (error, response, status) {
-        if (error) {
-            console.log("search error: " + error);
-            reject(error);
-        } else {
-            var games = {
-                'Practice': [],
-                'Qualification': [],
-                'Playoffs': []
-            };
-            response.hits.hits.forEach(function (hit) {
-                var data = hit['_source'];
-                if (hit['_type'] in games) {
-                    games[hit['_type']].push(data);
-                }
-            });
-            console.log("Calling callback on getAllGames...");
-
-            resolve(games);
-        }
-    });
-}
 
 
 
