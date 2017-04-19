@@ -35,6 +35,7 @@ optional arguments:
   --port PORT
   --filepath FILEPATH
 ```
+If this is the first time you are running this script you may need to install the python module elasticsearch. In a Linux os this could be installed through: `sudo pip install elasticsearch`
 #### Insert Data
 Inserts the data stored in the specified dump file to an elastic search cluster and a kibana instance.
 ```
@@ -51,6 +52,7 @@ optional arguments:
   --port PORT
 ```
 e.g. `python insertData.py db_dumps/currentDump.p`
+If this is the first time you are running this script you may need to install the python module elasticsearch. In a Linux os this could be installed through: `sudo pip install elasticsearch`
 ## Shutting Down the system
 Simply press Ctrl^C to allow all the machines to terminate gracefully. If you run `sudo docker-compose up` again in the same directory you will find that all of your data is safe :D
 When you truly wish to delete your data completely and remove all of the virtual machines created by the system run: `sudo docker-compose down`
