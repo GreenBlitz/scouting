@@ -61,7 +61,7 @@ This is very dangerous as it deletes your entire databasee in just under 5 secon
 ### Prerequisites
 1. To download the youtube-dl tool run `sudo ./get-youtube-dl.sh` 
 2. [Compile ffmpeg from source](https://trac.ffmpeg.org/wiki/CompilationGuide) - Use the apropriate guide for your operating system.
-* When running the final ./configure command e.g. in this [Ubuntu Guide](https://trac.ffmpeg.org/wiki/CompilationGuide/Ubuntu#ffmpeg) add `--with-openssl` to the list of flags
+* When running the final ./configure command e.g. in this [Ubuntu Guide](https://trac.ffmpeg.org/wiki/CompilationGuide/Ubuntu#ffmpeg) add `--enable-openssl` to the list of flags
 ### Usage
 To Download a video, pleasee configure the recordGame.sh script correctly and run it like so: `./recordGame.sh <GAME_ID>.mp4` where <GAME_ID> is a number that represents the gamee's ID in the system.
 To configure the script correctly set 2 environment variables:
