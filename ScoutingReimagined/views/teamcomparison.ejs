@@ -32,20 +32,9 @@
                 <div class="col-md-12">
 
                     <h1>
-                        Scouting guide
+                        Top teams
                     </h1>
 
-                    <h2>
-                        Introduction
-                    </h2>
-
-                    <h2>
-                        Inserting inputs
-                    </h2>
-
-                    <h2>
-                        Observing outputs
-                    </h2>
                    <%
                         var events = JSON.parse(JSON.stringify(events));
                         console.log(JSON.stringify(events));
@@ -55,19 +44,31 @@
                             var event = events[e];
                             var event_data = event['_source']
                             var teamNumber = event_data['teamNumber']
-                            if (event['_type'] == 'gearplace' && event_data['status'] == 'Success') {
+                            if (event['_type'] == 'gearplace' || event['_type'] == 'climb') {
                                var count, gameIds;
                                if(teamNumber in shooting_data_per_team) {
-                                   console.log(shooting_data_per_team[teamNumber]);
-                                   count = shooting_data_per_team[teamNumber]['count'] + 1;
-                                   gameIds = shooting_data_per_team[teamNumber]['game_ids']
+                                   gearplace = shooting_data_per_team[teamNumber]['gearplace'];
+                                   climb = shooting_data_per_team[teamNumber]['climb'];
+                                   gameIds = shooting_data_per_team[teamNumber]['game_ids'];
+                                   totalClimbDuration = shooting_data_per_team[teamNumber]['totalClimbDuration'];
                                    gameIds.add(event_data['gameId'])
                                } else {
-                                   count = 1
+                                   gearplace = 0
+                                   climb = 0
+                                   totalClimbDuration = 0
                                    gameIds = new Set([event_data['gameId']])
                                }
+                                if (event['_type'] == 'gearplace' && event_data['status'] == 'Success') {
+                                    gearplace++;
+                                }
+                                if (event['_type'] == 'climb' && event_data['status'] == 'Success') {
+                                    climb++;
+                                    totalClimbDuration += event_data['timeTook'];
+                                }
                                shooting_data_per_team[teamNumber] = {
-                                   'count': count,
+                                   'gearplace': gearplace,
+                                   'climb': climb,
+                                   'totalClimbDuration': totalClimbDuration,
                                    'game_ids': gameIds
                                }
                             }
@@ -78,21 +79,18 @@
                         var averageShootingPerTeam = {};
                         for(var teamNumber in shooting_data_per_team) {
                             var teamData = shooting_data_per_team[teamNumber];
+                            console.log('teamData: ');
+                            console.log(JSON.stringify(teamData))
                             top_teams.push({
                                 'teamNumber': teamNumber,
-                                'average': teamData['count'] / teamData['game_ids'].size
+                                'averageGearsPerGame': (Math.round(teamData['gearplace']*10 / teamData['game_ids'].size)/10).toFixed(1),
+                                'climbSuccessRate': (Math.round(teamData['climb']*10 / teamData['game_ids'].size)/10).toFixed(1),
+                                'averageClimbDuration': (Math.round(teamData['totalClimbDuration']*10 / teamData['climb'])/10).toFixed(1)
                             });
                         }
 
-                        top_teams.sort(function (a, b) {
-                            return b['average'] - a['average'];
-                        });
-
-                        console.log("top teams:", top_teams);
-                   %>
-                    <p><%= JSON.stringify(top_teams) %></p>
-       <!-- PAGE CONTENT WRAPPER -->
-                <div class="page-content-wrap">                
+                        console.log("top teams:", top_teams); %>
+                <div class="page-content-wrap">
                 
                     <div class="row">
                         <div class="col-md-12">
@@ -114,34 +112,19 @@
                                                 <th>Team Number</th>
                                                 <th>Avg. Gear-Place Success / game</th>
                                                 <th>Climb success rate</th>
-                                                <th>Average Climb Duration</th>
+                                                <th>Average Climb Duration(seconds)</th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr>
-                                                <td>Tiger Nixon</td>
-                                                <td>System Architect</td>
-                                                <td>Edinburgh</td>
-                                                <td>61</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Garrett Winters</td>
-                                                <td>Accountant</td>
-                                                <td>Tokyo</td>
-                                                <td>63</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Ashton Cox</td>
-                                                <td>Junior Technical Author</td>
-                                                <td>San Francisco</td>
-                                                <td>66</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Cedric Kelly</td>
-                                                <td>Senior Javascript Developer</td>
-                                                <td>Edinburgh</td>
-                                                <td>22</td>
-                                            </tr>
+                                            <% for(var t in top_teams) {
+                                                var team_data = top_teams[t]; %>
+                                                <tr>
+                                                    <td><%= team_data.teamNumber %></td>
+                                                    <td><%= team_data.averageGearsPerGame %></td>
+                                                    <td><%= team_data.climbSuccessRate %></td>
+                                                    <td><%= team_data.averageClimbDuration %></td>
+                                                </tr>
+                                            <% } %>
                                         </tbody>
                                     </table>
                                 </div>
@@ -150,7 +133,6 @@
                         </div>
                     </div>                                
                     
->>>>>>> 7c361ec1a9e34d3bd0d92a6262d1da6a6017360f
                 </div>
                 <!-- PAGE CONTENT WRAPPER -->
         <!-- END PAGE CONTENT WRAPPER -->

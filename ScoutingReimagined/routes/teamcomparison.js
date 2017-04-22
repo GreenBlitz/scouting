@@ -22,7 +22,7 @@ function getAllEvents() {
                     constant_score: {
                         filter: {
                             terms: {
-                                _type: ["shooting", "gearplace"]
+                                _type: ["climb", "gearplace"]
                             }
                         }
                     }
