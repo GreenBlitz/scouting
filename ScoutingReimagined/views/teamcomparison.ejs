@@ -37,38 +37,54 @@
 
                    <%
                         var events = JSON.parse(JSON.stringify(events));
+
                         var shooting_data_per_team = {}
                         for(var e in events) {
                             var event = events[e];
                             var event_data = event['_source']
                             var teamNumber = event_data['teamNumber']
-                            if ((event['_type'] == 'gearplace' || event['_type'] == 'climb') && event_data['competition'] == 'houston') {
+                            if (event_data['competition'] == 'houston') {
                                var count, gameIds;
-                               if(teamNumber in shooting_data_per_team) {
-                                   gearplace = shooting_data_per_team[teamNumber]['gearplace'];
-                                   climb = shooting_data_per_team[teamNumber]['climb'];
-                                   gameIds = shooting_data_per_team[teamNumber]['game_ids'];
-                                   totalClimbDuration = shooting_data_per_team[teamNumber]['totalClimbDuration'];
-                                   gameIds.add(event_data['gameId'])
+                                if (teamNumber in shooting_data_per_team) {
+                                    gameIds = shooting_data_per_team[teamNumber]['game_ids'];
+                                    gameIds.add(event_data['gameId'])
                                } else {
-                                   gearplace = 0
-                                   climb = 0
-                                   totalClimbDuration = 0
-                                   gameIds = new Set([event_data['gameId']])
+                                   gameIds = new Set([event_data['gameId']]);
                                }
-                                if (event['_type'] == 'gearplace' && event_data['status'] == 'Success') {
-                                    gearplace++;
-                                }
-                                if (event['_type'] == 'climb' && event_data['status'] == 'Success') {
-                                    climb++;
-                                    totalClimbDuration += event_data['timeTook'];
-                                }
-                               shooting_data_per_team[teamNumber] = {
-                                   'gearplace': gearplace,
-                                   'climb': climb,
-                                   'totalClimbDuration': totalClimbDuration,
-                                   'game_ids': gameIds
+                               if(event['_type'] == 'gearplace' || event['_type'] == 'climb') {
+                                   if(teamNumber in shooting_data_per_team) {
+                                       gearplace = shooting_data_per_team[teamNumber]['gearplace'];
+                                       climb = shooting_data_per_team[teamNumber]['climb'];
+                                       totalClimbDuration = shooting_data_per_team[teamNumber]['totalClimbDuration'];
+                                       gearsPerGame = shooting_data_per_team[teamNumber]['gearsPerGame'];
+                                   } else {
+                                       gearplace = 0
+                                       climb = 0
+                                       totalClimbDuration = 0
+                                       gearsPerGame = {}
+                                       gearsPerGame[event_data['gameId']] = 1;
+                                   }
+                                   if (event['_type'] == 'gearplace' && event_data['status'] == 'Success') {
+                                       gearplace++;
+                                       if (gearsPerGame[event_data['gameId']]) {
+                                           gearsPerGame[event_data['gameId']]++;
+                                       } else {
+                                           gearsPerGame[event_data['gameId']] = 1;
+                                       }
+                                   }
+                                   if (event['_type'] == 'climb' && event_data['status'] == 'Success') {
+                                       climb++;
+                                       totalClimbDuration += event_data['timeTook'];
+                                   }
+                                   shooting_data_per_team[teamNumber] = {
+                                       'gearplace': gearplace,
+                                       'climb': climb,
+                                       'totalClimbDuration': totalClimbDuration,
+                                       'gearsPerGame': gearsPerGame,
+                                       'game_ids': gameIds
+                                   }
                                }
+
                             }
                         }
 
@@ -77,13 +93,26 @@
                         var averageShootingPerTeam = {};
                         for(var teamNumber in shooting_data_per_team) {
                             var teamData = shooting_data_per_team[teamNumber];
+                            var maxGearsIn1Game = 0;
+
+                            for(g in teamData['gearsPerGame']) {
+                                gears = teamData['gearsPerGame'][g];
+                                console.log("gears: " + gears)
+                                if (gears && gears > maxGearsIn1Game) {
+                                    console.log("SETTING NEW GEAR MAX")
+                                    maxGearsIn1Game = gears
+                                }
+                            }
                             top_teams.push({
                                 'teamNumber': teamNumber,
                                 'averageGearsPerGame': (Math.round(teamData['gearplace']*10 / teamData['game_ids'].size)/10).toFixed(1),
                                 'climbSuccessRate': (Math.round(teamData['climb']*10 / teamData['game_ids'].size)/10).toFixed(1),
-                                'averageClimbDuration': (Math.round(teamData['totalClimbDuration']*10 / teamData['climb'])/10).toFixed(1)
+                                'averageClimbDuration': (Math.round(teamData['totalClimbDuration']*10 / teamData['climb'])/10).toFixed(1),
+                                'maxGearsIn1Game': maxGearsIn1Game
                             });
-                        } %>
+                        }
+
+                         %>
                 <div class="page-content-wrap">
                 
                     <div class="row">
@@ -107,6 +136,7 @@
                                                 <th>Avg. Gear-Place Success / game</th>
                                                 <th>Climb success rate</th>
                                                 <th>Average Climb Duration(seconds)</th>
+                                                <th>Max gears in 1 game</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -117,6 +147,7 @@
                                                     <td><%= team_data.averageGearsPerGame %></td>
                                                     <td><%= team_data.climbSuccessRate %></td>
                                                     <td><%= team_data.averageClimbDuration %></td>
+                                                    <td><%= team_data.maxGearsIn1Game %></td>
                                                 </tr>
                                             <% } %>
                                         </tbody>
