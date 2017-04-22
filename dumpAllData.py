@@ -24,10 +24,11 @@ except Exception:
 MAX_SIZE = 10000
 
 def get_all_from_index(index):
-    hits = []
     page = es.search(index=index, scroll='2m', body={ 'size': MAX_SIZE, 'query': {'match_all': { } } })
     sid = page['_scroll_id']
     scroll_size = page['hits']['total']
+    hits = page['hits']['hits']
+    print scroll_size
     # Start scrolling
     while (scroll_size > 0):
         print "Scrolling..."
@@ -37,6 +38,7 @@ def get_all_from_index(index):
         # Get the number of results that we returned in the last scroll
         hits += page['hits']['hits']
         scroll_size = len(page['hits']['hits'])
+    print "len hits:", len(hits)
     for hit in hits:
         del hit['_score']
     return hits
