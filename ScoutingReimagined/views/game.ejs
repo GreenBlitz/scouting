@@ -156,6 +156,7 @@
     var LEFT_ARROW = 37;
     var J_KEY = 74;
     var K_KEY = 75;
+    var L_KEY = 76;
 
     window.onkeydown = function(e) {
         return !(e.keyCode == 32 && e.target != document.getElementById("commentTextbox"));
@@ -186,11 +187,16 @@
             gameVideo.currentTime += 5;
         } else if (e.which == LEFT_ARROW) {
             gameVideo.currentTime -= 5;
-        } else if (e.which == K_KEY) {
-            gameVideo.currentTime += 10;
         } else if (e.which == J_KEY) {
             gameVideo.currentTime -= 10;
-        }
+        } else if (e.which == K_KEY) {
+            if (video.paused == true)
+                video.play();
+            else
+                video.pause();
+        } else if (e.which == L_KEY) {
+            gameVideo.currentTime += 10;
+	}
         for(var i = 0; i < 7; i++) {
             if (e.which == (VALUE_OF_KEY_1 + i) && isFunction(buttonClickEvent[i+1])) {
                     buttonClickEvent[i + 1]()

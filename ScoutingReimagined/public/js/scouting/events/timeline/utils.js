@@ -124,7 +124,7 @@ function getBodyContent(event) {
     switch (event.eventName) {
         case "stuck":
             return "Robot stuck for " + timeTook + " seconds," +
-                " because it was " + event.reason + ". " +
+                " reason: " + event.reason + ". " +
                 "Eventually, he " + (event.recovered ? "recovered" : "did not recover") + ".";
         case "shooting":
             return "Attempted shooting to the " + event.location + " goal. " +
@@ -156,6 +156,9 @@ function getBodyContent(event) {
 
 function deleteEvent(event) {
     // console.log('Deleting event: ' + JSON.stringify(event));
+    if (event.eventName == 'comment') {
+        return "Can not delete comment"
+    }
     return $.ajax({
         type: 'DELETE',
         url: '/event',
