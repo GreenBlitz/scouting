@@ -12,6 +12,7 @@ router.get('/', function(req, res, next) {
 
 
 
+
 function getAllEvents() {
     return new Promise(function(resolve, reject) {
         client.search({
@@ -19,13 +20,7 @@ function getAllEvents() {
             size: 10000,
             body: {
                 query: {
-                    constant_score: {
-                        filter: {
-                            terms: {
-                                _type: ["climb", "gearplace"]
-                            }
-                        }
-                    }
+                    match_all: {}
                 }
             }
         }, function (error, response, status) {
