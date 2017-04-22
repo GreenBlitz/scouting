@@ -3,6 +3,7 @@ var client = require('../lib/elasticsearch/connection');
 var router = express.Router();
 
 
+
 // TODO solve problem of simultaneous reviewing of games
 /* GET games page. */
 router.get('/', function (req, res, next) {
