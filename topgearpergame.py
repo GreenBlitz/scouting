@@ -1,5 +1,6 @@
 import datetime, pickle, os
 from elasticsearch import Elasticsearch
+from dumpAllData import get_all_from_index, get_mapping
 import argparse
 
 dump_directory = 'db_dumps'
@@ -20,24 +21,6 @@ try:
     es = Elasticsearch([{'host': host, 'port': port}])
 except Exception:
     sys.exit("Error in connection to database: %s" % str())
-
-MAX_SIZE = 10000
-
-def get_all_from_index(index):
-    res = es.search(index=index, body={ 'size': MAX_SIZE, 'query': {'match_all': { } } })
-    if not 'hits' in res or not 'hits' in res['hits']:
-        print('Could not find documents in index %s')
-        return ''
-    hits = res['hits']['hits']
-    for hit in hits:
-        del hit['_score']
-    return hits
-
-
-def get_mapping(index):
-    mapping = es.indices.get_mapping(index=index)
-    return mapping
-
 
 all_events = get_all_from_index('events')
 
