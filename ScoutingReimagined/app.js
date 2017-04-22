@@ -65,7 +65,7 @@ app.use(bodyParser.urlencoded({
 app.use(cookieParser());
 
 
-app.use('/', game);
+app.use('/', games);
 app.use('/users', users);
 app.use('/upload', uploadRouter.router);
 app.use('/games', games);

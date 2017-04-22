@@ -37,14 +37,12 @@
 
                    <%
                         var events = JSON.parse(JSON.stringify(events));
-                        console.log(JSON.stringify(events));
-
                         var shooting_data_per_team = {}
                         for(var e in events) {
                             var event = events[e];
                             var event_data = event['_source']
                             var teamNumber = event_data['teamNumber']
-                            if (event['_type'] == 'gearplace' || event['_type'] == 'climb') {
+                            if ((event['_type'] == 'gearplace' || event['_type'] == 'climb') && event_data['competition'] == 'houston') {
                                var count, gameIds;
                                if(teamNumber in shooting_data_per_team) {
                                    gearplace = shooting_data_per_team[teamNumber]['gearplace'];
@@ -79,17 +77,13 @@
                         var averageShootingPerTeam = {};
                         for(var teamNumber in shooting_data_per_team) {
                             var teamData = shooting_data_per_team[teamNumber];
-                            console.log('teamData: ');
-                            console.log(JSON.stringify(teamData))
                             top_teams.push({
                                 'teamNumber': teamNumber,
                                 'averageGearsPerGame': (Math.round(teamData['gearplace']*10 / teamData['game_ids'].size)/10).toFixed(1),
                                 'climbSuccessRate': (Math.round(teamData['climb']*10 / teamData['game_ids'].size)/10).toFixed(1),
                                 'averageClimbDuration': (Math.round(teamData['totalClimbDuration']*10 / teamData['climb'])/10).toFixed(1)
                             });
-                        }
-
-                        console.log("top teams:", top_teams); %>
+                        } %>
                 <div class="page-content-wrap">
                 
                     <div class="row">
