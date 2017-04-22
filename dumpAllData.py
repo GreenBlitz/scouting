@@ -24,11 +24,19 @@ except Exception:
 MAX_SIZE = 10000
 
 def get_all_from_index(index):
-    res = es.search(index=index, body={ 'size': MAX_SIZE, 'query': {'match_all': { } } })
-    if not 'hits' in res or not 'hits' in res['hits']:
-        print('Could not find documents in index %s')
-        return ''
-    hits = res['hits']['hits']
+    hits = []
+    page = es.search(index=index, scroll='2m', body={ 'size': MAX_SIZE, 'query': {'match_all': { } } })
+    sid = page['_scroll_id']
+    scroll_size = page['hits']['total']
+    # Start scrolling
+    while (scroll_size > 0):
+        print "Scrolling..."
+        page = es.scroll(scroll_id = sid, scroll = '2m')
+        # Update the scroll ID
+        sid = page['_scroll_id']
+        # Get the number of results that we returned in the last scroll
+        hits += page['hits']['hits']
+        scroll_size = len(page['hits']['hits'])
     for hit in hits:
         del hit['_score']
     return hits
@@ -48,14 +56,14 @@ games_mapping = get_mapping('games')
 events_mapping= get_mapping('events')
 team_game_data_mapping = get_mapping('team-game-data')
 
-data = { \
-    'games': all_games,\
+data = {
+    'games': all_games,
     'games_mapping': games_mapping,
     'events_mapping': events_mapping,
     'team_game_data_mapping': team_game_data_mapping,
-    'events': all_events,\
-    'team-game-data': all_team_game_data,\
-    '.kibana': kibana_data\
+    'events': all_events,
+    'team-game-data': all_team_game_data,
+    '.kibana': kibana_data
 }
 
 if not os.path.exists(dump_directory):
