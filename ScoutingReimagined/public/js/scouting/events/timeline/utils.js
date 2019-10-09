@@ -155,10 +155,8 @@ function getBodyContent(event) {
 
 
 function deleteEvent(event) {
-    // console.log('Deleting event: ' + JSON.stringify(event));
-    if (event.eventName == 'comment') {
-        return "Can not delete comment"
-    }
+    console.log('Deleting event: ' + JSON.stringify(event));
+
     return $.ajax({
         type: 'DELETE',
         url: '/event',

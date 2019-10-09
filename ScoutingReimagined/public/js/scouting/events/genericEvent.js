@@ -49,13 +49,13 @@ class GenericEvent{
     removeNulls(papa){
         var toRemove = [];
         for (var k in papa){
-            if (papa[papa[k]] === null){
-                toRemove.push(papa[k]);
+            if (papa[k] === null){
+                toRemove.push(k);
             }
         }
 
         for (var k in toRemove){
-            console.log("Removed " + toRemove[k] + " from event " + eventName);
+            console.log("Removed " + toRemove[k] + " from event " + papa.eventName);
             delete papa[toRemove[k]];
         }
     }
@@ -66,9 +66,11 @@ class GenericEvent{
         }
         papa.endTime = Math.round(gameVideo.currentTime - autonomousStartTime);
         papa.garbage = null;
+        papa.setup = null;
+        papa.varnames = null;
         papa.removeNulls(papa);
         console.log("Event " + papa.eventName + " sent");
-        sendEvent(papa);
+        sendEvent(papa.getSimpleVersion());
         initializeEvents();
     }
 
@@ -95,6 +97,16 @@ class GenericEvent{
             }
         );
         console.log(this.setup);
+    }
+
+    getSimpleVersion(){
+        var simpleVersion = {};
+        for (var par in this){
+            if (typeof this[par] !== typeof (function(){})){
+                simpleVersion[par] = this[par];
+            }
+        }
+        return simpleVersion;
     }
 
     start(){
