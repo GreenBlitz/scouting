@@ -41,12 +41,12 @@ function getButtonClickEvents(){
 }
 
 function getEvents(){
-    var events = []
+    var events = [];
 
     // -------------------------------------
     // Add your events here:
-    events.push([climbGenerator, "climb", "hotpink"])
-
+    events.push([climbGenerator, "climb", "hotpink"]);
+    events.push([cycleGenerator, "cycle", "red"]);
     // -------------------------------------
 
     return events;
@@ -58,6 +58,31 @@ function getEvents(){
 function climbGenerator(){
     climbEvent = new GenericEvent("climb");
     climbEvent.addParam("level", ["1", "2", "3"], null);
-    climbEvent.addParam("status", ["Success", ["Failed reason 1", "Failed reason 2", "Failed reason 3"]], null);
+    climbEvent.addParam("status", ["Success", ["Timeout", "Mechanical Fail", "Driver Fail"]], null);
     climbEvent.start();
+}
+
+function cycleGenerator(){
+    cycleEvent = new GenericEvent("cycle");
+    cycleEvent.addParam("gamePiece", ["Cargo", "Hatch"], null);
+    cycleEvent.addParam("pickupLocation", ["Floor", "Feeder"], null);
+    cycleEvent.addSpecialParam("pickupStatus", ["Success", ["Driver Fail", "Mechanical Fail", "Interrupted"]], 
+    function(self){
+        self.timeTookPickup = Math.round(gameVideo.currentTime - self.startTime);
+    }
+    , null);
+    cycleEvent.addSpecialParam("placeLocation", ["Cargo", ["Rocket Low", "Rocket Mid", "Rocket High"]], 
+    function(self){
+        self.placeStartTime = Math.round(gameVideo.currentTime - autonomousStartTime);
+    },
+    function(prev){
+        return prev !== "Success";
+    }
+    );
+    cycleEvent.addSpecialParam("placeStatus", ["Success", ["Driver Fail", "Mechanical Fail", "Interrupted"]], 
+    function(self){
+        self.timeTookPlace = Math.round(gameVideo.currentTime - self.placeStartTime);
+    }
+    , null);
+    cycleEvent.start();
 }

@@ -1,6 +1,10 @@
 class GenericEvent{
 
     addParam(paramName, options, preemtiveFinish){
+        this.addSpecialParam(paramName, options, null, preemtiveFinish);
+    }
+
+    addSpecialParam(paramName, options, extraCode, preemtiveFinish){
         this[paramName] = null;
         this.varnames.push(paramName);
 
@@ -28,9 +32,13 @@ class GenericEvent{
 
                 if (preemtiveFinish !== null){
                     if (preemtiveFinish(prev_param)){
-                        genericFinish(null, index + 1, self);
+                        self.genericFinish(null, index + 1, self);
                         return;
                     }
+                }
+
+                if (extraCode !== null){
+                    extraCode(self);
                 }
 
                 self[self.varnames[index - 1]] = prev_param;
@@ -38,11 +46,6 @@ class GenericEvent{
             }
 
         );
-        
-        // Needed in the past when we didn't add genericFinish in start:
-        // var temp = this.setup[this.setup.length - 1];
-        // this.setup[this.setup.length - 1] = this.setup[this.setup.length - 2];
-        // this.setup[this.setup.length - 2] = temp;
     }
 
 
@@ -111,8 +114,8 @@ class GenericEvent{
 
     start(){
         hideAllButtons();
-        this.setup[0]("", 0);
         this.addGenericFin();
+        this.setup[0]("", 0);
     }
 
 }
