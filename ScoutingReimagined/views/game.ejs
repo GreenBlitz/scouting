@@ -36,25 +36,10 @@
 
                     <div class="panel panel-default">
                         <div class="panel-body">
-                            <div class="form-group">
-                                <div class="col-sm-2">
-                                    <button id="shooting" class="btn btn-info btn-block btn-rounded hidden" style="height: 10vh; font-size: xx-large; color:rebeccapurple" onclick="shooting_start()">Shooting</button>
-                                </div>
-                                <div class="col-sm-2">
-                                    <button id="pickup" class="btn btn-info btn-block btn-rounded hidden" style="height: 10vh; font-size: xx-large; color:royalblue" onclick="pickup_start()">Pick Up</button>
-                                </div>
-                                <div class="col-sm-2">
-                                    <button id="gearplace" class="btn btn-info btn-block btn-rounded hidden" style="height: 10vh; font-size: xx-large; color:red" onclick="gearplace_start()">Gear-Place</button>
-                                </div>
-                                <div class="col-sm-2">
-                                    <button id="chassisfight" class="btn btn-info btn-block btn-rounded hidden" style="height: 10vh; font-size: xx-large; color:greenyellow" onclick="chassisFight_start()">Fight</button>
-                                </div>
-                                <div class="col-sm-2">
+                            <div class="form-group" id="scouterButtons">
+                                <!-- <div class="col-sm-2">
                                     <button id="climb" class="btn btn-info btn-block btn-rounded hidden" style="height: 10vh; font-size: xx-large; color:hotpink" onclick="climbGenerator()">Climb</button>
-                                </div>
-                                <div class="col-sm-2">
-                                    <button id="stuck" class="btn btn-info btn-block btn-rounded hidden" style="height: 10vh; font-size: xx-large; color:black" onclick="stuck_start()">Stuck</button>
-                                </div>
+                                </div> -->
                                 <div class="col-sm-12">
                                     <button id="comment" class="btn btn-info btn-block btn-rounded hidden" style="height: 10vh; font-size: xx-large; color:purple" onclick="comment_start()">Comment</button>
                                 </div>
@@ -101,28 +86,17 @@
 <script type="text/javascript" src="/js/scouting/events/genericEvent.js"></script>
 <script type="text/javascript" src="/js/scouting/events/autonomousEventsHandling.js"></script>
 <script type="text/javascript" src="/js/scouting/events/commentsEventHandling.js"></script>
+<script type="text/javascript" src="/js/scouting/events/eventGenerator.js"></script>
 
 <script type="text/javascript" src="/js/scouting/events/timeline/utils.js"></script>
 
 
 <script>
 
-    // CREATE BUTTONS HERE MY DUDE!!! (comments are special)
-
-    function climbGenerator(){
-        climbEvent = new GenericEvent("climb");
-        climbEvent.addParam("level", ["1", "2", "3"], null);
-        climbEvent.addParam("status", ["Success", ["Failed reason 1", "Failed reason 2", "Failed reason 3"]], null);
-        climbEvent.start();
-    }
-
-    buttonIds = ['climb', 'comment'];
+    buttonIds = getButtonNames();
 
     function initializeButtonClickEvent() {
-        buttonClickEvent = {
-            1: climbGenerator,
-            2: comment_start
-        }
+        buttonClickEvent = getButtonClickEvents();
     }
 
     function isFunction(functionToCheck) {
