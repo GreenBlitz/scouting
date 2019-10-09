@@ -50,7 +50,7 @@
                                     <button id="chassisfight" class="btn btn-info btn-block btn-rounded hidden" style="height: 10vh; font-size: xx-large; color:greenyellow" onclick="chassisFight_start()">Fight</button>
                                 </div>
                                 <div class="col-sm-2">
-                                    <button id="climb" class="btn btn-info btn-block btn-rounded hidden" style="height: 10vh; font-size: xx-large; color:hotpink" onclick="climb_start()">Climb</button>
+                                    <button id="climb" class="btn btn-info btn-block btn-rounded hidden" style="height: 10vh; font-size: xx-large; color:hotpink" onclick="climbGenerator()">Climb</button>
                                 </div>
                                 <div class="col-sm-2">
                                     <button id="stuck" class="btn btn-info btn-block btn-rounded hidden" style="height: 10vh; font-size: xx-large; color:black" onclick="stuck_start()">Stuck</button>
@@ -98,12 +98,7 @@
     var autonomousStartTime = null;
 </script>
 
-<script type="text/javascript" src="/js/scouting/events/shootingEventsHandling.js"></script>
-<script type="text/javascript" src="/js/scouting/events/pickupEventsHandling.js"></script>
-<script type="text/javascript" src="/js/scouting/events/gearplaceEventsHandling.js"></script>
-<script type="text/javascript" src="/js/scouting/events/chassisFightEventsHandling.js"></script>
-<script type="text/javascript" src="/js/scouting/events/climbEventsHandling.js"></script>
-<script type="text/javascript" src="/js/scouting/events/stuckEventsHandling.js"></script>
+<script type="text/javascript" src="/js/scouting/events/genericEvent.js"></script>
 <script type="text/javascript" src="/js/scouting/events/autonomousEventsHandling.js"></script>
 <script type="text/javascript" src="/js/scouting/events/commentsEventHandling.js"></script>
 
@@ -111,8 +106,24 @@
 
 
 <script>
-    buttonIds = ['shooting', 'pickup', 'gearplace', 'chassisfight', 'climb', 'stuck', 'comment'];
 
+    // CREATE BUTTONS HERE MY DUDE!!! (comments are special)
+
+    function climbGenerator(){
+        climbEvent = new GenericEvent("climb");
+        climbEvent.addParam("level", ["1", "2", "3"], null);
+        climbEvent.addParam("status", ["Success", ["Failed reason 1", "Failed reason 2", "Failed reason 3"]], null);
+        climbEvent.start();
+    }
+
+    buttonIds = ['climb', 'comment'];
+
+    function initializeButtonClickEvent() {
+        buttonClickEvent = {
+            1: climbGenerator,
+            2: comment_start
+        }
+    }
 
     function isFunction(functionToCheck) {
         var getType = {};
@@ -129,19 +140,6 @@
         buttonIds.forEach(function(buttonId) {
             $('#' + buttonId).removeClass('hidden');
         })
-    }
-
-
-    function initializeButtonClickEvent() {
-        buttonClickEvent = {
-            1: shooting_start,
-            2: pickup_start,
-            3: gearplace_start,
-            4: chassisFight_start,
-            5: climb_start,
-            6: stuck_start,
-            7: comment_start
-        }
     }
 
     function resetButtonClickEvents() {

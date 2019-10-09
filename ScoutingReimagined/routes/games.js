@@ -11,14 +11,14 @@ router.get('/', function (req, res, next) {
     var getAllGames = function (resolve, reject) {
         client.search({
             index: 'games',
-            size: 1000,
-            body: {
-                query: {
-                    match: {
-                        competition: req.query.competition ? req.query.competition : 'houston'
-                    }
-                }
-            }
+            size: 1000//,
+            // body: {
+            //     query: {
+            //         match: {
+            //             competition: req.query.competition ? req.query.competition : 'District1'
+            //         }
+            //     }
+            // }
         }, function (error, response, status) {
             if (error) {
                 console.log("search error: " + error);
