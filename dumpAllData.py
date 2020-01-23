@@ -1,6 +1,7 @@
 import datetime, pickle, os
 from elasticsearch import Elasticsearch
 import argparse
+from P_to_csv import to_excel
 
 dump_directory = 'db_dumps'
 
@@ -73,5 +74,6 @@ if not os.path.exists(dump_directory):
 
 with open(filepath, 'w+') as dumpfile:
     pickle.dump(data, dumpfile)
+    to_excel(dumpfile)
 
 print('Successfuly pickled all data into into file %s' % filepath)

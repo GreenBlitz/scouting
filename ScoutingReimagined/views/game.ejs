@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-
+   
 <head>
     <% include templates/head.ejs %>
 </head>
@@ -66,7 +66,10 @@
 
 <% include templates/footer.ejs%>
 
+<script type="module" src="/home/programmer/Desktop/scouting/scouting/ScoutingReimagined/node_modules/xlsx/dist/xlsx.full.min.js"></script>
+
 <script type="text/javascript">
+
     var gameId = parseInt(<%- JSON.stringify(gameId) %>);
     var teamNumber = parseInt(<%- JSON.stringify(teamNumber) %>);
 
@@ -87,12 +90,11 @@
 <script type="text/javascript" src="/js/scouting/events/autonomousEventsHandling.js"></script>
 <script type="text/javascript" src="/js/scouting/events/commentsEventHandling.js"></script>
 <script type="text/javascript" src="/js/scouting/events/eventGenerator.js"></script>
-
 <script type="text/javascript" src="/js/scouting/events/timeline/utils.js"></script>
 
 
 <script>
-
+    
     buttonIds = getButtonNames();
 
     function initializeButtonClickEvent() {
@@ -108,9 +110,11 @@
             $('#' + buttonId).addClass('hidden');
         })
         gameVideo.pause();
+        buttonIds = getButtonNames()
     }
 
     function showEventButtons() {
+        buttonIds = getButtonNames()
         buttonIds.forEach(function(buttonId) {
             $('#' + buttonId).removeClass('hidden');
         })
@@ -161,21 +165,20 @@
             gameVideo.currentTime -= 5;
         } else if (e.which == J_KEY) {
             gameVideo.currentTime -= 10;
+        } else if (e.which == L_KEY) {
+            gameVideo.currentTime += 10;
         } else if (e.which == K_KEY) {
             if (video.paused == true)
                 video.play();
             else
-                video.pause();
-        } else if (e.which == L_KEY) {
-            gameVideo.currentTime += 10;
-	}
+                video.pause(); 
+        }
         for(var i = 0; i < 7; i++) {
             if (e.which == (VALUE_OF_KEY_1 + i) && isFunction(buttonClickEvent[i+1])) {
                     buttonClickEvent[i + 1]()
-            }
+            }//https://stackoverflow.com/questions/17331117/how-to-use-externalhttp-library-in-a-js-file
         }
     });
-
     // objects = {type: 'BUTTON'||'SELECT', value: value}
     function fillEventsDivWithObjects(objects, functionToCallWhenDone) {
         var eventsDiv = $('#eventsDiv');
@@ -265,7 +268,6 @@
                     break;
 
             }
-
             eventsDiv.append(element);
         });
 
@@ -284,7 +286,7 @@
         showEventButtons();
         initializeButtonClickEvent();
     }
-
+    
     function sendEvent(event) {
         addEventToTimeline(event);
         console.log('Sending event: ' + JSON.stringify(event));
@@ -295,6 +297,7 @@
                 eventJSON: JSON.stringify(event)
             }
         });
+        eventList.push(JSON.stringify(event));
     }
 
 </script>

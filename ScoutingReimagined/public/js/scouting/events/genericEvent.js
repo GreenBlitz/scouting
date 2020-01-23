@@ -1,3 +1,4 @@
+var eventList = [];
 class GenericEvent{
 
     addParam(paramName, options, preemtiveFinish){
@@ -48,6 +49,62 @@ class GenericEvent{
         );
     }
 
+    addSkipableParam(paramName, options, skipCond, preemtiveFinish){
+        this.addSkipableSpecialParam(paramName, options, null, skipCond, preemtiveFinish);
+    }
+
+    addSkipableSpecialParam(paramName, options, extraCode, skipCond, preemtiveFinish){
+        this[paramName] = null;
+        this.varnames.push(paramName);
+
+        var fillList = [];
+        for (var op in options){
+            var thisOp = options[op];
+            if (typeof thisOp === typeof []){ // Multi choose box thing
+                fillList.push({
+                    type: "buttonSelect",
+                    value: thisOp
+                })
+            } else { // Single button
+                fillList.push({
+                    type: "button",
+                    value: thisOp
+                })
+            }
+        }
+        
+        var self = this;
+
+        this.setup.push(
+
+            function (prev_param, index) {
+
+                if (preemtiveFinish !== null){
+                    if (preemtiveFinish(prev_param)){
+                        self.genericFinish(null, index + 1, self);
+                        return;
+                    }
+                }
+
+                self[self.varnames[index - 1]] = prev_param;
+
+                if (skipCond !== null){
+                    if (skipCond(self, prev_param)) {
+                        self.setup[index + 1](null, index + 1, self);
+                        return;
+                    }
+                }
+                if (extraCode !== null){
+                    extraCode(self);
+                }
+                    
+
+                fillEventsDivWithObjects(fillList, function(inp) { self.setup[index + 1](inp, index + 1); });
+            }
+
+        );
+    }
+
 
     removeNulls(papa){
         var toRemove = [];
@@ -62,19 +119,31 @@ class GenericEvent{
             delete papa[toRemove[k]];
         }
     }
-
+    
     genericFinish(item, index, papa){
-        if (papa.setup.length !== 1){
-            papa[papa.varnames[index - 1]] = item;
+        if (this.eventName != 'refresh'){
+            if (papa.setup.length !== 1){
+                papa[papa.varnames[index - 1]] = item;
+            }
+            papa.endTime = Math.round(gameVideo.currentTime - autonomousStartTime);
+            papa.garbage = null;
+            papa.setup = null;
+            papa.varnames = null;
+            papa.removeNulls(papa);
+            console.log("Event " + papa.eventName + " sent");
+            sendEvent(papa.getSimpleVersion());
+            eventList.push(papa.getSimpleVersion());
+            this.toExcel(eventList);
         }
-        papa.endTime = Math.round(gameVideo.currentTime - autonomousStartTime);
-        papa.garbage = null;
-        papa.setup = null;
-        papa.varnames = null;
-        papa.removeNulls(papa);
-        console.log("Event " + papa.eventName + " sent");
-        sendEvent(papa.getSimpleVersion());
         initializeEvents();
+    }
+
+    toExcel(eventsArr){
+        var name = "Game_" + String(gameId) + "_team_" + teamNumber + ".xlsx";
+        let dataSheet = XLSX.utils.json_to_sheet(eventsArr); 
+        var wb = XLSX.utils.book_new();
+        XLSX.utils.book_append_sheet(wb, dataSheet, 'gameData');
+        XLSX.writeFile(wb, name);
     }
 
     constructor(name){
@@ -96,7 +165,7 @@ class GenericEvent{
 
         this.setup.push(
             function (a, b) {
-                self.genericFinish(a, b, self)
+                self.genericFinish(a, b, self);
             }
         );
         console.log(this.setup);

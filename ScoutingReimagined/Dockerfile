@@ -1,7 +1,7 @@
-FROM node:4.3.2
+FROM node:13.6.0
 
 RUN useradd --user-group --create-home --shell /bin/false app &&\
-  npm install --global npm@4.1.2
+  npm install --global npm@6.13.4
 
 ENV HOME=/home/app
 

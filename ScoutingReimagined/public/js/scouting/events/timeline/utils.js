@@ -27,6 +27,9 @@ function addEventToTimeline(event) {
     timeline.insertBefore(eventEntry, timeline.children[index]);
     u_id++;
     timeline.scrollTop = timeline.scrollHeight;
+    
+    console.log(timeline);
+    console.log(timeline.innerHTML);
 }
 
 function capitalizeFirstLetter(string) {
@@ -180,8 +183,6 @@ function initializeTimeline(g_id, t_number) {
         }
     });
 }
-
-
 
 function InsertEventToList(startTime) {
     for (var i = 0; i < events.length; i++) {

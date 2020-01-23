@@ -31,7 +31,7 @@ function comment_text() {
 function comment_finish(text) {
   comment.content = text;
     sendEvent(comment);
-
+    
     initializeEvents();
 
 }
