@@ -1,8 +1,8 @@
 import pickle
 import pandas as pd
-
-def to_excel(dumpfile):
-    data = pickle.load(open("/home/programmer/Desktop/scouting/scouting/db_dumps/currentDump.p", "rb"))
+import datetime as dt
+def to_excel():
+    data = pickle.load(open("/home/programmer/Desktop/scouting/scouting/db_dumps/%scoutingDump.p" % dt.date.year, "rb"))
 
     events = data['events']
     sources = []
@@ -10,4 +10,4 @@ def to_excel(dumpfile):
     for s in events:
         sources.append(s['_source'])
 
-    pd.DataFrame(sources).to_excel('data.xlsx', index=False)
+    pd.DataFrame(sources).to_excel('%sData.xlsx' % dt.date.year, index=False)
