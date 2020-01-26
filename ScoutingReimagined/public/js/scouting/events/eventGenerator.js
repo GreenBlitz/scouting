@@ -193,7 +193,7 @@ function refreshEventGenerator(){
 
 function autonomusPowerCellGenerator(){
     autonomusPowerCellEvent = new GenericEvent("autoCell");
-    autonomusPowerCellEvent.addSpecialParam("pickupLocation", ["Picked up", "Didn't"],
+    autonomusPowerCellEvent.addSpecialParam("pickupLocation", ["Picked up", "Starting balls"],
     function(){
         alert("Where the PCs from?");
     } 

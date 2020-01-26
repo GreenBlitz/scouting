@@ -133,17 +133,8 @@ class GenericEvent{
             console.log("Event " + papa.eventName + " sent");
             sendEvent(papa.getSimpleVersion());
             eventList.push(papa.getSimpleVersion());
-            this.toExcel(eventList);
         }
         initializeEvents();
-    }
-
-    toExcel(eventsArr){
-        var name = "Game_" + String(gameId) + "_team_" + teamNumber + ".xlsx";
-        let dataSheet = XLSX.utils.json_to_sheet(eventsArr); 
-        var wb = XLSX.utils.book_new();
-        XLSX.utils.book_append_sheet(wb, dataSheet, 'gameData');
-        XLSX.writeFile(wb, name);
     }
 
     constructor(name){

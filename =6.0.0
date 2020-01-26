@@ -1,0 +1,5 @@
+Collecting elasticsearch
+  Using cached https://files.pythonhosted.org/packages/10/60/0c79dde3e81beffeed422599d9ac65419289095186d37a3201739d52a57d/elasticsearch-7.5.1-py2.py3-none-any.whl
+Requirement already satisfied: urllib3>=1.21.1 in /home/programmer/.local/lib/python2.7/site-packages (from elasticsearch) (1.25.8)
+Installing collected packages: elasticsearch
+Successfully installed elasticsearch-7.5.1
