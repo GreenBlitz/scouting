@@ -8,7 +8,7 @@ dump_directory = 'db_dumps'
 parser = argparse.ArgumentParser(prog='dumpAllData.py', description='Reads all data from a scouting database and dumps it into a pickle file')
 parser.add_argument('--host', type=str, default='localhost')
 parser.add_argument('--port', type=int, default=9200)
-parser.add_argument('--filepath', type=str, default=os.path.join(dump_directory, '2020ScoutingDump.p'))
+parser.add_argument('--filepath', type=str, default=os.path.join(dump_directory, '%sScoutingDump.p' % dt.datetime.now().year))
 args = parser.parse_args()
 host = args.host
 port = args.port
