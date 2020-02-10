@@ -2,7 +2,7 @@ import pickle
 import pandas as pd
 import datetime as dt
 def to_excel():
-    f = open("db_dumps/%sScoutingDump.p" %dt.datetime.now().year , "rb")
+    f = open("db_dumps/%sScoutingDump.p" % dt.datetime.now().year , "rb")
     data = pickle.load(f)
 
     events = data['events']

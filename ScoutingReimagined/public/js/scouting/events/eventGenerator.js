@@ -85,107 +85,6 @@ function getTeleopEvents(){
 // --------------------------------------
 // Add your generators here (as functions):
 
-/*function startingEventGenerator(){
-    startingEvent = new GenericEvent("start");
-    startingEvent.addParam("started", ["1", "2"], null);
-    startingEvent.addParam("when", ["auto", "non-auto"], null);
-    startingEvent.start();
-}
-
-function climbGenerator(){
-    climbEvent = new GenericEvent("climb");
-    climbEvent.addParam("level", ["0 or 1", "2", "3"], null);
-    climbEvent.addParam("status", ["Success", ["Timeout", "Mechanical Fail", "Driver Fail"]], null);
-    climbEvent.start();
-}
-
-function cycleGenerator(){
-    cycleEvent = new GenericEvent("cycle");
-    cycleEvent.addParam("gamePiece", ["Cargo", "Hatch"], null);
-    cycleEvent.addParam("pickupLocation", ["Floor", "Feeder"], null);
-    cycleEvent.addSpecialParam("pickupStatus", ["Success", ["Driver Fail", "Mechanical Fail", "Interrupted"]], 
-    function(self){
-        self.timeTookPickup = Math.round(gameVideo.currentTime - self.startTime);
-    }
-    , null);
-    cycleEvent.addSpecialParam("placeLocation", ["Cargo", ["Rocket Low", "Rocket Mid", "Rocket High"]], 
-    function(self){
-        self.placeStartTime = Math.round(gameVideo.currentTime - autonomousStartTime);
-    },
-    function(prev){
-        return prev !== "Success";
-    }
-    );
-    cycleEvent.addSpecialParam("placeStatus", ["Success", ["Driver Fail", "Mechanical Fail", "Interrupted"]], 
-    function(self){
-        self.timeTookPlace = Math.round(gameVideo.currentTime - self.placeStartTime);
-    }
-    , null);
-    cycleEvent.start();
-}*/
-
-function autonomusCargoGenerator(){
-    autonomusCargoEvent = new GenericEvent("Cargo")
-    autonomusCargoEvent.addParam("pickupLocation", ["Floor", "Feeder", "Started with it"], null);
-    autonomusCargoEvent.addSpecialParam("pickupStatus", ["Success", ["Driver Fail", "Mechanical Fail"]], 
-    function(self){
-        self.timeTookPickup = Math.round(gameVideo.currentTime - self.startTime);
-    }
-    , null);
-    autonomusCargoEvent.addSpecialParam("placeLocation", ["Cargo", ["Rocket Low", "Rocket Mid", "Rocket High"]], 
-    function(self){
-        self.placeStartTime = Math.round(gameVideo.currentTime - autonomousStartTime);
-    },
-    function(prev){
-        return prev !== "Success";
-    }
-    );
-    autonomusCargoEvent.addSpecialParam("placeStatus", ["Success", ["Driver Fail", "Mechanical Fail"]], 
-    function(self){
-        self.timeTookPlace = Math.round(gameVideo.currentTime - self.placeStartTime);
-    }
-    , null);
-    autonomusCargoEvent.start();
-}
-
-function autonomusHatchGenerator(){
-    autonomusHatchEvent = new GenericEvent("hatch")
-    autonomusHatchEvent.addParam("pickupLocation", ["Floor", "Feeder", "Started with it"], null);
-    autonomusHatchEvent.addSpecialParam("pickupStatus", ["Success", ["Driver Fail", "Mechanical Fail"]], 
-    function(self){
-        self.timeTookPickup = Math.round(gameVideo.currentTime - self.startTime);
-    }
-    , null);
-    autonomusHatchEvent.addSpecialParam("placeLocation", ["Cargo", ["Rocket Low", "Rocket Mid", "Rocket High"]], 
-    function(self){
-        self.placeStartTime = Math.round(gameVideo.currentTime - autonomousStartTime);
-    },
-    function(prev){
-        return prev !== "Success";
-    }
-    );
-    autonomusHatchEvent.addSpecialParam("placeStatus", ["Success", ["Driver Fail", "Mechanical Fail"]], 
-    function(self){
-        self.timeTookPlace = Math.round(gameVideo.currentTime - self.placeStartTime);
-    }
-    , null);
-    autonomusHatchEvent.start();
-}
-
-function cargoEventGenerator(){
-    cargoEvent = new GenericEvent("teleop_cargo");
-    cargoEvent.addParam("Height", ["High", "Low"], null);
-    cargoEvent.addParam("placeStatus", ["Success", ["Driver Fail", "Mechanical Fail"]], null);
-    cargoEvent.start();
-}
-
-function hatchEventGenerator(){
-    hatchEvent = new GenericEvent("teleop_hatch");
-    hatchEvent.addParam("Height", ["High", "Low"], null);
-    hatchEvent.addParam("placeStatus", ["Success", ["Driver Fail", "Mechanical Fail"]], null);
-    hatchEvent.start();
-}
-
 function refreshEventGenerator(){
     var refreshEvent = new GenericEvent("refresh");
     refreshEvent.start();
@@ -236,7 +135,7 @@ function autonomusPowerCellGenerator(){
 }
 
 function powerCellEventGenerator(){
-    powerCellEvent = new GenericEvent("PowerCells"); 
+    powerCellEvent = new GenericEvent("PowerCells");
     powerCellEvent.addSpecialParam("PowerCellShot", ["1", "2", "3", "4", "5"],
     function(){
         alert("Amount of PC shooting");
@@ -291,7 +190,6 @@ function climb2020Generator(){
 
 function afterGameEventGenerator(){
     var afterGameEvent = new GenericEvent("Finish");
-
     // Places the robot can shoot from
     afterGameEvent.addSpecialParam("placeCount", [['Zero', 'One'], ['Two', 'All']],
     function(){
@@ -351,6 +249,8 @@ function afterGameEventGenerator(){
     // Did the robot lifted other robot during the endGame
 
     afterGameEvent.addParam("lifted", ['lift 0', 'lift 1', 'lift 2'], null);
+
+    afterGameEvent.addParam("fortune wheel", ['no can do', 'rotation control', 'position control'], null);
 
     afterGameEvent.start();
 }

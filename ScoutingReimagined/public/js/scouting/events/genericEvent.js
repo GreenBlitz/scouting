@@ -145,7 +145,7 @@ class GenericEvent{
         this.eventName = name;
         this.endTime = null;
         this.competition = this.competition;
-
+        this.eventType = this.eventName
         this.garbage = null,
         this.setup = [];
         this.varnames = [];
