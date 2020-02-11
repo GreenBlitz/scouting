@@ -3,11 +3,24 @@ import os
 
 teamNumber = 2212
 
-def main():
+def team_page():
     os.system(f'mkdir {teamNumber}')
     os.system(f'cd {teamNumber}')
 
     data = dman.to_list()
+    games = dman.get_team_games(data, teamNumber)
+    last_3 = []
+    for i in range(3):
+        latest = 0
+        for i in games:
+            if i > latest:
+                latest = i
+        last_3.append(games[latest])
+
+    return [team_information(data, teamNumber), team_information(last_3, teamNumber)]
+
+
+def team_information(data, teamNumber):
     team = dman.by_team(data, teamNumber)
     last_comp = dman.max(team, 'gameId')
     last_comp = last_comp - last_comp % 1000
@@ -30,12 +43,13 @@ def main():
         sum2 += i['2PointSuccess']
     avg2 = sum2 / game_amount
 
-    '''sum1 = 0
+    sum1 = 0
     for i in comp:
         sum1 += i['1PointSuccess']
-    avg1 = sum1 / len(comp)'''
+    avg1 = sum1 / len(comp)
 
     avg2and3 = avg2 + avg3
+    avg1and2and3 = avg1 + avg2 + avg3
 
     sum_defence = 0
     for i in comp:
@@ -49,6 +63,20 @@ def main():
         if i['PickupPlaces'] == 'Both' or i['PickupPlaces'] == 'Floor':
             from_floor = True
     
+    games = dman.get_team_games(data, teamNumber)
+    min_balls = 9000
+    max_balls = -1
+
+    for i in games:
+        game = games[i]
+        total_balls = total(game, '3PointSuccess') + total(game, '2PointSuccess') + total(game, '1PointSuccess')
+        if total_balls < min_balls:
+            min_balls = total_balls
+        if total_balls > max_balls:
+            max_balls = total_balls
     
+    avg_climb = dman.average(comp, 'climbTime')
+    
+    return [avg3, avg2, avg1, avg_climb, avg2and3, avg1and2and3, defence_precentage, '''stuck precentage,''' min_balls, max_balls, from_floor]
 
 
