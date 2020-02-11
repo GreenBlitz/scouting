@@ -240,7 +240,7 @@ function afterGameEventGenerator(){
 
     // Was the robot attacked or was attacked during the match
 
-    afterGameEvent.addParam("defense", ['attacked', 'was attacked'], null);
+    afterGameEvent.addParam("defense", ['attacked', 'was attacked', 'neutral'], null);
 
     // Did the robot shutdown during the match
 
