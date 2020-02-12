@@ -12,64 +12,7 @@ def to_list():
         for col in data_frame:
             dic[col] = data_frame.at[row, col]
         sources.append(dic)
-    sources.append({'teamNumber': None,
-    'gameId': 'average',
-    'startTime': None,
-    'matchPart': None,
-    'endTime': None,
-    'pickupLocation': None,
-    'Height': None,
-    'PowerCellShot': None,
-    '1PointSuccess': None,
-    'undefined': None,
-     'timeTook': None,
-     'placeCount': None,
-     'shootPlace1': None,
-     'pickUpPlaces': None,
-     'defense': None,
-     'shutdown': None,
-    'lifted': None,
-     'When': None,
-    'status': None,
-    'Balanced': None,
-    'climbStart': None,
-    'climbTime': None,
-    'shootPlace2': None,
-    'mainShootLocation': None,
-    '3PointSuccess': None,
-    '2PointSuccess': None,
-     'content': None,
-     'competition': None}
-    )
-    sources.append({'teamNumber': None,
-    'gameId': 'sum',
-    'startTime': None,
-    'matchPart': None,
-    'endTime': None,
-    'pickupLocation': None,
-    'Height': None,
-    'PowerCellShot': None,
-    '1PointSuccess': None,
-    'undefined': None,
-     'timeTook': None,
-     'placeCount': None,
-     'shootPlace1': None,
-     'pickUpPlaces': None,
-     'defense': None,
-     'shutdown': None,
-    'lifted': None,
-     'When': None,
-    'status': None,
-    'Balanced': None,
-    'climbStart': None,
-    'climbTime': None,
-    'shootPlace2': None,
-    'mainShootLocation': None,
-    '3PointSuccess': None,
-    '2PointSuccess': None,
-     'content': None,
-     'competition': None}
-    )
+
     return sources
 
 def to_excel(dt, name):
@@ -137,7 +80,7 @@ def total(data, trait):
 
     return sum
 
-def rank(data, trait, rank) {
+def rank(data, trait, rank):
     result = None
     for i in range(rank):
         result = None
@@ -146,7 +89,7 @@ def rank(data, trait, rank) {
                 result = j
         data.remove(result)
     return result
-}
+
 
 def booleanPrecent(data, trait, yesTrait):
     sum = 0
@@ -168,3 +111,18 @@ def min(data, trait):
             min = i
     return min
     
+def get_team_games(data, team):
+    IDs = []
+    for i in data:
+        if i['gameId'] not in IDs:
+            IDs.append(i['gameId'])
+    
+    games = {}
+    for i in IDs:
+        game = []
+        for i in data:
+            if i['gameId'] == i:
+                game.append(i)
+        games.update({i: game})
+
+    return games
