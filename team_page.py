@@ -168,6 +168,14 @@ def last_three(data):
         return games
     print('no games')
 
+def get_games(data):
+    games = []
+    for event in data:
+        if event['gameId'] not in games:
+            games.append(event['gameId'])
+
+    return games
+
 
 if __name__ == '__main__':
     main(444)
