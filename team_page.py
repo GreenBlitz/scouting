@@ -1,9 +1,21 @@
 import data_manipulation as dman
 import pandas as pd
+import math
 
-def main(teamNumber):
+
+def last_comp(team):
     data = dman.to_list()
-    team = dman.by_team(data, teamNumber)
+    data = dman.by_team(data, team)
+    max_id = 0
+    for i in data:
+        if i['gameId'] > max_id:
+            max_id = i['gameId']
+    return max_id / 1000 * 1000
+
+
+def main(team_number):
+    data = dman.to_list()
+    team = dman.by_team(data, team_number)
     comp = dman.by_comp(team, last_comp(team))
     graphs = [balls_by_game(comp, x) for x in range(1, 3)]
     score_game = score_by_game(comp)
@@ -13,7 +25,7 @@ def main(teamNumber):
     def_precent = defense_precentage(comp)
     down_precent = shutdown_precentage(comp)
 
-    last3 = lastThree(comp)
+    last3 = last_three(comp)
     last3_graphs = [balls_by_game(comp, x) for x in range(1, 3)]
     last3_score_game = score_by_game(last3)
     last3_climb_time = climbTime_by_best(last3)
@@ -22,56 +34,34 @@ def main(teamNumber):
     last3_def_precent = defense_precentage(last3)
     last3_down_precent = shutdown_precentage(last3)
 
-    with pd.ExcelWriter('TEAM' + str(teamNumber)) as f:
-        graphs.to_excel(f, sheet_name='TEAM' + str(teamNumber) + 'IndividualBalls')
-        score_game.to_excel(f, sheet_name='TEAM' + str(teamNumber) + 'Scores')
-        climb_time.to_excel(f, sheet_name='TEAM' + str(teamNumber) + 'Climb')
-        two_and_three.to_excel(f, sheet_name='TEAM' + str(teamNumber) + 'HexBalls')
-        balls.to_excel(f, sheet_name='TEAM' + str(teamNumber) + 'Balls')
-        def_precent.to_excel(f, sheet_name='TEAM' + str(teamNumber) + 'Defense')
-        down_precent.to_excel(f, sheet_name='TEAM' + str(teamNumber) + 'Shutdown')
+    with pd.ExcelWriter(f'TEAM{team_number}') as f:
+        pd.DataFrame(graphs).to_excel(f, sheet_name=f'TEAM{team_number}IndividualBalls')
+        pd.DataFrame(score_game).to_excel(f, sheet_name=f'TEAM{team_number}Scores')
+        pd.DataFrame(climb_time).to_excel(f, sheet_name=f'TEAM{team_number}Climb')
+        pd.DataFrame(two_and_three).to_excel(f, sheet_name=f'TEAM{team_number}HexBalls')
+        pd.DataFrame(balls).to_excel(f, sheet_name=f'TEAM{team_number}Balls')
+        pd.DataFrame(def_precent).to_excel(f, sheet_name=f'TEAM{team_number}Defense')
+        pd.DataFrame(down_precent).to_excel(f, sheet_name=f'TEAM{team_number}Shutdown')
 
-        last3_graphs.to_excel(f, sheet_name='TEAM' + str(teamNumber) + 'IndividualBallsLast3')
-        last3_score_game.to_excel(f, sheet_name='TEAM' + str(teamNumber) + 'ScoresLast3')
-        last3_climb_time.to_excel(f, sheet_name='TEAM' + str(teamNumber) + 'ClimbLast3')
-        last3_two_and_three.to_excel(f, sheet_name='TEAM' + str(teamNumber) + 'HexBallsLast3')
-        last3_balls.to_excel(f, sheet_name='TEAM' + str(teamNumber) + 'BallsLast3')
-        last3_def_precent.to_excel(f, sheet_name='TEAM' + str(teamNumber) + 'DefenseLast3')
-        last3_down_precent.to_excel(f, sheet_name='TEAM' + str(teamNumber) + 'ShutdownLast3')
-
-
-
-
-def last_comp(data):
-    max = 0
-    for event in data:
-        if event['gameId'] > max:
-            max = event['gameId']
-    
-    return max / 1000 * 1000
-
-def get_games(data):
-    games = []
-
-    for event in data:
-        if event['gameId'] not in games:
-            balls.update({event['gameId']: 0})
-    
-    return games
+        pd.DataFrame(last3_graphs).to_excel(f, sheet_name=f'TEAM{team_number}IndividualBallsLast3')
+        pd.DataFrame(last3_score_game).to_excel(f, sheet_name=f'TEAM{team_number}ScoresLast3')
+        pd.DataFrame(last3_climb_time).to_excel(f, sheet_name=f'TEAM{team_number}ClimbLast3')
+        pd.DataFrame(last3_two_and_three).to_excel(f, sheet_name=f'TEAM{team_number}HexBallsLast3')
+        pd.DataFrame(last3_balls).to_excel(f, sheet_name=f'TEAM{team_number}BallsLast3')
+        pd.DataFrame(last3_def_precent).to_excel(f, sheet_name=f'TEAM{team_number}DefenseLast3')
 
 
 def balls_by_game(data, points):
     balls = {}
-    point = '%dSuccess' % points
+    point = '%dPointSuccess' % points
     for event in data:
-        if event['gameId'] not in balls and event[point] is not None:
-            balls.update({event['gameId']: 0})
+        if event['gameId'] not in balls and not math.isnan(event[point]):
+            balls[event['gameId']] = 0
     
-    for event in data:
-        if event[point] is not None:
-            balls[event['gameId']] += 1
-
+        if not math.isnan(event[point]):
+            balls[event['gameId']] += event[point]
     return balls
+
 
 def ball_score(data, gameId):
     sum = 0
@@ -92,23 +82,25 @@ def score_by_game(data):
     return scores
 
 def climbTime_by_best(data):
-
     sum = 0
     amount = 0
     for event in data:
+        print(event)
+        print(event['eventType'])
+        print(event['eventType'] == 'Climb')
         if event['eventType'] == 'Climb':
             sum += event['timeTook']
             amount += 1
     
 
-    best_time = 9000
-    worst_time = -1
+    best_time = -1
+    worst_time = 9000
     for event in dman.to_list():
         print(event)
         if event['eventType'] == 'Climb':
-            if event['timeTook'] > worst_time:
+            if event['timeTook'] < worst_time:
                 worst_time = event['timeTook']
-            elif event['timeTook'] < best_time:
+            elif event['timeTook'] > best_time:
                 best_time = event['timeTook']
 
     average = sum / amount if amount != 0 else worst_time
@@ -119,24 +111,24 @@ def climbTime_by_best(data):
 def two_three(data):
     balls = {}
     for event in data:
-        if event['gameId'] not in balls and event[point] is not None:
+        if event['gameId'] not in balls and not math.isnan(event['2PointSuccess']):
             balls.update({event['gameId']: 0})
     
-    for event in data:
-        if event['2PointSuccess'] is not None or event['3PointSuccess'] is not None:
-            balls[event['gameId']] += 1
+        if not math.isnan(event['2PointSuccess']): 
+            balls[event['gameId']] += event['2PointSuccess'] + event['3PointSuccess']
 
     return balls
 
 def one_and_two_and_three(data):
     balls = {}
     for event in data:
-        if event['gameId'] not in balls and event[point] is not None:
+        if event['gameId'] not in balls and (not math.isnan(event['1PointSuccess']) or not math.isnan(event['2PointSuccess'])):
             balls.update({event['gameId']: 0})
     
-    for event in data:
-        if event['1PointSuccess'] is not None or event['2PointSuccess'] is not None or event['3PointSuccess'] is not None:
-            balls[event['gameId']] += 1
+        if not math.isnan(event['1PointSuccess']):
+            balls[event['gameId']] += event['1PointSuccess']
+        elif not math.isnan(event['2PointSuccess']):
+            balls[event['gameId']] += event['2PointSuccess'] + event['3PointSuccess']
 
     return balls
 
@@ -160,7 +152,7 @@ def shutdown_precentage(data):
 
     return down / omega * 100 if omega != 0 else down * 100
 
-def lastThree(data):
+def last_three(data):
     game_ids = get_games(data)
     if game_ids != []:
         one = max(game_ids)

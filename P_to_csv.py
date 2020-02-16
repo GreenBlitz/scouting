@@ -13,3 +13,32 @@ def to_excel():
 
     pd.DataFrame(sources).to_excel('%sData.xlsx' % dt.datetime.now().year, index=False)
     print('successfully transformed .p data to xlsx format')
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

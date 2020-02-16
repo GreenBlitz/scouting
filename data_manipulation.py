@@ -32,10 +32,9 @@ def by_comp(data, comp):
 
 def by_team(data, team_number):
     filtered = []
-    for i in data:
+    for i in data[:-2]:
         if i['teamNumber'] == team_number:
             filtered.append(i)
-    data.append(data[-2:])
 
     return filtered
 
@@ -44,16 +43,15 @@ def by_game(data, gameId):
     for i in data:
         if i['gameId'] == gameId:
             filtered.append(i)
-    data.append(data[-2:])
 
     return filtered
 
 def by_eventType(data, eventType):
     filtered = []
-    for i in data[0:-2]:
+    for i in data:
         if i['eventType'] == eventType:
             filtered.append(i)
-    data.append(data[-2:])
+    return filtered
 
 def by_height(data, height):
     filtered = []
