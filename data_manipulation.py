@@ -14,6 +14,17 @@ def to_list():
         sources.append(dic)
 
     return sources
+def source_to_list(source):
+    data_frame = pd.DataFrame()
+    data_frame = pd.read_excel(source)
+    sources = []
+    for row in data_frame.index:
+        dic = {}
+        for col in data_frame:
+            dic[col] = data_frame.at[row, col]
+        sources.append(dic)
+
+    return sources
 
 def to_excel(dt, name):
     pd.DataFrame(dt).to_excel('%s%s.xlsx' % (datetime.datetime.now().year, name), index=False)
