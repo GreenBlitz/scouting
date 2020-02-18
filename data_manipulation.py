@@ -149,8 +149,6 @@ def get_all_teams(data):
     teams.sort()
 
     return teams
-
-
 def by_game_phase(data, phase):
     filtered = []
     for event in data:
