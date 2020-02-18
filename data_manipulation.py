@@ -135,3 +135,11 @@ def get_team_games(data, team):
         games.update({i: game})
 
     return games
+
+def by_game_phase(data, phase):
+    filtered = []
+    for event in data:
+        if event['mathPart'] == phase:
+            filtered.append(event)
+
+    return filtered
