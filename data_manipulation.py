@@ -33,9 +33,8 @@ def to_excel(dt, name):
 
 def by_comp(data, comp):
     filtered = []
-    range_ = comp * 1000 - 1000
     for i in data:
-        if range_ <= i['gameId'] < range_ + 1000:
+        if comp <= i['gameId'] < comp + 1000:
             filtered.append(i)
     data.append(data[-2:])
 
@@ -43,7 +42,7 @@ def by_comp(data, comp):
 
 def by_team(data, team_number):
     filtered = []
-    for i in data[:-2]:
+    for i in data:
         if i['teamNumber'] == team_number:
             filtered.append(i)
 

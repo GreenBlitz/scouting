@@ -1,4 +1,7 @@
-import data_manipulation as dman
+try:
+    import data_manipulation as dman
+except:
+    from scouting import data_manipulation
 import pandas as pd
 import math
 
@@ -10,14 +13,14 @@ def last_comp(team):
     for i in data:
         if i['gameId'] > max_id:
             max_id = i['gameId']
-    return max_id / 1000 * 1000
+    return max_id // 1000 * 1000
 
 
 def main(team_number):
     data = dman.to_list()
     team = dman.by_team(data, team_number)
-    comp = dman.by_comp(team, last_comp(team))
-    graphs = [balls_by_game(comp, x) for x in range(1, 3)]
+    comp = dman.by_comp(team, last_comp(team_number))
+    graphs = [balls_by_game(comp, x) for x in range(1, 4)]
     score_game = score_by_game(comp)
     climb_time = climbTime_by_best(comp)
     two_and_three = two_three(comp)
@@ -26,7 +29,7 @@ def main(team_number):
     down_precent = shutdown_precentage(comp)
 
     last3 = last_three(comp)
-    last3_graphs = [balls_by_game(comp, x) for x in range(1, 3)]
+    last3_graphs = [balls_by_game(comp, x) for x in range(1, 4)]
     last3_score_game = score_by_game(last3)
     last3_climb_time = climbTime_by_best(last3)
     last3_two_and_three = two_three(last3)
@@ -55,10 +58,10 @@ def balls_by_game(data, points):
     balls = {}
     point = '%dPointSuccess' % points
     for event in data:
-        if event['gameId'] not in balls and not math.isnan(event[point]):
+        if event['gameId'] not in balls:
             balls[event['gameId']] = 0
     
-        if not math.isnan(event[point]):
+        if event[point] >= 0:
             balls[event['gameId']] += event[point]
     return balls
 
