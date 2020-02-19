@@ -19,11 +19,15 @@ def main(alliance, game_id):
     data = data_manipulation.source_to_list("C:/Users/GreenBlitz/PycharmProjects/scouting/2020Data.xlsx")
     teams = game_page.get_teams(game_id)
     if teams == 'no data':
-        plt.plot([0, 0, 0], [0, 0, 0], 'w', label=f'no data')
-        plt.rcParams.update({'font.size': 40})
-        plt.legend()
         return
     team_data = []
     team_numbers = list(teams[f'{alliance}_alliance'].keys())
     for team in team_numbers:
         team_data.append(data_manipulation.by_team(data, team))
+    defended =False
+    for team in team_data:
+        if team_page.defence_ever(team):
+            defended = True
+    plt.plot([0, 0, 0], [0, 0, 0], 'w', label=f'defended: {defended}')
+    plt.rcParams.update({'font.size': 22})
+    plt.legend()
