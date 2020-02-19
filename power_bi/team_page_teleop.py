@@ -13,14 +13,6 @@ from scouting import data_manipulation
 from scouting import team_page
 import pandas as pd
 
-def defense_ever(team_number):
-    global data
-    defended = False
-    for event in data:
-        if event['eventType'] == 'Finish' and event['defense'] == 'attacked':
-            defended = True
-
-    return defended
 
 
 def main():

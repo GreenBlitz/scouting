@@ -65,6 +65,16 @@ def balls_by_game(data, points):
             balls[event['gameId']] += event[point]
     return balls
 
+def defense_ever(team_number):
+    global data
+    defended = False
+    for event in data:
+        if event['eventType'] == 'Finish' and event['defense'] == 'attacked':
+            defended = True
+
+    return defended
+
+
 
 def ball_score(data, gameId):
     sum = 0
