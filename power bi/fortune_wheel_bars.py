@@ -52,6 +52,7 @@ def main():
         colors.append('red')
     colors.reverse()
     plt.yticks([])
+    plt.figure(frameon=False)
     plt.bar([1.5, 3, 9, 10.5], [0, 1, 1, 0], color=colors, tick_label=labels, width=3)
     plt.xticks(fontsize=17)
     plt.legend()
