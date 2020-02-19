@@ -19,7 +19,20 @@ def get_match(match_number):
         return 'no data'
     return data.json()[match_number - match_number // 1000 * 1000-1]
 
-
+def get_teams_in_event(event_number):
+    #data = get_event(f'2020isde{event_number}').json()
+    data = get_event('2020week0').json()
+    teams =[]
+    for match in data:
+        for team in match['alliances']['red']['team_keys']:
+            teams.append(team[3:])
+        for team in match['alliances']['blue']['team_keys']:
+            teams.append(team[3:])
+    existed = []
+    for team in teams:
+        if team not in existed:
+            existed.append(team)
+    return existed
 def get_teams(match_number):
     match = get_match(match_number)
     if match == 'no data':
@@ -34,6 +47,6 @@ def get_teams(match_number):
 
 
 def main():
-    print(get_teams(111))
+    print(get_teams_in_event(111))
 if __name__ == '__main__':
     main()
