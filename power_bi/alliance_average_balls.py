@@ -12,10 +12,14 @@ from scouting import data_manipulation
 from scouting import team_page
 from scouting import game_page
 import pandas as pd
-def main(alliance):
+def main(alliance, game_id):
     data = data_manipulation.source_to_list("C:/Users/GreenBlitz/PycharmProjects/scouting/2020Data.xlsx")
-    game_id = dataset['game ones Value'][0] + dataset['game tens Value'][0] * 10 + dataset['game hundreds Value'][0] * 100 + dataset['game thousands Value'][0] * 1000
     teams = game_page.get_teams(game_id)
+    if teams == 'no data':
+        plt.plot([0, 0, 0], [0, 0, 0], 'w', label=f'no data')
+        plt.rcParams.update({'font.size': 40})
+        plt.legend()
+        return
     team_data = []
     team_numbers = list(teams[f'{alliance}_alliance'].keys())
     for team in team_numbers:
@@ -33,7 +37,6 @@ def main(alliance):
     plt.plot([0,0,0], [0,0,0], 'w', label=f'average balls per game: {int(alliance_balls*100000)/100000}')
     plt.rcParams.update({'font.size' : 20})
     plt.legend()
-    plt.show()
 
 if __name__ == '__main__':
     main('red')

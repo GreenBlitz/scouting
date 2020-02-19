@@ -14,12 +14,16 @@ def get_team(team_key):
 
 
 def get_match(match_number):
-    data = get_event(f"2020isde{match_number // 1000}").json()
-    return data[match_number - match_number // 1000 * 1000-1]
+    data = get_event(f"2020isde{match_number // 1000}")
+    if data.status_code:
+        return 'no data'
+    return data.json()[match_number - match_number // 1000 * 1000-1]
 
 
 def get_teams(match_number):
     match = get_match(match_number)
+    if match == 'no data':
+        return 'no data'
     red_alliance = []
     blue_alliance = []
     for team in match['alliances']['blue']['team_keys']:
@@ -30,6 +34,6 @@ def get_teams(match_number):
 
 
 def main():
-    print(get_teams(1001))
+    print(get_teams(111))
 if __name__ == '__main__':
     main()
