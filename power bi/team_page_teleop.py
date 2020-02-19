@@ -1,3 +1,9 @@
+# The following code to create a dataframe and remove duplicated rows is always executed and acts as a preamble for your script:
+
+# dataset = pandas.DataFrame(thousands Value, tens Value, ones Value, hundreds Value)
+# dataset = dataset.drop_duplicates()
+
+# Paste or type your script code here:
 import sys
 sys.path.insert(1, 'C:/Users/GreenBlitz/PycharmProjects')
 import matplotlib.pyplot as plt
@@ -7,7 +13,7 @@ from scouting import team_page
 import pandas as pd
 def main():
     data = data_manipulation.source_to_list("C:/Users/GreenBlitz/PycharmProjects/scouting/2020Data.xlsx")
-    team_data =data_manipulation.by_team(data, data[0]['teamPageNumber'])
+    team_data =data_manipulation.by_team(data, dataset['ones Value'][0]+dataset['tens Value'][0]*10+dataset['hundreds Value'][0]*100+dataset['thousands Value'][0]*1000)
     teleop_data = list(filter(lambda x: x['matchPart'] == 'teleop', team_data))
     points = [team_page.balls_by_game(teleop_data, x)for x in range(1, 4)]
     games =[]
@@ -51,7 +57,7 @@ def main():
         plt.legend()
         plt.show()
     else:
-        plt.plot([0,0,0], [0,0,0], 'w', label="no data")
+        plt.plot([0,0,0], [0,0,0], 'w', label='no data')
         plt.rcParams.update({'font.size': 40})
         plt.legend()
         plt.show()
