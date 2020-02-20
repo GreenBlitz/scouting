@@ -6,18 +6,18 @@
 # Paste or type your script code here:
 import sys
 
-sys.path.insert(1, 'C:/Users/GreenBlitz/PycharmProjects')
+project_path = "C:/Users/Guy Nevo Michrowski/PycharmProjects/scouting"
+sys.path.insert(1, project_path)
 import matplotlib.pyplot as plt
 import numpy as np
-from scouting import data_manipulation
-from scouting import team_page
+import data_manipulation
+import team_page
 import pandas as pd
-
 
 
 def main():
     global data
-    data = data_manipulation.source_to_list("C:/Users/GreenBlitz/PycharmProjects/scouting/2020Data.xlsx")
+    data = data_manipulation.source_to_list(f"{project_path}/2020Data.xlsx")
     team_data = data_manipulation.by_team(data, dataset['ones Value'][0] + dataset['tens Value'][0] * 10 +
                                           dataset['hundreds Value'][0] * 100 + dataset['thousands Value'][0] * 1000)
     teleop_data = list(filter(lambda x: x['matchPart'] == 'teleop', team_data))
@@ -27,18 +27,18 @@ def main():
         for x in range(len(points)):
             games.append(list(points[x].keys()))
         all_points = []
+        existed = []
         for i in games:
-            existed = []
             if not i in existed:
                 existed.append(i)
         games = existed
         games[0].sort(reverse=True)
         for i in range(3):
             powercell = []
-            powercellgame = []
             for game in games[0]:
                 powercell.append(points[i][game])
             all_points.append(powercell)
+        powercellgame = []
         for game in games[0]:
             powercellgame.append(int(game))
         average_points = 0
