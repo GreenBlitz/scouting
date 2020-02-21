@@ -61,7 +61,7 @@ function getAutonomusEvents(){
 
     // -------------------------------------
     // Add your autonomusEvents here:
-    events.push([refreshEventGenerator, "refresh", "black"]);
+    events.push([teleEventGenerator, "tele", "black"]);
     events.push([autonomusPowerCellGenerator, "auto_cell", "orange"]);
     // -------------------------------------
 
@@ -73,7 +73,7 @@ function getTeleopEvents(){
 
     // -------------------------------------
     // Add your Teleopevents here:
-    events.push([refreshEventGenerator, "refresh", "black"]);
+    events.push([autoEventGenerator, "auto", "black"]);
     events.push([afterGameEventGenerator, "afterGame", "green"]);
     events.push([climb2020Generator, "climb", "hotpink"]);
     events.push([powerCellEventGenerator, "tele_cell", "orange"]);
@@ -85,10 +85,16 @@ function getTeleopEvents(){
 // --------------------------------------
 // Add your generators here (as functions):
 
-function refreshEventGenerator(){
+function teleEventGenerator(){
     var refreshEvent = new GenericEvent("refresh");
     refreshEvent.start();
 }
+
+function autoEventGenerator(){
+    var refreshEvent = new GenericEvent("refresh");
+    refreshEvent.start();
+}
+
 
 function autonomusPowerCellGenerator(){
     autonomusPowerCellEvent = new GenericEvent("autoCell");
@@ -102,11 +108,35 @@ function autonomusPowerCellGenerator(){
         alert("Height of shooting");
     }
     , null);
+    
     autonomusPowerCellEvent.addSpecialParam("PowerCellShot", ["1", "2", "3", "4", "5"],
     function(){
         alert("Amount of PC shooting");
-    } 
+
+    }/*,
+    function(){
+        var ls
+        if (this == "1"){
+            ls = ["0", "1"];
+        }
+        else if (this == "2"){
+            ls = ["0", "1", "2"];
+        }
+        else if (this == "3"){
+            ls = ["0", "1", "2", "3"];
+        }
+        else if (autonomusPowerCellEvent["PowerCellShot"] == "4"){
+            ls = ["0", "1", "2", "3", "4"];
+        }
+        else if (autonomusPowerCellEvent["PowerCellShot"] == "5"){
+            ls = ["0", "1", "2", "3", "4", "5"];
+        }
+        alert(ls);
+
+        return ls;
+    }*/
     , null);
+
     autonomusPowerCellEvent.addSkipableSpecialParam("3PointSuccess", ["0", "1", "2", "3", "4", "5"],
     function(){
         alert("3PointSuccess");
@@ -133,6 +163,7 @@ function autonomusPowerCellGenerator(){
     , null);
     autonomusPowerCellEvent.start();
 }
+
 
 function powerCellEventGenerator(){
     powerCellEvent = new GenericEvent("PowerCells");
@@ -169,78 +200,25 @@ function powerCellEventGenerator(){
     powerCellEvent.start();
 }
 
+
 function climb2020Generator(){
     climbEvent = new GenericEvent("Climb");
-    climbEvent.addSpecialParam("When", ["1st", "2nd"], 
-    function(self){
-        self.climbStart = Math.round(gameVideo.currentTime - autonomousStartTime);
-    }
-    ,null);
+    climbEvent.addParam("When", ["1st", "2nd", '3rd'],null);
     climbEvent.addParam("status", ["Success", "Fail"], null);
-    climbEvent.addSpecialParam("Balanced", ["Balanced", "UnBalanced"],
-    function(self){
-        self.climbTime = Math.round(gameVideo.currentTime- self.climbStart);
-        alert(self.climbTime);
-    },
+    climbEvent.addParam("Balanced", ["Balanced", "UnBalanced"],
     function(prev){
         return prev !== "Success";
     });
     climbEvent.start();
 }
 
+
 function afterGameEventGenerator(){
     var afterGameEvent = new GenericEvent("Finish");
-    // Places the robot can shoot from
-    afterGameEvent.addSpecialParam("placeCount", [['Zero', 'One'], ['Two', 'All']],
-    function(){
-        alert("Amount of places robot can shoot from");
-    } 
-    , null);
-
-    afterGameEvent.addSkipableParam("shootPlace1", ['Wall', 'Trench', 'Other'],
-    function(self){
-        return self["placeCount"] != 'One';
-    }
-    , null);
-
-    afterGameEvent.addSkipableParam("shootPlace2", ['Wall+Trench', 'Trench+Other', 'Other+Wall'],
-    function(self){
-        return self["placeCount"] != 'Two';
-    }
-    , null);
-
-    // main shooting place
-
-    afterGameEvent.addSkipableSpecialParam("mainShootLocation", [['None', 'Wall'], ['Trench', 'Other']],
-    function(){
-        alert("Choose main shooting location");
-    },
-    function(self){
-        return self['placeCount'] == 'Zero' || self['placeCount'] == 'One';
-    }
-    , null);
-
-    // Places the robot can pick PCs from
-
-    afterGameEvent.addSpecialParam("pickUpPlaces", [['None', 'Feeder'], ['Floor', 'Both']],
-    function(){
-        alert("Choose pickUp locations");
-    }, null);
-
-    // Main PCs pickup place
-
-    afterGameEvent.addSkipableSpecialParam("mainPickUp", ['None', 'Feeder', 'Floor'], 
-    function(){
-        alert("Choose main pickUp location");
-    },
-    function(prev){
-        return prev != 'Both';
-    }
-    , null);
 
     // Was the robot attacked or was attacked during the match
 
-    afterGameEvent.addParam("defense", ['attacked', 'was attacked', 'neutral'], null);
+    afterGameEvent.addParam("defense", ['attacked', 'nope'], null);
 
     // Did the robot shutdown during the match
 
@@ -250,7 +228,7 @@ function afterGameEventGenerator(){
 
     afterGameEvent.addParam("lifted", ['lift 0', 'lift 1', 'lift 2'], null);
 
-    afterGameEvent.addParam("fortune wheel", ['no can do', 'rotation control', 'position control'], null);
+    afterGameEvent.addParam("fortune wheel", ['no can do', 'rotation control', 'position control', 'both'], null);
 
     afterGameEvent.start();
 }
