@@ -5,15 +5,16 @@
 
 # Paste or type your script code here:
 import sys
-sys.path.insert(1, 'C:/Users/GreenBlitz/PycharmProjects')
+project_path = "C:/Users/Guy Nevo Michrowski/PycharmProjects/scouting"
+sys.path.insert(1, project_path)
 import matplotlib.pyplot as plt
 import numpy as np
-from scouting import data_manipulation
-from scouting import team_page
-from scouting import game_page
+import data_manipulation
+import team_page
+import game_page
 import pandas as pd
 def main(alliance, game_id):
-    data = data_manipulation.source_to_list("C:/Users/GreenBlitz/PycharmProjects/scouting/2020Data.xlsx")
+    data = data_manipulation.source_to_list(f"{project_path}/2020Data.xlsx")
     teams = game_page.get_teams(game_id)
     if teams == 'no data':
         return

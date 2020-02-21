@@ -5,17 +5,15 @@
 
 # Paste or type your script code here:
 import sys
-
-sys.path.insert(1, 'C:/Users/GreenBlitz/PycharmProjects')
+project_path = "C:/Users/Guy Nevo Michrowski/PycharmProjects/scouting"
+sys.path.insert(1, project_path)
 import matplotlib.pyplot as plt
-import numpy as np
-from scouting import data_manipulation
-from scouting import team_page
-import pandas as pd
+import data_manipulation
+import team_page
 
 
 def main():
-    data = data_manipulation.source_to_list("C:/Users/GreenBlitz/PycharmProjects/scouting/2020Data.xlsx")
+    data = data_manipulation.source_to_list(f"{project_path}/2020Data.xlsx")
     team_data = data_manipulation.by_team(data, dataset['ones Value'][0]+dataset['tens Value'][0]*10+dataset['hundreds Value'][0]*100+dataset['thousands Value'][0]*1000)
     all_games = team_page.get_games(data)
     climb_data = list(filter(lambda x: x['eventType'] == "Climb" and x['status'] == 'Success', team_data))
