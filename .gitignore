@@ -2,3 +2,7 @@ ScoutingReimagined/.idea/
 ScoutingReimagined/node_modules/
 ScoutingReimagined/public/games/*.mp4
 node_modules/
+
+# python compiled
+__pycache__/
+*.pyc
