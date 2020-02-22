@@ -5,7 +5,7 @@
 
 # Paste or type your script code here:
 import sys
-project_path = "C:/Users/Guy Nevo Michrowski/PycharmProjects/scouting"
+project_path = "C:/Users/GreenBlitz/PycharmProjects/scouting"
 sys.path.insert(1, project_path)
 import matplotlib.pyplot as plt
 import data_manipulation
@@ -15,9 +15,9 @@ false="nope"
 true="shutdown"
 
 
-def main():
+def main(team_id):
     data = data_manipulation.source_to_list(f"{project_path}/2020Data.xlsx")
-    team_data = data_manipulation.by_team(data, dataset['ones Value'][0]+dataset['tens Value'][0]*10+dataset['hundreds Value'][0]*100+dataset['thousands Value'][0]*1000)
+    team_data = data_manipulation.by_team(data, team_id)
     stopped_working_data = list(filter(lambda x: x[key] == true or x[key] == false , team_data))
     if len(stopped_working_data) > 0:
         stopped_working = {false: 0, true: 0}

@@ -5,7 +5,7 @@
 
 # Paste or type your script code here:
 import sys
-project_path = "C:/Users/Guy Nevo Michrowski/PycharmProjects/scouting"
+project_path = "C:/Users/GreenBlitz/PycharmProjects/scouting"
 sys.path.insert(1, project_path)
 import matplotlib.pyplot as plt
 import numpy as np
