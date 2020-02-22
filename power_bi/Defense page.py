@@ -1,5 +1,5 @@
 import sys
-pycharm_path = "C:/Users/Guy Nevo Michrowski/PycharmProjects/scouting"
+pycharm_path = "C:/Users/GreenBlitz/PycharmProjects/scouting"
 sys.path.insert(1, pycharm_path)
 import matplotlib.pyplot as plt
 import data_manipulation as dman
@@ -25,8 +25,9 @@ def main(competition):
     x=[]
     for i in range(len(defend)):
         x.append(i)
-    plt.plot(y=list(defend.values()), x=x, tick_label=list(defend.keys()))
-
+    plt.bar(x, height=list(defend.values()), tick_label=list(defend.keys()))
+    plt.legend()
+    plt.show()
 
 
 if __name__ == '__main__':
