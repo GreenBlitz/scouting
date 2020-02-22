@@ -26,7 +26,7 @@ def main():
         all_points = []
         existed = []
         for i in games:
-            if not i in existed:
+            if i not in existed:
                 existed.append(i)
         games = existed
         games[0].sort(reverse=True)

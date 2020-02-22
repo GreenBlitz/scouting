@@ -108,7 +108,7 @@ function autonomusPowerCellGenerator(){
         alert("Height of shooting");
     }
     , null);
-    
+
     autonomusPowerCellEvent.addSpecialParam("PowerCellShot", ["1", "2", "3", "4", "5"],
     function(){
         alert("Amount of PC shooting");

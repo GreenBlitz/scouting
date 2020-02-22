@@ -4,7 +4,6 @@ import os
 
 
 def to_list():
-    data_frame = pd.DataFrame()
     data_frame = pd.read_excel('%sData.xlsx' % datetime.datetime.now().year)
     sources = []
     for row in data_frame.index:
@@ -17,7 +16,6 @@ def to_list():
 
 
 def source_to_list(source):
-    data_frame = pd.DataFrame()
     data_frame = pd.read_excel(source)
     sources = []
     for row in data_frame.index:
@@ -133,20 +131,25 @@ def min(data, trait):
 
 
 def get_team_games(data, team):
-    IDs = []
-    for i in data:
-        if i['gameId'] not in IDs:
-            IDs.append(i['gameId'])
+    i_ds = []
+    data = by_team(data, team)
+    for event in data:
+        if event['gameId'] not in i_ds:
+            i_ds.append(event['gameId'])
 
-    games = {}
-    for i in IDs:
-        game = []
-        for i in data:
-            if i['gameId'] == i:
-                game.append(i)
-        games.update({i: game})
+    return i_ds
 
-    return games
+
+def get_all_teams(data):
+    teams = []
+
+    for event in data:
+        if event["teamNumber"] not in teams:
+            teams.append(event["teamNumber"])
+
+    teams.sort()
+
+    return teams
 
 
 def by_game_phase(data, phase):
