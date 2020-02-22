@@ -2,7 +2,6 @@ import pandas as pd
 import datetime
 import os
 
-
 def to_list():
     data_frame = pd.DataFrame()
     data_frame = pd.read_excel('%sData.xlsx' % datetime.datetime.now().year)
